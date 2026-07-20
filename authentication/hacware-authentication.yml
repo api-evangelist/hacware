@@ -1,0 +1,14 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/hacware-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: Bearer access token obtained from POST /api/v1/auth/ (exchange appid + secret
+    key). Tokens expire ~1 hour after issue; use the refresh token to renew.
+  sources:
+  - openapi/hacware-openapi.yml
