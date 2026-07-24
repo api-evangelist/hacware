@@ -1,0 +1,219 @@
+openapi: 3.0.3
+info:
+  title: Security Awareness API Documentation Admin Customer API
+  description: This API documentation explains how to build your own AI powered security awareness and training application. HacWare is an AI-powered security awareness training and phishing simulation platform. This OpenAPI was derived by API Evangelist from HacWare's published apiDoc documentation.
+  version: 1.0.4
+  contact:
+    name: HacWare
+    email: hello@hacware.com
+    url: https://hacware.com/dev.html
+  termsOfService: https://hacware.com/terms-of-service
+servers:
+- url: https://{domain}
+  description: Per-tenant HacWare API host; {domain} is the subdomain assigned to your company at onboarding.
+  variables:
+    domain:
+      default: app.hacware.com
+tags:
+- name: Customer
+paths:
+  /api/v1/admin/get_company_dns:
+    get:
+      operationId: GetCompanyDNS
+      summary: Get Company DNS
+      description: Returns the company DNS information.
+      tags:
+      - Customer
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/admin/brandupload/:
+    post:
+      operationId: PostBrandUpload
+      summary: Brand Upload
+      description: Uploads company logo link and changes application name.
+      tags:
+      - Customer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company_name:
+                  type: string
+                  description: Company name that will be changed on the application. (Required)
+                logo_link:
+                  type: string
+                  description: Imagelink of the company logo to be uploaded to the application. (Required)
+              required:
+              - company_name
+              - logo_link
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/admin/brand_upload_reporter/:
+    post:
+      operationId: PostBrandUploadReporter
+      summary: Brand Upload for Reporter
+      description: Uploads company logo link for the reporter.
+      tags:
+      - Customer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company_name:
+                  type: string
+                  description: Company name that will be changed on the application. (Required)
+                logo_link:
+                  type: string
+                  description: Imagelink of the company logo to be uploaded to the application. (Required)
+              required:
+              - company_name
+              - logo_link
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/admin/custom_domain:
+    post:
+      operationId: PostCustomDomain
+      summary: Upload custom domain.
+      description: Changes the customer default domain to a custom domain. For example, default is company.hacware.com to the new domain for that custom.
+      tags:
+      - Customer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                custom_domain:
+                  type: string
+                  description: New custom domain to be uploaded. (Required)
+              required:
+              - custom_domain
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/org/update-company-info/:
+    post:
+      operationId: PostUpdateCompanyInformation
+      summary: Update Company Information
+      description: Change the Company Information
+      tags:
+      - Customer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                full_company_name:
+                  type: string
+                  description: The full company name for the company. (Optional)
+                company_alias:
+                  type: string
+                  description: The company alias is the abbreviation and short version of the company name. (Optional)
+                ceo_name:
+                  type: string
+                  description: The ceo name is the CEO first name and last name or the company leadership.  This will be used in phishing messages. (Required)
+                ceo_email:
+                  type: string
+                  description: The ceo email is the CEO email address that will be used in phishing simulations. (Required)
+                security_officer:
+                  type: string
+                  description: The security leads first and last name. This will be used for phishing and emails. (Required)
+                sec_officer_email:
+                  type: string
+                  description: The security officer's email.  This will be used in phishing email and training escalations. (Required)
+                product_type:
+                  type: string
+                  description: The product type defines the type of product. The product type was Pro, Plus, Super, and Basic. (Optional)
+                send_reminders_and_esclations:
+                  type: string
+                  description: The send_reminders_and_esclations is a 'true'/'false' value for turning on or off the training reminders.  The default value is 'true'. (Optional)
+                sec_escalation_email:
+                  type: string
+                  description: The sec_escalation_email is the security training reminder contact. (Optional)
+                mgt_escalation_email:
+                  type: string
+                  description: The mgt_escalation_email is the management training reminder contact. (Optional)
+                phish_report_email:
+                  type: string
+                  description: The phish_report_email is the phishing report email contact. (Required)
+                invites_enabled:
+                  type: string
+                  description: The invites_enabled is a 'true'/'false' value for turning on or off welcome emails. The default value is 'true'. (Optional)
+                lang:
+                  type: string
+                  description: lang is a string containing a two-letter ISO language code. The default value is 'en'. (Optional)
+                role_manager:
+                  type: string
+                  description: role_maanger is a string that determines how user roles or managed. It can be either 'invite' (HacWare email invites) or 'ms' (Microsoft Entra ID). (Optional)
+              required:
+              - ceo_name
+              - ceo_email
+              - security_officer
+              - sec_officer_email
+              - phish_report_email
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/admin/reset_custom_domain:
+    post:
+      operationId: ResetCustomDomain
+      summary: Reset custom domain.
+      description: Uploads a custom domain.
+      tags:
+      - Customer
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer access token obtained from POST /api/v1/auth/ (exchange appid + secret key). Tokens expire ~1 hour after issue; use the refresh token to renew.
+externalDocs:
+  description: HacWare API Documentation
+  url: https://www.hacware.com/doc/index.html

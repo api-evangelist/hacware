@@ -1,0 +1,351 @@
+openapi: 3.0.3
+info:
+  title: Security Awareness API Documentation Admin Group API
+  description: This API documentation explains how to build your own AI powered security awareness and training application. HacWare is an AI-powered security awareness training and phishing simulation platform. This OpenAPI was derived by API Evangelist from HacWare's published apiDoc documentation.
+  version: 1.0.4
+  contact:
+    name: HacWare
+    email: hello@hacware.com
+    url: https://hacware.com/dev.html
+  termsOfService: https://hacware.com/terms-of-service
+servers:
+- url: https://{domain}
+  description: Per-tenant HacWare API host; {domain} is the subdomain assigned to your company at onboarding.
+  variables:
+    domain:
+      default: app.hacware.com
+tags:
+- name: Group
+paths:
+  /api/v1/security_groups/delete:
+    post:
+      operationId: DelMicrosoftSecurityGroups
+      summary: Delete Synced MS Group
+      description: Deletes the current synced Microsoft Security Group tied to certain HacWare user licenses.
+      tags:
+      - Group
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/group/grouplist/:
+    get:
+      operationId: GetGroupList
+      summary: Get Group List
+      description: Return a list of all the groups or a specific group in the account.
+      tags:
+      - Group
+      parameters:
+      - name: GroupName
+        in: query
+        schema:
+          type: string
+        description: Group Name. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/security_groups/members:
+    get:
+      operationId: GetMicrosoftSecurityGroupMembers
+      summary: Get Microsoft Security Group Members
+      description: Retrieves all HacWare user licenses synced to a Microsoft Security Group by using its id.
+      tags:
+      - Group
+      parameters:
+      - name: uid
+        in: query
+        schema:
+          type: string
+        description: Unique Microsoft Security Group ID to activate HacWare user licenses from. (Required)
+        required: true
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/security_groups/list:
+    get:
+      operationId: GetMicrosoftSecurityGroups
+      summary: Get Microsoft Security Groups
+      description: Get all information from security groups connected to Microsoft for platforms on Outlook.
+      tags:
+      - Group
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/security_groups/synclist:
+    get:
+      operationId: GetMicrosoftSecurityGroupsSyncList
+      summary: Get Synced MS Group
+      description: Gets the current synced security group from Microsoft that is tied to certain HacWare user licenses.
+      tags:
+      - Group
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/group/add/:
+    post:
+      operationId: PostAddGroup
+      summary: Add a Group
+      description: Adds a new group to the account if it doesn't already exists.
+      tags:
+      - Group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                GroupName:
+                  type: string
+                  description: Group Name. (Required)
+                GroupDesc:
+                  type: string
+                  description: Description of the group. (Required)
+                GroupSymbol:
+                  type: string
+                  description: Symbol for the group. (Optional)
+                GroupColor:
+                  type: string
+                  description: Color for the group icon. (Optional)
+                GroupLeader:
+                  type: string
+                  description: User leader for the group. Identified by the user's email. (Optional)
+              required:
+              - GroupName
+              - GroupDesc
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/group/add_group_member/:
+    post:
+      operationId: PostAddGroupMember
+      summary: Add a User to a Group
+      description: Adds a group to the user's document.
+      tags:
+      - Group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                UserEmail:
+                  type: string
+                  description: User's email (Required)
+                GroupID:
+                  type: string
+                  description: Group ID. (Required)
+              required:
+              - UserEmail
+              - GroupID
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/group/delete/:
+    post:
+      operationId: PostDeleteGroup
+      summary: Delete a Group
+      description: Deletes a group if it exists in the account.
+      tags:
+      - Group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                GroupID:
+                  type: string
+                  description: Group ID. (Required)
+              required:
+              - GroupID
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/group/delete_group_member/:
+    post:
+      operationId: PostDeleteGroupMember
+      summary: Delete a User from Group
+      description: Deletes a group from the user's document.
+      tags:
+      - Group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                UserEmail:
+                  type: string
+                  description: User's Email (Required)
+                GroupID:
+                  type: string
+                  description: Group ID. (Required)
+              required:
+              - UserEmail
+              - GroupID
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/security_groups/update:
+    post:
+      operationId: PostMicrosoftSecurityGroups
+      summary: Update Microsoft Security Group Users
+      description: Activates or deactivates all HacWare user licenses synced to a Microsoft Security Group by using its id.
+      tags:
+      - Group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uid:
+                  type: string
+                  description: Unique Microsoft Security Group ID to activate HacWare user licenses from. (Required)
+              required:
+              - uid
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/group/update/:
+    post:
+      operationId: PostUpdateGroup
+      summary: Update a Group
+      description: Updates a group if it already exists in the account.
+      tags:
+      - Group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                GroupNameOld:
+                  type: string
+                  description: Old group name. (Required)
+                GroupNameNew:
+                  type: string
+                  description: New Group name. (Optional)
+                GroupDesc:
+                  type: string
+                  description: Description of the group. (Optional)
+                GroupSymbol:
+                  type: string
+                  description: Symbol for the group. (Optional)
+                GroupLeader:
+                  type: string
+                  description: User leader for the group. Identified by the user's email. (Optional)
+              required:
+              - GroupNameOld
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/group/update_group_member/:
+    post:
+      operationId: PostUpdateGroupMembers
+      summary: Update a User's Group
+      description: Updates the group in the user's document. Only used when the symbol for the group has been changed.
+      tags:
+      - Group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                UserEmail:
+                  type: string
+                  description: User's Email. (Required)
+                GroupID:
+                  type: string
+                  description: Group ID. (Required)
+                GroupSymbol:
+                  type: string
+                  description: The group symbol. (Required)
+              required:
+              - UserEmail
+              - GroupID
+              - GroupSymbol
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer access token obtained from POST /api/v1/auth/ (exchange appid + secret key). Tokens expire ~1 hour after issue; use the refresh token to renew.
+externalDocs:
+  description: HacWare API Documentation
+  url: https://www.hacware.com/doc/index.html

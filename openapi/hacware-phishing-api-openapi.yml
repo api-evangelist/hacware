@@ -1,0 +1,644 @@
+openapi: 3.0.3
+info:
+  title: Security Awareness API Documentation Admin Phishing API
+  description: This API documentation explains how to build your own AI powered security awareness and training application. HacWare is an AI-powered security awareness training and phishing simulation platform. This OpenAPI was derived by API Evangelist from HacWare's published apiDoc documentation.
+  version: 1.0.4
+  contact:
+    name: HacWare
+    email: hello@hacware.com
+    url: https://hacware.com/dev.html
+  termsOfService: https://hacware.com/terms-of-service
+servers:
+- url: https://{domain}
+  description: Per-tenant HacWare API host; {domain} is the subdomain assigned to your company at onboarding.
+  variables:
+    domain:
+      default: app.hacware.com
+tags:
+- name: Phishing
+paths:
+  /api/v1/phish/remove_custom_simulation/:
+    delete:
+      operationId: DeleteRemoveCustomSimulation
+      summary: Remove a custom simulation for future campaigns
+      description: This request will remove a custom phishing simulation for the organization to send to users.
+      tags:
+      - Phishing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: The email of the user you want to test (Required)
+              required:
+              - email
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/custom-simulations-list/:
+    get:
+      operationId: GetCustomPhishSimulationsList
+      summary: Get Custom Simulations List
+      description: Retrieves a list of all the available custom phishing/smishing simulations. Can be filtered.
+      tags:
+      - Phishing
+      parameters:
+      - name: PageNum
+        in: query
+        schema:
+          type: string
+        description: Page number.
+      - name: PageSize
+        in: query
+        schema:
+          type: string
+        description: Page size.
+      - name: keyword
+        in: query
+        schema:
+          type: string
+        description: Filter by a keyword in the simulations body or subject.
+      - name: phish_type
+        in: query
+        schema:
+          type: string
+        description: 'Filter by simulation type. Must be: [ LINK, DIRECT, ATTACHMENT, SMS (If SMS Supported.) ]'
+      - name: rating
+        in: query
+        schema:
+          type: string
+        description: Filter by simulation rating.
+      - name: sort_by
+        in: query
+        schema:
+          type: string
+        description: 'Sort simulations. Must be: [ SUBJECT, RATING, TOPIC]. Use (+) sign or none for ascending, (-) sign for descending. Use (,) to denote between sort fields.'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/campaign/:
+    get:
+      operationId: GetPhishCampaign
+      summary: Get Phish Campaign
+      description: Retrieve information for phish campaigns.
+      tags:
+      - Phishing
+      parameters:
+      - name: PageSize
+        in: query
+        schema:
+          type: string
+        description: The number of results to return (Optional)
+      - name: PageNum
+        in: query
+        schema:
+          type: string
+        description: The page number (Optional)
+      - name: limit
+        in: query
+        schema:
+          type: string
+        description: Limit the number of phish campaigns to show (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/responses/:
+    get:
+      operationId: GetPhishResponses
+      summary: Get All Phishing Campaigns
+      description: Retrieves a page of responses and descriptions for each phishing simulation.
+      tags:
+      - Phishing
+      parameters:
+      - name: PageNum
+        in: query
+        schema:
+          type: string
+        description: Page number. If given but PageSize is not given then PageSize will default to 10. If neither is given, all results will be returned.. (Optional)
+      - name: PageSize
+        in: query
+        schema:
+          type: string
+        description: Page size. If given but PageNum is not given then PageNum will default to 1. If neither is given, all results will be returned. (Optional)
+      - name: search
+        in: query
+        schema:
+          type: string
+        description: Search for matching value. (Optional)
+      - name: passed
+        in: query
+        schema:
+          type: string
+        description: Filter by simulation pass status. - True/False (Optional)
+      - name: department
+        in: query
+        schema:
+          type: string
+        description: Filter by organization's department. - query No Department if it does not exist (Optional)
+      - name: user_email
+        in: query
+        schema:
+          type: string
+        description: Filter by user email .(Optional)
+      - name: user_search
+        in: query
+        schema:
+          type: string
+        description: Filter user's name or email by a search query/keyword. (Optional)
+      - name: start_date
+        in: query
+        schema:
+          type: string
+        description: Filter by start date. (Optional)
+      - name: end_date
+        in: query
+        schema:
+          type: string
+        description: Filter by end date. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/responses_report/:
+    get:
+      operationId: GetPhishResponsesReport
+      summary: Gets Phishing Campaigns and Metrics
+      description: Retrieves a page of responses, descriptions for each phishing simulation, and metrics.
+      tags:
+      - Phishing
+      parameters:
+      - name: PageNum
+        in: query
+        schema:
+          type: string
+        description: Page number. If given but PageSize is not given then PageSize will default to 10. If neither is given, all results will be returned.. (Optional)
+      - name: PageSize
+        in: query
+        schema:
+          type: string
+        description: Page size. If given but PageNum is not given then PageNum will default to 1. If neither is given, all results will be returned. (Optional)
+      - name: search
+        in: query
+        schema:
+          type: string
+        description: Search for matching value. (Optional)
+      - name: passed
+        in: query
+        schema:
+          type: string
+        description: Filter by simulation pass status. - True/False (Optional)
+      - name: department
+        in: query
+        schema:
+          type: string
+        description: Filter by organization's department. - query No Department if it does not exist (Optional)
+      - name: user_email
+        in: query
+        schema:
+          type: string
+        description: Filter by user email .(Optional)
+      - name: user_search
+        in: query
+        schema:
+          type: string
+        description: Filter user's name or email by a search query/keyword. (Optional)
+      - name: start_date
+        in: query
+        schema:
+          type: string
+        description: Filter by start date. (Optional)
+      - name: end_date
+        in: query
+        schema:
+          type: string
+        description: Filter by end date. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/get-simulation-template/:
+    get:
+      operationId: GetPhishSimulationTemplate
+      summary: Get Phish Simulation Template
+      description: Retrieves a Phishing simulation template.
+      tags:
+      - Phishing
+      parameters:
+      - name: test_name
+        in: query
+        schema:
+          type: string
+        description: is the simulation template unique name.
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/simulations-list/:
+    get:
+      operationId: GetPhishSimulationsList
+      summary: Get Simulations List
+      description: Retrieves a list of all the available phishing/smishing simulations. Can be filtered.
+      tags:
+      - Phishing
+      parameters:
+      - name: PageNum
+        in: query
+        schema:
+          type: string
+        description: Page number.
+      - name: PageSize
+        in: query
+        schema:
+          type: string
+        description: Page size.
+      - name: keyword
+        in: query
+        schema:
+          type: string
+        description: Filter by a keyword in the simulations body or subject.
+      - name: phish_type
+        in: query
+        schema:
+          type: string
+        description: 'Filter by simulation type. Must be: [ LINK, DIRECT, ATTACHMENT, SMS (If SMS Supported.) ]'
+      - name: rating
+        in: query
+        schema:
+          type: string
+        description: Filter by simulation rating.
+      - name: sort_by
+        in: query
+        schema:
+          type: string
+        description: 'Sort simulations. Must be: [ SUBJECT, RATING, TOPIC]. Use (+) sign or none for ascending, (-) sign for descending. Use (,) to denote between sort fields.'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/get/phish/users/:
+    get:
+      operationId: GetPhishUsers
+      summary: Search Phish users
+      description: Retrieve the id and email of a user given the name or username.
+      tags:
+      - Phishing
+      parameters:
+      - name: keyword
+        in: query
+        schema:
+          type: string
+        description: Name or username to be searched (Required)
+        required: true
+      - name: passed
+        in: query
+        schema:
+          type: string
+        description: Filters users based off of phishing failure/success, passed=none retrieves all regardless. Can be [true, false, none]. Default is true. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/getsimulation/:
+    get:
+      operationId: GetSimulation
+      summary: Get Phishing Simulation for User
+      description: Retrieves a single phishing simulation for a specific user.
+      tags:
+      - Phishing
+      parameters:
+      - name: user_email
+        in: query
+        schema:
+          type: string
+        description: Filter by user email. (Required)
+        required: true
+      - name: sent_on
+        in: query
+        schema:
+          type: string
+        description: Filter by date the simulation was sent. This is a timestamp and will match exactly. (Required)
+        required: true
+      - name: subject
+        in: query
+        schema:
+          type: string
+        description: Filter by the subject. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/change-cadence/:
+    post:
+      operationId: PostChangeCadence
+      summary: Change Phishing Cadence
+      description: Change the phishing simulation cadence from the default
+      tags:
+      - Phishing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cadence:
+                  type: number
+                  description: This number of days for the frequency of phishing simulations. (Required)
+              required:
+              - cadence
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/controlled-phish/:
+    post:
+      operationId: PostControlledPhish
+      summary: Schedule Controlled Phish Campaign
+      description: Schedule a controlled phishing simulation for user(s) with a test name.
+      tags:
+      - Phishing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                users:
+                  type: array
+                  items:
+                    type: string
+                  description: A list of all the users to be enrolled into the phish campaign. (Required)
+                test_name:
+                  type: string
+                  description: Name of the phishing simulation. (Required)
+                scheduled_date:
+                  type: string
+                  description: 'Scheduled Date. Format: "April 3 2019, 6:09 AM"(Optional)'
+              required:
+              - users
+              - test_name
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/create_custom_simulation/:
+    post:
+      operationId: PostCreateCustomSimulation
+      summary: Creates a custom simulation for future campaigns
+      description: This request will create a custom phishing simulation for the organization to send to users.
+      tags:
+      - Phishing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: The email of the user you want to test (Required)
+              required:
+              - email
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/directphish/:
+    post:
+      operationId: PostDirectPhish
+      summary: Schedule Phish Campaign
+      description: Schedule a phishing simulation for specific email with date and phish type options.
+      tags:
+      - Phishing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  description: Params in JSON format. Also contains content list which holds all of the emails you want to phish. (Required)
+                content:
+                  type: array
+                  items:
+                    type: string
+                  description: A list in the JSON params which holds all of the emails you want to phish. (Required)
+                email:
+                  type: string
+                  description: Email of User (Required)
+                phish_type:
+                  type: string
+                  description: Type of phishing attack. The values are "Clickable Link", "Attachment", "Direct Response", or "SMS" (Optional)
+                scheduled_date:
+                  type: string
+                  format: date-time
+                  description: Date of phishing attack (Optional)
+              required:
+              - data
+              - content
+              - email
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/manage/:
+    post:
+      operationId: PostManagePhish
+      summary: Delete Phish Campaign
+      description: 'Used to manage a phishing simulation. For example: Removing a phishing simulation that was sent out.'
+      tags:
+      - Phishing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                action_type:
+                  type: string
+                  description: Action type (Required) Can be REMOVE.
+                uid:
+                  type: string
+                  description: User id (Required)
+              required:
+              - action_type
+              - uid
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/getperformers/:
+    get:
+      operationId: PostPhishStatus
+      summary: Show Phish Status
+      description: This endpoint gets a list of performance and status information for all of the phishing simulations that were sent out.
+      tags:
+      - Phishing
+      parameters:
+      - name: limitPhish
+        in: query
+        schema:
+          type: string
+        description: Limit of phish reports to retrieve (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/user/add_phone_number/:
+    post:
+      operationId: PostPhoneNumber
+      summary: Add Phone Number
+      description: Adds a phone number to an existing user.
+      tags:
+      - Phishing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_email:
+                  type: string
+                  description: User's email. (Required)
+                phone_num:
+                  type: string
+                  description: User's phone number. (Required)
+              required:
+              - user_email
+              - phone_num
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/user/phone_number_upload/:
+    post:
+      operationId: PostPhoneNumberUpload
+      summary: Upload Phone Numbers
+      description: Uploads phone numbers to existing users with CSV file.
+      tags:
+      - Phishing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: string
+                  description: List of all user's phone numbers to be added. (Required)
+                email:
+                  type: string
+                  description: User's email. (Required)
+                phoneNumber:
+                  type: string
+                  description: User's phone number. (Required)
+              required:
+              - data
+              - email
+              - phoneNumber
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer access token obtained from POST /api/v1/auth/ (exchange appid + secret key). Tokens expire ~1 hour after issue; use the refresh token to renew.
+externalDocs:
+  description: HacWare API Documentation
+  url: https://www.hacware.com/doc/index.html

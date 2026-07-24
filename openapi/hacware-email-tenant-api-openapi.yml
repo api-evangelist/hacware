@@ -1,0 +1,44 @@
+openapi: 3.0.3
+info:
+  title: Security Awareness API Documentation Admin Email-Tenant API
+  description: This API documentation explains how to build your own AI powered security awareness and training application. HacWare is an AI-powered security awareness training and phishing simulation platform. This OpenAPI was derived by API Evangelist from HacWare's published apiDoc documentation.
+  version: 1.0.4
+  contact:
+    name: HacWare
+    email: hello@hacware.com
+    url: https://hacware.com/dev.html
+  termsOfService: https://hacware.com/terms-of-service
+servers:
+- url: https://{domain}
+  description: Per-tenant HacWare API host; {domain} is the subdomain assigned to your company at onboarding.
+  variables:
+    domain:
+      default: app.hacware.com
+tags:
+- name: Email-Tenant
+paths:
+  /api/v1/set-welcome-email:
+    post:
+      operationId: EnableWelcomeEmail
+      summary: Enable/Disable Welcome Email
+      description: Enables or disables the welcome email feature.
+      tags:
+      - Email-Tenant
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer access token obtained from POST /api/v1/auth/ (exchange appid + secret key). Tokens expire ~1 hour after issue; use the refresh token to renew.
+externalDocs:
+  description: HacWare API Documentation
+  url: https://www.hacware.com/doc/index.html

@@ -1,0 +1,537 @@
+openapi: 3.0.3
+info:
+  title: Security Awareness API Documentation Admin Report API
+  description: This API documentation explains how to build your own AI powered security awareness and training application. HacWare is an AI-powered security awareness training and phishing simulation platform. This OpenAPI was derived by API Evangelist from HacWare's published apiDoc documentation.
+  version: 1.0.4
+  contact:
+    name: HacWare
+    email: hello@hacware.com
+    url: https://hacware.com/dev.html
+  termsOfService: https://hacware.com/terms-of-service
+servers:
+- url: https://{domain}
+  description: Per-tenant HacWare API host; {domain} is the subdomain assigned to your company at onboarding.
+  variables:
+    domain:
+      default: app.hacware.com
+tags:
+- name: Report
+paths:
+  /api/v1/report/average_days_training/:
+    get:
+      operationId: GetAverageDaysTraining
+      summary: Average Days Training Completed
+      description: Returns the average days it took for a user to fully complete training.
+      tags:
+      - Report
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/org/companyreport/:
+    get:
+      operationId: GetCompanyReport
+      summary: Retrieve Company Report
+      description: 'Gets the company''s overall vulnerability to a phishing attack and identifies the behaviors that could cause a future breach. An overview of the company''s information can also be retrieved. Note: The Success 200 Fields for type=12MONTHS should not have any "_"/underscores in the actual response. It is only there due to the documentation.'
+      tags:
+      - Report
+      parameters:
+      - name: type
+        in: query
+        schema:
+          type: string
+        description: 'Type of Report (Required). Can be: 12MONTHS, RISKYBEHAVSBYDAY, CURRENTRISKYBEHAVSBYYEAR, OVERVIEW.'
+        required: true
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/dark_breach_report/:
+    get:
+      operationId: GetDarkBreachReport
+      summary: Dark Breach Report
+      description: Returns a list of the breached accounts by dark web. Can be filtered.
+      tags:
+      - Report
+      parameters:
+      - name: user_name
+        in: query
+        schema:
+          type: string
+        description: Filter by user's Name (Optional)
+      - name: user_email
+        in: query
+        schema:
+          type: string
+        description: Filter by user's Email (Optional)
+      - name: breach_account
+        in: query
+        schema:
+          type: string
+        description: Filter by breached account type. (Optional)
+      - name: department
+        in: query
+        schema:
+          type: string
+        description: Filter by organization's department. - query No Department if it does not exist (Optional)
+      - name: start_date
+        in: query
+        schema:
+          type: string
+        description: Starting date to search - mm/dd/yyyy (Optional)
+      - name: end_date
+        in: query
+        schema:
+          type: string
+        description: Ending date to search - mm/dd/yyyy (Optional)
+      - name: page_size
+        in: query
+        schema:
+          type: string
+        description: 'Size of each page. Default: 10 (Optional)'
+      - name: page_num
+        in: query
+        schema:
+          type: string
+        description: 'Number of the page. Default: 1 (Optional)'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/dark_breach_count/:
+    get:
+      operationId: GetDarkWebBreachCount
+      summary: Dark Web Breach Count
+      description: Returns a list of the counts of each dark web breach for all users.
+      tags:
+      - Report
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/export_all_phishing_history/:
+    get:
+      operationId: GetExportAllPhishingHistory
+      summary: Export All Phishing History
+      description: Exports a list of phishing failures into a CSV file. A custom email and message can be passed in using 'Email' and 'Message' headers.
+      tags:
+      - Report
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/failed_simulation_count/:
+    get:
+      operationId: GetFailedSimulationsCount
+      summary: Failed Simulation Count
+      description: Returns a list of the counts of failed simulations by tags and device type
+      tags:
+      - Report
+      parameters:
+      - name: user_email
+        in: query
+        schema:
+          type: string
+        description: User's Email (Optional)
+      - name: start_date
+        in: query
+        schema:
+          type: string
+        description: Starting date to search - mm/dd/yyyy (Optional)
+      - name: end_date
+        in: query
+        schema:
+          type: string
+        description: Ending date to search - mm/dd/yyyy (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/failed_simulation_report/:
+    get:
+      operationId: GetFailedSimulationsReport
+      summary: Failed Simulation Report
+      description: Returns a list of the counts of each type of failed simulation filtered by date ranges.
+      tags:
+      - Report
+      parameters:
+      - name: user_email
+        in: query
+        schema:
+          type: string
+        description: User's Email (Optional)
+      - name: period_range
+        in: query
+        schema:
+          type: string
+        description: 'Date range of the report: today, week, month, year. Default: today (Optional)'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/multiple_failure_count/:
+    get:
+      operationId: GetMultipleFailureCount
+      summary: Multiple Failure Count
+      description: Retrieve a detailed count of all the failures and training data of users that have failed phishing simulations multiple times. Organized by date ranges.
+      tags:
+      - Report
+      parameters:
+      - name: start_date
+        in: query
+        schema:
+          type: string
+        description: Starting date to search - mm/dd/yyyy (Optional)
+      - name: end_date
+        in: query
+        schema:
+          type: string
+        description: Ending date to search - mm/dd/yyyy (Optional)
+      - name: phishing_status
+        in: query
+        schema:
+          type: string
+        description: Filter by phishing status - active or inactive. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/multiple_failure_report/:
+    get:
+      operationId: GetMultipleFailureReport
+      summary: Multiple Failure Report
+      description: Retrieve a detailed report of users that have failed multiple (More than 1) phishing simulations.
+      tags:
+      - Report
+      parameters:
+      - name: user_keyword
+        in: query
+        schema:
+          type: string
+        description: Filter by user's name or email. (Optional)
+      - name: start_date
+        in: query
+        schema:
+          type: string
+        description: Starting date to search - mm/dd/yyyy (Optional)
+      - name: end_date
+        in: query
+        schema:
+          type: string
+        description: Ending date to search - mm/dd/yyyy (Optional)
+      - name: phishing_status
+        in: query
+        schema:
+          type: string
+        description: Filter by phishing status - active or inactive. (Optional)
+      - name: department
+        in: query
+        schema:
+          type: string
+        description: Filter by organization's department. - query No Department if it does not exist (Optional)
+      - name: page_size
+        in: query
+        schema:
+          type: string
+        description: Amount of entries per page Defaults to all. (Optional)
+      - name: page_num
+        in: query
+        schema:
+          type: string
+        description: Page number. Defaults to page 1. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/export_failures/:
+    get:
+      operationId: GetPhishingFailures
+      summary: Export Phishing Failures. A custom email and message can be passed in using 'Email' and 'Message' headers.
+      description: Exports a list of phishing failures into a CSV file.
+      tags:
+      - Report
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/report-summary/:
+    get:
+      operationId: GetReportSummary
+      summary: Report Summary
+      description: Retrieve a overall summary of all the emails being sent out to your users.
+      tags:
+      - Report
+      parameters:
+      - name: start_date
+        in: query
+        schema:
+          type: string
+        description: Starting date to search - mm/dd/yyyy (Optional)
+      - name: end_date
+        in: query
+        schema:
+          type: string
+        description: Ending date to search - mm/dd/yyyy (Optional)
+      - name: phishing_status
+        in: query
+        schema:
+          type: string
+        description: Filter by phishing status - active or inactive. (Optional)
+      - name: department_access
+        in: query
+        schema:
+          type: string
+        description: Filter by department based on email of admin. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/training_report/:
+    get:
+      operationId: GetTrainingReport
+      summary: Training Report
+      description: Returns a list of the trainings. Can be filtered by user email or completion status
+      tags:
+      - Report
+      parameters:
+      - name: user_email
+        in: query
+        schema:
+          type: string
+        description: User's Email (Optional)
+      - name: courseTitle
+        in: query
+        schema:
+          type: string
+        description: Filter by Course name using keywords (Optional)
+      - name: quizTitle
+        in: query
+        schema:
+          type: string
+        description: Filter by Quiz name used using keywords (Optional)
+      - name: start_date
+        in: query
+        schema:
+          type: string
+        description: Starting date to search - mm/dd/yyyy (Optional)
+      - name: end_date
+        in: query
+        schema:
+          type: string
+        description: Ending date to search - mm/dd/yyyy (Optional)
+      - name: complete
+        in: query
+        schema:
+          type: string
+        description: Filter by complete or incomplete trainings - True or False (Optional)
+      - name: department
+        in: query
+        schema:
+          type: string
+        description: Filter by user department - departments are queried from the database (Optional)
+      - name: lessonPlan
+        in: query
+        schema:
+          type: string
+        description: Filter courses by different lesson plans - lesson plans are queried from the database (Optional)
+      - name: page_size
+        in: query
+        schema:
+          type: string
+        description: Amount of entries per page (Optional)
+      - name: page_num
+        in: query
+        schema:
+          type: string
+        description: Page number (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/user_addon_count/:
+    get:
+      operationId: GetUserAddOnCount
+      summary: User Reporter Add-on Count
+      description: Retrieve a basic count of all successful reports on phishing simulations using the reporter Add-on. Only used for Outlook and Gmail Tenants.
+      tags:
+      - Report
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/user_addon_report/:
+    get:
+      operationId: GetUserAddonReport
+      summary: User Reporter Add-on Report
+      description: Retrieve a detailed report of all successful reports on phishing simulations using the reporter Add-on. Only used for Outlook and Gmail Tenants.
+      tags:
+      - Report
+      parameters:
+      - name: user_keyword
+        in: query
+        schema:
+          type: string
+        description: Filter by user's name or email. (Optional)
+      - name: start_date
+        in: query
+        schema:
+          type: string
+        description: Starting date to search - mm/dd/yyyy (Optional)
+      - name: end_date
+        in: query
+        schema:
+          type: string
+        description: Ending date to search - mm/dd/yyyy (Optional)
+      - name: phishing_status
+        in: query
+        schema:
+          type: string
+        description: Filter by phishing status - active or inactive. (Optional)
+      - name: department
+        in: query
+        schema:
+          type: string
+        description: Filter by organization's department. - query No Department if it does not exist (Optional)
+      - name: page_size
+        in: query
+        schema:
+          type: string
+        description: Amount of entries per page Defaults to all. (Optional)
+      - name: page_num
+        in: query
+        schema:
+          type: string
+        description: Page number. Defaults to page 1. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/summary/:
+    get:
+      operationId: PhishSummary
+      summary: Show Phish Summary Report
+      description: Get a phish summary report for the company. The report will analyze the how the company is doing responding to phishing simulations.
+      tags:
+      - Report
+      parameters:
+      - name: start_date
+        in: query
+        schema:
+          type: string
+        description: Starting date to search (Required)
+        required: true
+      - name: end_date
+        in: query
+        schema:
+          type: string
+        description: Ending date to search (Required)
+        required: true
+      - name: user_email
+        in: query
+        schema:
+          type: string
+        description: User's Email (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/partial_completed_count/:
+    get:
+      operationId: getPartialCompletedTrainingCount
+      summary: Partial Completed Training Count
+      description: Returns a list of the count number of partially or completed training
+      tags:
+      - Report
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer access token obtained from POST /api/v1/auth/ (exchange appid + secret key). Tokens expire ~1 hour after issue; use the refresh token to renew.
+externalDocs:
+  description: HacWare API Documentation
+  url: https://www.hacware.com/doc/index.html

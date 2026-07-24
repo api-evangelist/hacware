@@ -1,0 +1,330 @@
+openapi: 3.0.3
+info:
+  title: Security Awareness API Documentation Admin User API
+  description: This API documentation explains how to build your own AI powered security awareness and training application. HacWare is an AI-powered security awareness training and phishing simulation platform. This OpenAPI was derived by API Evangelist from HacWare's published apiDoc documentation.
+  version: 1.0.4
+  contact:
+    name: HacWare
+    email: hello@hacware.com
+    url: https://hacware.com/dev.html
+  termsOfService: https://hacware.com/terms-of-service
+servers:
+- url: https://{domain}
+  description: Per-tenant HacWare API host; {domain} is the subdomain assigned to your company at onboarding.
+  variables:
+    domain:
+      default: app.hacware.com
+tags:
+- name: User
+paths:
+  /api/v1/user/manage-departments/:
+    get:
+      operationId: GetUserDeptManagment
+      summary: Get Manage Department List
+      description: Retrieves the departments that this user is allowed to manage.
+      tags:
+      - User
+      parameters:
+      - name: user_email
+        in: query
+        schema:
+          type: string
+        description: User's email. (Required)
+        required: true
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/user/get_user_list:
+    get:
+      operationId: GetUserList
+      summary: Get User List
+      description: Returns a list of all users and their information.
+      tags:
+      - User
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/user/reports/:
+    get:
+      operationId: GetUserReports
+      summary: Search a Page of Users
+      description: 'Get a page of users based on given filters. Tip: Best to use type=all along with any other filters to narrow down your search.'
+      tags:
+      - User
+      parameters:
+      - name: PageNum
+        in: query
+        schema:
+          type: string
+        description: Page Number. Defaults to page 1. (Required)
+        required: true
+      - name: user_email
+        in: query
+        schema:
+          type: string
+        description: User's Email required for type=single. Used just to get one specific user. (Optional)
+      - name: keyword
+        in: query
+        schema:
+          type: string
+        description: Keyword to filter the search by user's name or email. Can be used with either type=all, type=in_active, type=active to further filter users. (Optional)
+      - name: type
+        in: query
+        schema:
+          type: string
+        description: Type of Report. Can be [all, active, in_active, single]. If type=single, requires user_email parameter. This parameter is required if using other filters. (Optional)
+      - name: phish_start
+        in: query
+        schema:
+          type: string
+        description: Filter users by their next scheduled phishing simulation starting at this date. Can be used with all types except type=single. Requires a type parameter. (Users without scheduled phishing simulations will be excluded) - mm/dd/yyyy (Optional)
+      - name: phish_end
+        in: query
+        schema:
+          type: string
+        description: Filter users by their next scheduled phishing simulation ending at this date. Can be used with all types except type=single. Requires a type parameter. (Users without scheduled phishing simulations will be excluded)- mm/dd/yyyy (Optional)
+      - name: last_sim_passed
+        in: query
+        schema:
+          type: boolean
+        description: Filter users by their most recent phishing simulation. It will return users that have either passed (True) or failed (False) their recent simulation. Requires a type parameter. (Users without phsing simulations will default to passed.) (Optional)
+      - name: department
+        in: query
+        schema:
+          type: string
+        description: Filter users by their department given by Outlook and Gmail group sync. Will not work for Open email types. Requires a type parameter. (Optional)
+      - name: PageSize
+        in: query
+        schema:
+          type: string
+        description: Number of results to return. Defaults to 50 users per page. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/user/user_sms_status/:
+    post:
+      operationId: GetUserSMSStatus
+      summary: Get User SMS Status
+      description: Retrieves the SMS status for a user. Determines whether the user can be enrolled in a smishing simulation.
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_email:
+                  type: string
+                  description: User's email. (Required)
+              required:
+              - user_email
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/user/search/vulnerability/:
+    get:
+      operationId: GetUserVulnerability
+      summary: Search User Vulnerability
+      description: Retrieves users based on vulnerability score and bound, up to a limit.
+      tags:
+      - User
+      parameters:
+      - name: Vul
+        in: query
+        schema:
+          type: string
+        description: Vulnerability score (Required)
+        required: true
+      - name: Limit
+        in: query
+        schema:
+          type: string
+        description: Max limit of vulnerability score to be viewed (Optional)
+      - name: Bound
+        in: query
+        schema:
+          type: string
+        description: Bound of vulnerability score - can be upper or lower. ie. Having bound=upper and vul=60 returns a list contain users with 60 or less vulnerability score (Required)
+        required: true
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/user/search/email/:
+    get:
+      operationId: GetUserWithEmail
+      summary: Search User Email
+      description: Retrieves a user based on email.
+      tags:
+      - User
+      parameters:
+      - name: Email
+        in: query
+        schema:
+          type: string
+        description: User Email to be Searched (Required)
+        required: true
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/user/add-users/:
+    post:
+      operationId: PostAddUsers
+      summary: Add New Users
+      description: 'Used for adding new users through JSON object. Note: Only used for HacWare Open users!'
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: string
+                  description: List of all the users to add. (Required)
+                firstname:
+                  type: string
+                  description: User's first name. (Required)
+                lastname:
+                  type: string
+                  description: User's last name. (Required)
+                email:
+                  type: string
+                  description: User's email. (Required)
+                phoneNumber:
+                  type: string
+                  description: 'User''s mobile number. Format: 1234567890 (Optional)'
+                department:
+                  type: string
+                  description: User's department. (Optional)
+              required:
+              - data
+              - firstname
+              - lastname
+              - email
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/user/manage_departments/:
+    post:
+      operationId: PostUserDeptManagment
+      summary: Assign User to Department
+      description: Allow User to manage these Department(s)
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_email:
+                  type: string
+                  description: User's email. (Required)
+                departments:
+                  type: string
+                  description: Can be a single department or a list of departments. Note. Add "No Department" to allow User to also manage users without departments. (Required)
+                action:
+                  type: string
+                  description: Must be in ['add','remove']. Add will grant department(s) permission to the user. Remove will remove department(s) permission from the user. (Required)
+              required:
+              - user_email
+              - departments
+              - action
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/user/update_status/:
+    post:
+      operationId: PostUserUpdateStatus
+      summary: Update User Status
+      description: Updates the user's phishing status.
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: string
+                  description: User to update. User here is identified by their name. Can be keyword ALL for all users. (Required)
+                phishing_status:
+                  type: string
+                  description: Phishing status update. Phishing status can be Active or Inactive (Required)
+                department:
+                  type: string
+                  description: Phishing status update by department. To use department parameter, user must be set to ALL. Department can be No Department or N/A for users that have no department. (Optional)
+              required:
+              - user
+              - phishing_status
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer access token obtained from POST /api/v1/auth/ (exchange appid + secret key). Tokens expire ~1 hour after issue; use the refresh token to renew.
+externalDocs:
+  description: HacWare API Documentation
+  url: https://www.hacware.com/doc/index.html

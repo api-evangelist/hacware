@@ -1,0 +1,391 @@
+openapi: 3.0.3
+info:
+  title: Security Awareness API Documentation Admin Multi-Tenant API
+  description: This API documentation explains how to build your own AI powered security awareness and training application. HacWare is an AI-powered security awareness training and phishing simulation platform. This OpenAPI was derived by API Evangelist from HacWare's published apiDoc documentation.
+  version: 1.0.4
+  contact:
+    name: HacWare
+    email: hello@hacware.com
+    url: https://hacware.com/dev.html
+  termsOfService: https://hacware.com/terms-of-service
+servers:
+- url: https://{domain}
+  description: Per-tenant HacWare API host; {domain} is the subdomain assigned to your company at onboarding.
+  variables:
+    domain:
+      default: app.hacware.com
+tags:
+- name: Multi-Tenant
+paths:
+  /api/dev/tier/partners/{partner_id}/customers/:
+    post:
+      operationId: AddCustomer
+      summary: Create Customer
+      description: Creates a customer account and invites a customer admin to finish the installation process.
+      tags:
+      - Multi-Tenant
+      parameters:
+      - name: partner_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                partner_name:
+                  type: string
+                  description: Partner name of the partner full name. (Required)
+                partner_email:
+                  type: string
+                  description: Partner email address. (Required)
+                so_name:
+                  type: string
+                  description: Security Officer full name (First Name and Last Name). (Required)
+                so_email:
+                  type: string
+                  description: Security Officer email address. (Required)
+                so_phone:
+                  type: string
+                  description: Security Officer phone number. (Required)
+                company_name:
+                  type: string
+                  description: Company Name is the company's full name for the Account. For Example, Our official name is Company, Inc. (Required)
+                company_alias:
+                  type: string
+                  description: Company Alias is the company's common name or DBA (doing business as) name for the Account. For Example, You can call us by Company (Required)
+                ceo_name:
+                  type: string
+                  description: Company leader full name. (Required)
+                ceo_email:
+                  type: string
+                  description: Company leader email address. (Required)
+                employee_count:
+                  type: number
+                  description: Company Total Number of employees. (Required)
+                contract_type:
+                  type: string
+                  description: Contract Type is TRIAL, MONTHLY, and YEARLY. (Required)
+                product_type:
+                  type: string
+                  description: Product Type is PRO and PLUS. (Required)
+                email_type:
+                  type: string
+                  description: Email Type is Outlook, Gmail, and Open. (Required)
+                redirection_url:
+                  type: string
+                  description: The redirection URL that will be called when the customer is finished building. A POST request will be made to this endpoint with partner ID. (Optional)
+                send_onboard_msgs:
+                  type: string
+                  description: The send_onboard_msgs flag accepts the string 'on' or 'off'. When send_onboard_msgs = 'on', it will send the onboarding emails to the security and ceo point of contact.  When send_onboard_msgs = 'off', the system will not send onboarding emails. The system will not notify the users about creating an account via email. (Optional)
+              required:
+              - partner_name
+              - partner_email
+              - so_name
+              - so_email
+              - so_phone
+              - company_name
+              - company_alias
+              - ceo_name
+              - ceo_email
+              - employee_count
+              - contract_type
+              - product_type
+              - email_type
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+    get:
+      operationId: CustomerList
+      summary: Customer List
+      description: A list of the partner's customers and their monthly usage.
+      tags:
+      - Multi-Tenant
+      parameters:
+      - name: partner_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: sub_domain
+        in: query
+        schema:
+          type: string
+        description: The access URL for the customer. (Optional)
+      - name: company_name
+        in: query
+        schema:
+          type: string
+        description: Company Name is the company's full name for the Account. For Example, Our official name is Company, Inc. (Optional)
+      - name: start_date
+        in: query
+        schema:
+          type: string
+        description: The start_date stores the date that the query should begin. (Optional)
+      - name: end_date
+        in: query
+        schema:
+          type: string
+        description: The end_date stores the date that the query should end. (Optional)
+      - name: company_id
+        in: query
+        schema:
+          type: string
+        description: The company_id is used to filter results by company id. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/dev/tier/partners/{partner_id}/customers/{customer_id}:
+    delete:
+      operationId: CancelCustomerSubscription
+      summary: Cancel Customer Subscription
+      description: Cancels their customer.
+      tags:
+      - Multi-Tenant
+      parameters:
+      - name: partner_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: customer_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+    patch:
+      operationId: UpdateCustomerSubscription
+      summary: Update Customer Subscription
+      description: Updates Customer Subscription by changing the product, billing cycle, and account status.
+      tags:
+      - Multi-Tenant
+      parameters:
+      - name: partner_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: customer_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                action:
+                  type: array
+                  items:
+                    type: string
+                  description: The action is a list of actions that are needed to update the customer subscription.
+                action.enabled:
+                  type: boolean
+                  description: The action.enabled will store true if the account status is "VERIFIED" and active. It will store false if the customer account is EXPIRED or canceled.
+                action.trial:
+                  type: boolean
+                  description: This action.trial stores true if the account should be trial access and false if the account should be upgraded to paid.  It will default to contract_type = MONTHLY.
+                action.product:
+                  type: string
+                  description: This action.product will store Pro, Plus, or Super for the customer subscription.  If you change the product it will change the billing and feature access.
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/dev/tier/partners/{partner_id}:
+    get:
+      operationId: GetPartner
+      summary: Get Partner
+      description: Retrieves the partner account and subscription status.
+      tags:
+      - Multi-Tenant
+      parameters:
+      - name: partner_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+    patch:
+      operationId: UpdatePartner
+      summary: Update Partner
+      description: Updates the partner account and subscription status.
+      tags:
+      - Multi-Tenant
+      parameters:
+      - name: partner_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                enabled:
+                  type: string
+                  description: This field will store true for enabled and false to disable the customer account. (Required)
+                contract_type:
+                  type: string
+                  description: The contract_type will store TRIAL to convert the account to trial, MONTHLY to convert the account billing to monthly, and YEARLY to change the billing to annual pricing. (Optional)
+                prePurchasedProduct:
+                  type: string
+                  description: Pre Purchased Product is the product the partner purchased upfront. (Optional)
+                prePurchasedSeats:
+                  type: string
+                  description: Pre Purchased Seats is a quantity of licenses the partner purchased upfront. (Optional)
+              required:
+              - enabled
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/dev/tier/partners/:
+    get:
+      operationId: PartnerList
+      summary: Partner List
+      description: Retrieves all partners under the tiered tenant account.
+      tags:
+      - Multi-Tenant
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/dev/tier/partners:
+    post:
+      operationId: PostInvitePartner
+      summary: Create Partner and Invite Partner Admin.
+      description: Creates the multi-tenant partner account and invites multi-tenant admin to create the first account.
+      tags:
+      - Multi-Tenant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                partner_email:
+                  type: string
+                  description: Email for the Super Admin to create the account. (Required)
+                first_name:
+                  type: string
+                  description: First name of the Super Admin to be invited to create the account. (Required)
+                last_name:
+                  type: string
+                  description: Last name of the Super Admin to be invited to create the account. (Required)
+                company_name:
+                  type: string
+                  description: Company Name of Super Admin or Partner that will be managing the Multi-Tenant platform. (Required)
+                country:
+                  type: string
+                  description: Country Code of the company headquarters.  This is a two character code. (Required)
+                state:
+                  type: string
+                  description: State or Province of the company headquarters. (Required)
+                city:
+                  type: string
+                  description: City of the company headquarters. (Required)
+                street:
+                  type: string
+                  description: Street of the company headquarters. (Required)
+                postal_code:
+                  type: string
+                  description: Postal Code of the company headquarters. (Required)
+                phone:
+                  type: string
+                  description: Phone number of the company headquarters or Super Admin Point of Contact. (Required)
+                end_user_count:
+                  type: number
+                  description: End User Count stores the total number of end users under the partner's management. (Optional)
+                tag:
+                  type: string
+                  description: Tag is an identifier for sorting. (Optional)
+                contract_type:
+                  type: string
+                  description: Contract Type is the type of billing structure.  The valid options are TRIAL, MONTHLY, or YEARLY (Optional)
+                prePurchasedProduct:
+                  type: string
+                  description: Pre Purchased Product is the product the partner purchased upfront. (Optional)
+                prePurchasedSeats:
+                  type: string
+                  description: Pre Purchased Seats is a quantity of licenses the partner purchased upfront. (Optional)
+              required:
+              - partner_email
+              - first_name
+              - last_name
+              - company_name
+              - country
+              - state
+              - city
+              - street
+              - postal_code
+              - phone
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer access token obtained from POST /api/v1/auth/ (exchange appid + secret key). Tokens expire ~1 hour after issue; use the refresh token to renew.
+externalDocs:
+  description: HacWare API Documentation
+  url: https://www.hacware.com/doc/index.html

@@ -1,0 +1,988 @@
+openapi: 3.0.3
+info:
+  title: Security Awareness API Documentation Admin Training API
+  description: This API documentation explains how to build your own AI powered security awareness and training application. HacWare is an AI-powered security awareness training and phishing simulation platform. This OpenAPI was derived by API Evangelist from HacWare's published apiDoc documentation.
+  version: 1.0.4
+  contact:
+    name: HacWare
+    email: hello@hacware.com
+    url: https://hacware.com/dev.html
+  termsOfService: https://hacware.com/terms-of-service
+servers:
+- url: https://{domain}
+  description: Per-tenant HacWare API host; {domain} is the subdomain assigned to your company at onboarding.
+  variables:
+    domain:
+      default: app.hacware.com
+tags:
+- name: Training
+paths:
+  /api/v1/train/add_course_member/:
+    post:
+      operationId: AddCourseMember
+      summary: Enroll User to Course
+      description: Adds a user to a specified course. Blank date will send the course instantly.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: User's email. (Required)
+                courseID:
+                  type: string
+                  description: Course ID. (Required)
+                trainDate:
+                  type: string
+                  description: Date of the training. - MM/DD/YYYY HH:MM AM/PM (Optional)
+              required:
+              - email
+              - courseID
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/courselist/:
+    get:
+      operationId: GetCourseList
+      summary: Get Course List
+      description: Return a list of all the courses or a specific courses in the account.
+      tags:
+      - Training
+      parameters:
+      - name: course_type
+        in: query
+        schema:
+          type: string
+        description: Course Type. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/getquiz/:
+    get:
+      operationId: GetCourseQuiz
+      summary: Get Course
+      description: Returns courses based on given id or courses that the given user is in.
+      tags:
+      - Training
+      parameters:
+      - name: training_id
+        in: query
+        schema:
+          type: string
+        description: Course ID. (Optional)
+      - name: training_em
+        in: query
+        schema:
+          type: string
+        description: User Email. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/coursequizlist/:
+    get:
+      operationId: GetCourseQuizList
+      summary: Get All Recommendations
+      description: Returns a list of all course and quizzes recommendations/templates. Can be filtered.
+      tags:
+      - Training
+      parameters:
+      - name: course_type
+        in: query
+        schema:
+          type: string
+        description: Course Type. (Optional)
+      - name: quiz_topic
+        in: query
+        schema:
+          type: string
+        description: Quiz Topic. (Optional)
+      - name: search
+        in: query
+        schema:
+          type: string
+        description: Keywords to filter course and quiz recommendations. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/course_list/:
+    get:
+      operationId: GetCourseRecList
+      summary: Get Course Recommendation List
+      description: Return of a list of the course recommendations. Can be filtered.
+      tags:
+      - Training
+      parameters:
+      - name: course_type
+        in: query
+        schema:
+          type: string
+        description: Course Type. (Optional)
+      - name: search
+        in: query
+        schema:
+          type: string
+        description: Keywords to filter course recommendations. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/course_list_rec/:
+    get:
+      operationId: GetCourseRecList
+      summary: Get Course Recommendation List
+      description: Return of a list of the course recommendations/templates. Can be filtered.
+      tags:
+      - Training
+      parameters:
+      - name: course_type
+        in: query
+        schema:
+          type: string
+        description: Course Type. (Optional)
+      - name: search
+        in: query
+        schema:
+          type: string
+        description: Keywords to filter course recommendations. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/lesson_list/:
+    get:
+      operationId: GetLessonPlanList
+      summary: Get Lesson Plan List
+      description: Creates a new lesson plan.
+      tags:
+      - Training
+      parameters:
+      - name: LessonPlanName
+        in: query
+        schema:
+          type: string
+        description: Lesson plan name. (Optional)
+      - name: LessonPlanID
+        in: query
+        schema:
+          type: string
+        description: Lesson plan ID. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/quiz_list/:
+    get:
+      operationId: GetQuizRecList
+      summary: Get Quiz Recommendation List
+      description: Return of a list of the quiz recommendations. Can be filtered.
+      tags:
+      - Training
+      parameters:
+      - name: quiz_topic
+        in: query
+        schema:
+          type: string
+        description: Quiz Topic. (Optional)
+      - name: search
+        in: query
+        schema:
+          type: string
+        description: Keywords to filter quiz recommendations. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/quiz_list_rec/:
+    get:
+      operationId: GetQuizRecList
+      summary: Get Quiz Recommendation List
+      description: Return of a list of the quiz recommendations/templates. Can be filtered.
+      tags:
+      - Training
+      parameters:
+      - name: quiz_topic
+        in: query
+        schema:
+          type: string
+        description: Quiz Topic. (Optional)
+      - name: search
+        in: query
+        schema:
+          type: string
+        description: Keywords to filter quiz recommendations. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/createcourse/:
+    post:
+      operationId: POSTCreateCourse
+      summary: Create Course
+      description: Create a new course and add it to the list.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                CourseName:
+                  type: string
+                  description: Course Name. (Required)
+                CourseDesc:
+                  type: string
+                  description: Course Description. (Required)
+                PreQuizID:
+                  type: string
+                  description: QID of first quiz. (Required)
+                VideoLink:
+                  type: string
+                  description: Video Link. (Required)
+                PostQuizID:
+                  type: string
+                  description: QID of last quiz. (Required)
+              required:
+              - CourseName
+              - CourseDesc
+              - PreQuizID
+              - VideoLink
+              - PostQuizID
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/add_course_lesson/:
+    post:
+      operationId: PostAddCourseLessonPlan
+      summary: Add Course to Lesson Plan
+      description: Add a course to a lesson plan.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                CourseID:
+                  type: string
+                  description: Course ID (Required)
+                RelativeDays:
+                  type: string
+                  description: Relative Days for each course to be scheduled from the start date. (Required)
+                LessonPlanID:
+                  type: string
+                  description: Lesson plan ID (Required)
+              required:
+              - CourseID
+              - RelativeDays
+              - LessonPlanID
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/add_member_lesson/:
+    post:
+      operationId: PostAddMemberLessonPlan
+      summary: Add User to Lesson Plan
+      description: Adds a Member/User to a Lesson Plan.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                LessonPlanID:
+                  type: string
+                  description: Lesson plan ID. (Required)
+                UserEmail:
+                  type: string
+                  description: User's email. (Required)
+                StartDate:
+                  type: string
+                  description: Start date of the lesson plan for the user. If not given, then current date is used. (Optional)
+              required:
+              - LessonPlanID
+              - UserEmail
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/create_course_rec/:
+    post:
+      operationId: PostCreateCourseRec
+      summary: Create Course Recommendation
+      description: Creates a course recommendation after video is uploaded.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                TrainLink:
+                  type: string
+                  description: Link of the video uploaded. (Required)
+                CourseTopic:
+                  type: string
+                  description: Topic of the course. (Required)
+                TrainTitle:
+                  type: string
+                  description: Title of the course. (Required)
+                CourseTags:
+                  type: string
+                  description: Tags for the course. Must be in a list format. (Required)
+                Rating:
+                  type: string
+                  description: Difficulty of the quiz from 0-5. Must be an integer. (Required)
+                AnimatedGIF:
+                  type: string
+                  description: Thumbnail for the course. (Optional)
+                TrainDesc:
+                  type: string
+                  description: Link to the course training for this quiz. (Optional)
+                TrainTime:
+                  type: string
+                  description: Link to the course training for this quiz. (Optional)
+                CourseType:
+                  type: string
+                  description: Quiz topic. (Optional)
+              required:
+              - TrainLink
+              - CourseTopic
+              - TrainTitle
+              - CourseTags
+              - Rating
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/create_lesson/:
+    post:
+      operationId: PostCreateLessonPlan
+      summary: Create Lesson Plan
+      description: Creates a new lesson plan.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                LessonPlanName:
+                  type: string
+                  description: Lesson plan name. (Required)
+              required:
+              - LessonPlanName
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/add_quiz_rec/:
+    post:
+      operationId: PostCreateRecommendation
+      summary: Create a new quiz recommendation.
+      description: Creates a new custom quiz recommendation.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                QuizTitle:
+                  type: string
+                  description: Title of the quiz. (Required)
+                QuizQuestion:
+                  type: string
+                  description: The quiz question. (Required)
+                Tags:
+                  type: string
+                  description: Tags for the quiz. Must be in a list format. (Required)
+                Rating:
+                  type: string
+                  description: Difficulty of the quiz from 0-5. Must be an integer. (Required)
+                QuizIMG:
+                  type: string
+                  description: Thumbnail or image for the quiz. (Required)
+                CorrectLabel:
+                  type: string
+                  description: Correct answer for the quiz. Displayed as the text in a button. (Required)
+                CorrectDesc:
+                  type: string
+                  description: Description for the correct answer. Shown when hovering over button. (Required)
+                IncorrectLabel:
+                  type: string
+                  description: Incorrect answer for the quiz. Displayed as the text in a button. (Required)
+                IncorrectDesc:
+                  type: string
+                  description: Description for the incorrect answer. Shown when hovering over button. (Required)
+                TrainLink:
+                  type: string
+                  description: Link to the course training for this quiz. (Required)
+                QuizTopic:
+                  type: string
+                  description: Quiz topic. (Required)
+              required:
+              - QuizTitle
+              - QuizQuestion
+              - Tags
+              - Rating
+              - QuizIMG
+              - CorrectLabel
+              - CorrectDesc
+              - IncorrectLabel
+              - IncorrectDesc
+              - TrainLink
+              - QuizTopic
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/del_course_lesson/:
+    post:
+      operationId: PostDelCourseLessonPlan
+      summary: Delete Course from Lesson Plan
+      description: Delete a Course from a Lesson Plan.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                LessonPlanID:
+                  type: string
+                  description: Lesson plan ID. (Required)
+                CourseID:
+                  type: string
+                  description: Course ID. (Required)
+              required:
+              - LessonPlanID
+              - CourseID
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/del_course_rec/:
+    post:
+      operationId: PostDelCourseRec
+      summary: Delete Course Recommendation
+      description: Deletes a Course Recommendation template.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                CourseRecID:
+                  type: string
+                  description: Course ID. (Required)
+              required:
+              - CourseRecID
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/del_lesson/:
+    post:
+      operationId: PostDelLessonPlan
+      summary: Delete Lesson Plan
+      description: Delete a lesson plan.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                LessonPlanID:
+                  type: string
+                  description: Lesson plan ID. (Required)
+              required:
+              - LessonPlanID
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/del_member_lesson/:
+    post:
+      operationId: PostDelMemberLessonPlan
+      summary: Delete User from Lesson Plan
+      description: Deletes a Member/User from a Lesson Plan.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                LessonPlanID:
+                  type: string
+                  description: Lesson plan ID. (Required)
+                UserEmail:
+                  type: string
+                  description: Course ID. (Required)
+              required:
+              - LessonPlanID
+              - UserEmail
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/del_quiz_rec/:
+    post:
+      operationId: PostDelRecommendation
+      summary: Delete Quiz Recommendation
+      description: Deletes a Quiz Recommendation.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                QuizID:
+                  type: string
+                  description: Quiz ID. (Required)
+              required:
+              - QuizID
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/delcourse/:
+    post:
+      operationId: PostDeleteGroup
+      summary: Delete a Course
+      description: Deletes a course if it exists in the account.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                CourseID:
+                  type: string
+                  description: Course ID. (Required)
+              required:
+              - CourseID
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/del_course_member/:
+    post:
+      operationId: PostDeleteGroupMember
+      summary: Delete Course User
+      description: Deletes a user from a normal course or course from a lesson plan.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                UserEmail:
+                  type: string
+                  description: User's hash (Required)
+                CourseID:
+                  type: string
+                  description: Course ID. The user will be removed from a normal course with the given CourseID. (Required)
+                LessonID:
+                  type: string
+                  description: Lesson ID. If this parameter is given, the user will be removed from the course with the given CourseID in the lesson with the given LessonID. Otherwise, the user will be removed from normal course with the given CourseID   (Optional)
+                scheduledDate:
+                  type: string
+                  description: 'Scheduled Date. If this parameter is given, the courses from the user with this specific scheduled date only will removed. Otherwise if not given then all courses with the same course ID is removed from the user. Format: mm/dd/yyyy HH:MM P, For example: 6/21/2023 08:30 AM (GMT Timezone)'
+              required:
+              - UserEmail
+              - CourseID
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/quickschedule/:
+    post:
+      operationId: PostQuickSchedule
+      summary: Auto Enroll User to Course
+      description: This request will look at an user email to see the risks that the user has and then schedules a course based on the data it finds. The course will be sent out instantly.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: The email of the user you want to test (Required)
+              required:
+              - email
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/reminder/:
+    post:
+      operationId: PostSendTrainReminder
+      summary: Remind User About Training
+      description: This endpoint will send a reminder email about training.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: The email of the user you want to test (Required)
+              required:
+              - email
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/license/set_train_link/:
+    post:
+      operationId: PostSetTrainLink
+      summary: Set Training Link
+      description: This will assign a link to an external training for companies using the Phish Basic product. When a user fails a phishing simulation they will be emailed a link to start training in another platform.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                URL:
+                  type: string
+                  description: link to external or 3rd party training. This link is for all training after a phishing simulation failure. (Required)
+              required:
+              - URL
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/get/train/history/:
+    get:
+      operationId: PostTrainHistory
+      summary: Train History
+      description: See the list of the quizzes used for training. The response also includes all the elements of each quiz.
+      tags:
+      - Training
+      parameters:
+      - name: pageNum
+        in: query
+        schema:
+          type: string
+        description: Defaults to first page if not given. (Optional)
+      - name: page_size
+        in: query
+        schema:
+          type: string
+        description: Number of results to return. Defaults to 10 results per page. (Optional)
+      - name: user
+        in: query
+        schema:
+          type: string
+        description: User to search - Username/email. (Optional)
+      - name: keyword
+        in: query
+        schema:
+          type: string
+        description: Keyword to filter the search by user's name or email. (Optional)
+      - name: courseTitle
+        in: query
+        schema:
+          type: string
+        description: Keyword to filter the search by the course's name. (Optional)
+      - name: courseComplete
+        in: query
+        schema:
+          type: string
+        description: Filter course by their completion - true - passed and failed courses will both be completed - false - courses labeled pending, N/A will be incomplete. (Optional)
+      - name: quizTitle
+        in: query
+        schema:
+          type: string
+        description: Keyword to filter the search by the quiz's name. (Optional)
+      - name: preQuizPassed
+        in: query
+        schema:
+          type: boolean
+        description: Filter pre quiz by pass or failed. (Optional)
+      - name: postQuizPassed
+        in: query
+        schema:
+          type: boolean
+        description: Filter post quiz by pass or failed.  (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/status/:
+    get:
+      operationId: PostTrainStatus
+      summary: Get Training Status
+      description: Gets the training status of a quiz that was sent out.
+      tags:
+      - Training
+      parameters:
+      - name: trainingID
+        in: query
+        schema:
+          type: string
+        description: Training ID (Required)
+        required: true
+      - name: VideoID
+        in: query
+        schema:
+          type: string
+        description: Video ID (Required)
+        required: true
+      - name: trainAction
+        in: query
+        schema:
+          type: string
+        description: Type of Training (Required)
+        required: true
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/update_quiz_rec/:
+    post:
+      operationId: PostUpdateRecommendation
+      summary: Update Quiz Recommendation.
+      description: Updates an existing Quiz Recommendation. All parameters are optional except QuizID depending on what you want to update.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                QuizTitle:
+                  type: string
+                  description: Title of the quiz. (Optional)
+                QuizQuestion:
+                  type: string
+                  description: The quiz question. (Optional)
+                Tags:
+                  type: string
+                  description: Tags for the quiz. Must be in a list format. (Optional)
+                Rating:
+                  type: string
+                  description: Difficulty of the quiz from 0-5. Must be an integer. (Optional)
+                QuizIMG:
+                  type: string
+                  description: Thumbnail or image for the quiz. (Optional)
+                CorrectLabel:
+                  type: string
+                  description: Correct answer for the quiz. Displayed as the text in a button. (Optional)
+                CorrectDesc:
+                  type: string
+                  description: Description for the correct answer. Shown when hovering over button. (Optional)
+                IncorrectLabel:
+                  type: string
+                  description: Incorrect answer for the quiz. Displayed as the text in a button. (Optional)
+                IncorrectDesc:
+                  type: string
+                  description: Description for the incorrect answer. Shown when hovering over button. (Optional)
+                TrainLink:
+                  type: string
+                  description: Link to the course training for this quiz. (Optional)
+                TrainTitle:
+                  type: string
+                  description: Link to the course training for this quiz. (Optional)
+                TrainDesc:
+                  type: string
+                  description: Link to the course training for this quiz. (Optional)
+                TrainTime:
+                  type: string
+                  description: Link to the course training for this quiz. (Optional)
+                QuizTopic:
+                  type: string
+                  description: Quiz topic. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer access token obtained from POST /api/v1/auth/ (exchange appid + secret key). Tokens expire ~1 hour after issue; use the refresh token to renew.
+externalDocs:
+  description: HacWare API Documentation
+  url: https://www.hacware.com/doc/index.html

@@ -1,0 +1,196 @@
+openapi: 3.0.3
+info:
+  title: Security Awareness API Documentation Admin Compliance API
+  description: This API documentation explains how to build your own AI powered security awareness and training application. HacWare is an AI-powered security awareness training and phishing simulation platform. This OpenAPI was derived by API Evangelist from HacWare's published apiDoc documentation.
+  version: 1.0.4
+  contact:
+    name: HacWare
+    email: hello@hacware.com
+    url: https://hacware.com/dev.html
+  termsOfService: https://hacware.com/terms-of-service
+servers:
+- url: https://{domain}
+  description: Per-tenant HacWare API host; {domain} is the subdomain assigned to your company at onboarding.
+  variables:
+    domain:
+      default: app.hacware.com
+tags:
+- name: Compliance
+paths:
+  /api/compliance/provider/auth_info/:
+    get:
+      operationId: Authentication_Information
+      summary: Authentication Information
+      description: Returns public information describing the type of authentication the evidence provider uses.
+      tags:
+      - Compliance
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/compliance/provider/authorize/:
+    post:
+      operationId: ComplianceAuthentication
+      summary: Compliance Authentication
+      description: Validates the login credentials and generates the access token and the refresh token.
+      tags:
+      - Compliance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: Developer Application ID / APPID. (Required)
+                password:
+                  type: string
+                  description: The Application secret key to gain access to the partner account information. (Required)
+                subdomain:
+                  type: string
+                  description: The tenant subdomain from which to retrieve the compliance data. (Required)
+              required:
+              - username
+              - password
+              - subdomain
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security: []
+  /api/compliance/evidences/{evidence_slug}:
+    get:
+      operationId: EvidenceData
+      summary: Evidence Data
+      description: Returns data for a specific piece of evidence identified by {evidence_slug}.
+      tags:
+      - Compliance
+      parameters:
+      - name: evidence_slug
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/compliance/evidences/{evidence_slug}/download:
+    get:
+      operationId: EvidenceDataDownload
+      summary: Evidence Data Download
+      description: Returns a document for the data of a specific piece of evidence identified by {evidence_slug}.
+      tags:
+      - Compliance
+      parameters:
+      - name: evidence_slug
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/compliance/evidences/:
+    get:
+      operationId: Evidences
+      summary: Evidences
+      description: Returns a list of evidence that instance provides.
+      tags:
+      - Compliance
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/compliance/settings:
+    get:
+      operationId: Settings
+      summary: Settings
+      description: Returns a data dictionary of settings data.
+      tags:
+      - Compliance
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+    put:
+      operationId: SettingsUpdate
+      summary: Settings Update
+      description: Update settings data.
+      tags:
+      - Compliance
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/compliance/provider/authorize/token:
+    post:
+      operationId: TokenRefresh
+      summary: Token Refresh
+      description: Refresh the access token.
+      tags:
+      - Compliance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+                  description: from the authorize or the authorize/token API call. (Required)
+              required:
+              - refreshToken
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer access token obtained from POST /api/v1/auth/ (exchange appid + secret key). Tokens expire ~1 hour after issue; use the refresh token to renew.
+externalDocs:
+  description: HacWare API Documentation
+  url: https://www.hacware.com/doc/index.html
