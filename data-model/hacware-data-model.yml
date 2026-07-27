@@ -1,0 +1,90 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/hacware-openapi.yml (paths, path params, and group taxonomy)
+entities:
+- name: Partner
+  domain: Multi-Tenant
+  id_field: partner_id
+  description: Top-level MSP/reseller tenant that owns customers.
+- name: Customer
+  domain: Multi-Tenant
+  id_field: customer_id
+  description: An organization managed under a partner; carries a subscription.
+- name: User
+  domain: User
+  id_field: email
+  description: An employee/end user who is phished, trained, and risk-scored.
+- name: Group
+  domain: Group
+  description: A grouping of users for targeting campaigns and training.
+- name: SecurityGroup
+  domain: Group
+  description: A synced Microsoft 365 security group.
+- name: Department
+  domain: User
+  description: Organizational department a user is assigned to.
+- name: PhishCampaign
+  domain: Phishing
+  description: A scheduled phishing simulation campaign and its responses/metrics.
+- name: Simulation
+  domain: Phishing
+  description: A phishing simulation template (built-in or custom).
+- name: Course
+  domain: Training
+  description: A training course a user can be enrolled in.
+- name: LessonPlan
+  domain: Training
+  description: A plan grouping courses and members.
+- name: Quiz
+  domain: Training
+  description: A quiz/pop-quiz associated with training.
+- name: Recommendation
+  domain: Training
+  description: Course/quiz recommendation for a user or org.
+- name: Report
+  domain: Report
+  description: 'Aggregated reporting: training, failures, dark-web breaches, summaries.'
+- name: ComplianceEvidence
+  domain: Compliance
+  description: Downloadable compliance evidence record keyed by evidence_slug.
+relationships:
+- from: Partner
+  type: has_many
+  to: Customer
+  via: partner_id
+- from: Customer
+  type: has_many
+  to: User
+  via: customer
+- from: Group
+  type: has_many
+  to: User
+  via: group
+- from: User
+  type: belongs_to
+  to: Department
+  via: department
+- from: PhishCampaign
+  type: has_many
+  to: User
+  via: email
+- from: PhishCampaign
+  type: has_one
+  to: Simulation
+  via: simulation_template
+- from: LessonPlan
+  type: has_many
+  to: Course
+  via: course
+- from: LessonPlan
+  type: has_many
+  to: User
+  via: member
+- from: Course
+  type: has_many
+  to: User
+  via: member
+- from: ComplianceEvidence
+  type: belongs_to
+  to: Customer
+  via: evidence_slug

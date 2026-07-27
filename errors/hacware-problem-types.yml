@@ -1,0 +1,20 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/hacware-openapi.yml (apiDoc Error 4xx blocks)
+format: custom-json
+note: 'HacWare returns a simple JSON error envelope {"message": "..."} on 4xx. Not RFC 9457. 115 of 114
+  documented operations declare an Error 4xx block with a "message" field.'
+envelope:
+  shape: '{"message": "<description of the error>"}'
+  field: message
+problems:
+- status: 400
+  title: Bad Request
+  envelope_field: message
+  description: The request was malformed or a required parameter was missing/invalid. The response body
+    carries a "message" string describing the error.
+- status: 401
+  title: Unauthorized
+  envelope_field: message
+  description: Missing, expired, or invalid bearer token. Access tokens expire ~1 hour after issue; renew
+    via the refresh token or re-authenticate at POST /api/v1/auth/.

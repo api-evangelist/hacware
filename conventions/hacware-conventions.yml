@@ -1,0 +1,41 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/hacware-openapi.yml + https://www.hacware.com/doc/index.html
+authentication:
+  style: bearer
+  token_exchange: POST /api/v1/auth/ with appid + secret key (sec) returns access + refresh tokens
+  header: 'Authorization: Bearer <access_token>'
+  token_ttl: ~1 hour; renew with refresh token
+  ref: authentication/hacware-authentication.yml
+idempotency:
+  supported: false
+  note: No idempotency-key header or parameter is documented.
+pagination:
+  style: page-number
+  params:
+  - page_num
+  - page_size
+  - pagenum
+  - pagesize
+  - limit
+  note: Report and user/list endpoints accept page number + page size query parameters; naming is inconsistent
+    across endpoints (page_num/page_size vs pagenum/pagesize).
+versioning:
+  style: uri-path + per-operation semver
+  uri_prefix: /api/v1/ (and /api/dev/tier/ for the tiered multi-tenant surface)
+  operation_versions: Each apiDoc operation carries its own semver (1.0.0–1.0.5); current documented API
+    version is 1.0.4.
+rate_limiting:
+  style: credit-based quota
+  note: Access is metered by monthly API credits per plan (R&D free = 50 credits/mo, Essential = 5,000
+    credits/mo, Premium = custom). No documented per-request rate-limit response headers.
+request_tracing:
+  supported: false
+  note: No request-id/correlation header documented.
+error_envelope:
+  shape: '{"message": "..."}'
+  ref: errors/hacware-problem-types.yml
+multi_tenancy:
+  model: partner/customer hierarchy
+  note: The tiered API (/api/dev/tier/) exposes partners that own customers; per-company requests run
+    against a tenant-specific subdomain assigned at onboarding.

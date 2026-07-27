@@ -1,0 +1,18 @@
+generated: '2026-07-19'
+method: searched
+source: https://www.hacware.com/doc/index.html + https://hacware.com/dev.html
+versioning:
+  scheme: uri-path
+  current: v1
+  api_doc_version: 1.0.4
+  docs: https://www.hacware.com/doc/index.html
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No published deprecation/sunset policy found.
+sla:
+  url: null
+  uptime_target: null
+status_page: null
+status_page_note: No public status page found (status.hacware.com does not resolve).
+deprecated_operations: []

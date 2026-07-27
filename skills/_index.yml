@@ -1,0 +1,30 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/hacware-openapi.yml
+skills:
+- file: hacware-run-phishing-simulation.md
+  name: Run an AI phishing simulation campaign
+  api: openapi/hacware-openapi.yml
+  operations:
+  - PostAPIAuth
+  - GetPhishSimulationsList
+  - PostDirectPhish
+  - PostPhishStatus
+  - GetPhishResponsesReport
+- file: hacware-enroll-user-training.md
+  name: Enroll a user in security training
+  api: openapi/hacware-openapi.yml
+  operations:
+  - PostAPIAuth
+  - GetCourseList
+  - AddCourseMember
+  - PostSendTrainReminder
+  - PostTrainStatus
+- file: hacware-onboard-partner-customer.md
+  name: Onboard a partner and create a customer (multi-tenant)
+  api: openapi/hacware-openapi.yml
+  operations:
+  - PostTieredAPIAuth
+  - PostInvitePartner
+  - AddCustomer
+  - CustomerList

@@ -1,0 +1,582 @@
+generated: '2026-07-19'
+method: derived
+status: candidate
+source: openapi/hacware-openapi.yml
+note: Candidate MCP tool list derived one-per-operation from the HacWare OpenAPI. HacWare publishes no
+  official hosted MCP server as of this date.
+server:
+  name: hacware
+  transport: stdio
+  auth: bearer token via POST /api/v1/auth/
+tools:
+- name: post_a_p_i_auth
+  description: API Auth
+  source_operation: openapi/hacware-openapi.yml#PostAPIAuth
+  method: POST
+  path: /api/v1/auth/
+- name: post_a_p_i_status
+  description: API Status
+  source_operation: openapi/hacware-openapi.yml#PostAPIStatus
+  method: GET
+  path: /api/dev/tier/status/
+- name: post_tiered_a_p_i_auth
+  description: Tiered API Auth
+  source_operation: openapi/hacware-openapi.yml#PostTieredAPIAuth
+  method: POST
+  path: /api/dev/tier/auth/
+- name: authentication_information
+  description: Authentication Information
+  source_operation: openapi/hacware-openapi.yml#AuthenticationInformation
+  method: GET
+  path: /api/v1/compliance/provider/auth_info
+- name: compliance_root
+  description: Compliance Root
+  source_operation: openapi/hacware-openapi.yml#ComplianceRoot
+  method: GET
+  path: /api/compliance/
+- name: evidence_data
+  description: Evidence Data
+  source_operation: openapi/hacware-openapi.yml#EvidenceData
+  method: GET
+  path: /api/v1/compliance/evidences2
+- name: evidence_data_download
+  description: Evidence Data Download
+  source_operation: openapi/hacware-openapi.yml#EvidenceDataDownload
+  method: GET
+  path: /api/v1/compliance/downloads
+- name: evidences
+  description: Evidences
+  source_operation: openapi/hacware-openapi.yml#Evidences
+  method: GET
+  path: /api/v1/compliance/evidences
+- name: get__settings
+  description: Get Settings
+  source_operation: openapi/hacware-openapi.yml#Get_Settings
+  method: GET
+  path: /api/v1/compliance/downloads
+- name: authentication__information
+  description: Authentication Information
+  source_operation: openapi/hacware-openapi.yml#Authentication_Information
+  method: GET
+  path: /api/compliance/provider/auth_info/
+- name: compliance_authentication
+  description: Compliance Authentication
+  source_operation: openapi/hacware-openapi.yml#ComplianceAuthentication
+  method: POST
+  path: /api/compliance/provider/authorize/
+- name: evidence_data
+  description: Evidence Data
+  source_operation: openapi/hacware-openapi.yml#EvidenceData
+  method: GET
+  path: /api/compliance/evidences/{evidence_slug}
+- name: evidence_data_download
+  description: Evidence Data Download
+  source_operation: openapi/hacware-openapi.yml#EvidenceDataDownload
+  method: GET
+  path: /api/compliance/evidences/{evidence_slug}/download
+- name: evidences
+  description: Evidences
+  source_operation: openapi/hacware-openapi.yml#Evidences
+  method: GET
+  path: /api/compliance/evidences/
+- name: settings
+  description: Settings
+  source_operation: openapi/hacware-openapi.yml#Settings
+  method: GET
+  path: /api/compliance/settings
+- name: settings_update
+  description: Settings Update
+  source_operation: openapi/hacware-openapi.yml#SettingsUpdate
+  method: PUT
+  path: /api/compliance/settings
+- name: token_refresh
+  description: Token Refresh
+  source_operation: openapi/hacware-openapi.yml#TokenRefresh
+  method: POST
+  path: /api/compliance/provider/authorize/token
+- name: get_company_d_n_s
+  description: Get Company DNS
+  source_operation: openapi/hacware-openapi.yml#GetCompanyDNS
+  method: GET
+  path: /api/v1/admin/get_company_dns
+- name: post_brand_upload
+  description: Brand Upload
+  source_operation: openapi/hacware-openapi.yml#PostBrandUpload
+  method: POST
+  path: /api/v1/admin/brandupload/
+- name: post_brand_upload_reporter
+  description: Brand Upload for Reporter
+  source_operation: openapi/hacware-openapi.yml#PostBrandUploadReporter
+  method: POST
+  path: /api/v1/admin/brand_upload_reporter/
+- name: post_custom_domain
+  description: Upload custom domain.
+  source_operation: openapi/hacware-openapi.yml#PostCustomDomain
+  method: POST
+  path: /api/v1/admin/custom_domain
+- name: post_update_company_information
+  description: Update Company Information
+  source_operation: openapi/hacware-openapi.yml#PostUpdateCompanyInformation
+  method: POST
+  path: /api/v1/org/update-company-info/
+- name: reset_custom_domain
+  description: Reset custom domain.
+  source_operation: openapi/hacware-openapi.yml#ResetCustomDomain
+  method: POST
+  path: /api/v1/admin/reset_custom_domain
+- name: enable_welcome_email
+  description: Enable/Disable Welcome Email
+  source_operation: openapi/hacware-openapi.yml#EnableWelcomeEmail
+  method: POST
+  path: /api/v1/set-welcome-email
+- name: del_microsoft_security_groups
+  description: Delete Synced MS Group
+  source_operation: openapi/hacware-openapi.yml#DelMicrosoftSecurityGroups
+  method: POST
+  path: /api/v1/security_groups/delete
+- name: get_group_list
+  description: Get Group List
+  source_operation: openapi/hacware-openapi.yml#GetGroupList
+  method: GET
+  path: /api/v1/group/grouplist/
+- name: get_microsoft_security_group_members
+  description: Get Microsoft Security Group Members
+  source_operation: openapi/hacware-openapi.yml#GetMicrosoftSecurityGroupMembers
+  method: GET
+  path: /api/v1/security_groups/members
+- name: get_microsoft_security_groups
+  description: Get Microsoft Security Groups
+  source_operation: openapi/hacware-openapi.yml#GetMicrosoftSecurityGroups
+  method: GET
+  path: /api/v1/security_groups/list
+- name: get_microsoft_security_groups_sync_list
+  description: Get Synced MS Group
+  source_operation: openapi/hacware-openapi.yml#GetMicrosoftSecurityGroupsSyncList
+  method: GET
+  path: /api/v1/security_groups/synclist
+- name: post_add_group
+  description: Add a Group
+  source_operation: openapi/hacware-openapi.yml#PostAddGroup
+  method: POST
+  path: /api/v1/group/add/
+- name: post_add_group_member
+  description: Add a User to a Group
+  source_operation: openapi/hacware-openapi.yml#PostAddGroupMember
+  method: POST
+  path: /api/v1/group/add_group_member/
+- name: post_delete_group
+  description: Delete a Group
+  source_operation: openapi/hacware-openapi.yml#PostDeleteGroup
+  method: POST
+  path: /api/v1/group/delete/
+- name: post_delete_group_member
+  description: Delete a User from Group
+  source_operation: openapi/hacware-openapi.yml#PostDeleteGroupMember
+  method: POST
+  path: /api/v1/group/delete_group_member/
+- name: post_microsoft_security_groups
+  description: Update Microsoft Security Group Users
+  source_operation: openapi/hacware-openapi.yml#PostMicrosoftSecurityGroups
+  method: POST
+  path: /api/v1/security_groups/update
+- name: post_update_group
+  description: Update a Group
+  source_operation: openapi/hacware-openapi.yml#PostUpdateGroup
+  method: POST
+  path: /api/v1/group/update/
+- name: post_update_group_members
+  description: Update a User's Group
+  source_operation: openapi/hacware-openapi.yml#PostUpdateGroupMembers
+  method: POST
+  path: /api/v1/group/update_group_member/
+- name: add_customer
+  description: Create Customer
+  source_operation: openapi/hacware-openapi.yml#AddCustomer
+  method: POST
+  path: /api/dev/tier/partners/{partner_id}/customers/
+- name: cancel_customer_subscription
+  description: Cancel Customer Subscription
+  source_operation: openapi/hacware-openapi.yml#CancelCustomerSubscription
+  method: DELETE
+  path: /api/dev/tier/partners/{partner_id}/customers/{customer_id}
+- name: customer_list
+  description: Customer List
+  source_operation: openapi/hacware-openapi.yml#CustomerList
+  method: GET
+  path: /api/dev/tier/partners/{partner_id}/customers/
+- name: get_partner
+  description: Get Partner
+  source_operation: openapi/hacware-openapi.yml#GetPartner
+  method: GET
+  path: /api/dev/tier/partners/{partner_id}
+- name: partner_list
+  description: Partner List
+  source_operation: openapi/hacware-openapi.yml#PartnerList
+  method: GET
+  path: /api/dev/tier/partners/
+- name: post_invite_partner
+  description: Create Partner and Invite Partner Admin.
+  source_operation: openapi/hacware-openapi.yml#PostInvitePartner
+  method: POST
+  path: /api/dev/tier/partners
+- name: update_customer_subscription
+  description: Update Customer Subscription
+  source_operation: openapi/hacware-openapi.yml#UpdateCustomerSubscription
+  method: PATCH
+  path: /api/dev/tier/partners/{partner_id}/customers/{customer_id}
+- name: update_partner
+  description: Update Partner
+  source_operation: openapi/hacware-openapi.yml#UpdatePartner
+  method: PATCH
+  path: /api/dev/tier/partners/{partner_id}
+- name: delete_remove_custom_simulation
+  description: Remove a custom simulation for future campaigns
+  source_operation: openapi/hacware-openapi.yml#DeleteRemoveCustomSimulation
+  method: DELETE
+  path: /api/v1/phish/remove_custom_simulation/
+- name: get_custom_phish_simulations_list
+  description: Get Custom Simulations List
+  source_operation: openapi/hacware-openapi.yml#GetCustomPhishSimulationsList
+  method: GET
+  path: /api/v1/phish/custom-simulations-list/
+- name: get_phish_campaign
+  description: Get Phish Campaign
+  source_operation: openapi/hacware-openapi.yml#GetPhishCampaign
+  method: GET
+  path: /api/v1/phish/campaign/
+- name: get_phish_responses
+  description: Get All Phishing Campaigns
+  source_operation: openapi/hacware-openapi.yml#GetPhishResponses
+  method: GET
+  path: /api/v1/phish/responses/
+- name: get_phish_responses_report
+  description: Gets Phishing Campaigns and Metrics
+  source_operation: openapi/hacware-openapi.yml#GetPhishResponsesReport
+  method: GET
+  path: /api/v1/phish/responses_report/
+- name: get_phish_simulation_template
+  description: Get Phish Simulation Template
+  source_operation: openapi/hacware-openapi.yml#GetPhishSimulationTemplate
+  method: GET
+  path: /api/v1/phish/get-simulation-template/
+- name: get_phish_simulations_list
+  description: Get Simulations List
+  source_operation: openapi/hacware-openapi.yml#GetPhishSimulationsList
+  method: GET
+  path: /api/v1/phish/simulations-list/
+- name: get_phish_users
+  description: Search Phish users
+  source_operation: openapi/hacware-openapi.yml#GetPhishUsers
+  method: GET
+  path: /api/v1/get/phish/users/
+- name: get_simulation
+  description: Get Phishing Simulation for User
+  source_operation: openapi/hacware-openapi.yml#GetSimulation
+  method: GET
+  path: /api/v1/phish/getsimulation/
+- name: post_change_cadence
+  description: Change Phishing Cadence
+  source_operation: openapi/hacware-openapi.yml#PostChangeCadence
+  method: POST
+  path: /api/v1/phish/change-cadence/
+- name: post_controlled_phish
+  description: Schedule Controlled Phish Campaign
+  source_operation: openapi/hacware-openapi.yml#PostControlledPhish
+  method: POST
+  path: /api/v1/phish/controlled-phish/
+- name: post_create_custom_simulation
+  description: Creates a custom simulation for future campaigns
+  source_operation: openapi/hacware-openapi.yml#PostCreateCustomSimulation
+  method: POST
+  path: /api/v1/phish/create_custom_simulation/
+- name: post_direct_phish
+  description: Schedule Phish Campaign
+  source_operation: openapi/hacware-openapi.yml#PostDirectPhish
+  method: POST
+  path: /api/v1/phish/directphish/
+- name: post_manage_phish
+  description: Delete Phish Campaign
+  source_operation: openapi/hacware-openapi.yml#PostManagePhish
+  method: POST
+  path: /api/v1/phish/manage/
+- name: post_phish_status
+  description: Show Phish Status
+  source_operation: openapi/hacware-openapi.yml#PostPhishStatus
+  method: GET
+  path: /api/v1/phish/getperformers/
+- name: post_phone_number
+  description: Add Phone Number
+  source_operation: openapi/hacware-openapi.yml#PostPhoneNumber
+  method: POST
+  path: /api/v1/user/add_phone_number/
+- name: post_phone_number_upload
+  description: Upload Phone Numbers
+  source_operation: openapi/hacware-openapi.yml#PostPhoneNumberUpload
+  method: POST
+  path: /api/v1/user/phone_number_upload/
+- name: get_average_days_training
+  description: Average Days Training Completed
+  source_operation: openapi/hacware-openapi.yml#GetAverageDaysTraining
+  method: GET
+  path: /api/v1/report/average_days_training/
+- name: get_company_report
+  description: Retrieve Company Report
+  source_operation: openapi/hacware-openapi.yml#GetCompanyReport
+  method: GET
+  path: /api/v1/org/companyreport/
+- name: get_dark_breach_report
+  description: Dark Breach Report
+  source_operation: openapi/hacware-openapi.yml#GetDarkBreachReport
+  method: GET
+  path: /api/v1/report/dark_breach_report/
+- name: get_dark_web_breach_count
+  description: Dark Web Breach Count
+  source_operation: openapi/hacware-openapi.yml#GetDarkWebBreachCount
+  method: GET
+  path: /api/v1/report/dark_breach_count/
+- name: get_export_all_phishing_history
+  description: Export All Phishing History
+  source_operation: openapi/hacware-openapi.yml#GetExportAllPhishingHistory
+  method: GET
+  path: /api/v1/report/export_all_phishing_history/
+- name: get_failed_simulations_count
+  description: Failed Simulation Count
+  source_operation: openapi/hacware-openapi.yml#GetFailedSimulationsCount
+  method: GET
+  path: /api/v1/report/failed_simulation_count/
+- name: get_failed_simulations_report
+  description: Failed Simulation Report
+  source_operation: openapi/hacware-openapi.yml#GetFailedSimulationsReport
+  method: GET
+  path: /api/v1/report/failed_simulation_report/
+- name: get_multiple_failure_count
+  description: Multiple Failure Count
+  source_operation: openapi/hacware-openapi.yml#GetMultipleFailureCount
+  method: GET
+  path: /api/v1/report/multiple_failure_count/
+- name: get_multiple_failure_report
+  description: Multiple Failure Report
+  source_operation: openapi/hacware-openapi.yml#GetMultipleFailureReport
+  method: GET
+  path: /api/v1/report/multiple_failure_report/
+- name: get_phishing_failures
+  description: Export Phishing Failures. A custom email and message can be passed in using 'Email' and
+    'Message' headers.
+  source_operation: openapi/hacware-openapi.yml#GetPhishingFailures
+  method: GET
+  path: /api/v1/report/export_failures/
+- name: get_report_summary
+  description: Report Summary
+  source_operation: openapi/hacware-openapi.yml#GetReportSummary
+  method: GET
+  path: /api/v1/report/report-summary/
+- name: get_training_report
+  description: Training Report
+  source_operation: openapi/hacware-openapi.yml#GetTrainingReport
+  method: GET
+  path: /api/v1/report/training_report/
+- name: get_user_add_on_count
+  description: User Reporter Add-on Count
+  source_operation: openapi/hacware-openapi.yml#GetUserAddOnCount
+  method: GET
+  path: /api/v1/report/user_addon_count/
+- name: get_user_addon_report
+  description: User Reporter Add-on Report
+  source_operation: openapi/hacware-openapi.yml#GetUserAddonReport
+  method: GET
+  path: /api/v1/report/user_addon_report/
+- name: phish_summary
+  description: Show Phish Summary Report
+  source_operation: openapi/hacware-openapi.yml#PhishSummary
+  method: GET
+  path: /api/v1/phish/summary/
+- name: get_partial_completed_training_count
+  description: Partial Completed Training Count
+  source_operation: openapi/hacware-openapi.yml#getPartialCompletedTrainingCount
+  method: GET
+  path: /api/v1/report/partial_completed_count/
+- name: add_course_member
+  description: Enroll User to Course
+  source_operation: openapi/hacware-openapi.yml#AddCourseMember
+  method: POST
+  path: /api/v1/train/add_course_member/
+- name: get_course_list
+  description: Get Course List
+  source_operation: openapi/hacware-openapi.yml#GetCourseList
+  method: GET
+  path: /api/v1/train/courselist/
+- name: get_course_quiz
+  description: Get Course
+  source_operation: openapi/hacware-openapi.yml#GetCourseQuiz
+  method: GET
+  path: /api/v1/train/getquiz/
+- name: get_course_quiz_list
+  description: Get All Recommendations
+  source_operation: openapi/hacware-openapi.yml#GetCourseQuizList
+  method: GET
+  path: /api/v1/train/coursequizlist/
+- name: get_course_rec_list
+  description: Get Course Recommendation List
+  source_operation: openapi/hacware-openapi.yml#GetCourseRecList
+  method: GET
+  path: /api/v1/train/course_list/
+- name: get_course_rec_list
+  description: Get Course Recommendation List
+  source_operation: openapi/hacware-openapi.yml#GetCourseRecList
+  method: GET
+  path: /api/v1/train/course_list_rec/
+- name: get_lesson_plan_list
+  description: Get Lesson Plan List
+  source_operation: openapi/hacware-openapi.yml#GetLessonPlanList
+  method: GET
+  path: /api/v1/train/lesson_list/
+- name: get_quiz_rec_list
+  description: Get Quiz Recommendation List
+  source_operation: openapi/hacware-openapi.yml#GetQuizRecList
+  method: GET
+  path: /api/v1/train/quiz_list/
+- name: get_quiz_rec_list
+  description: Get Quiz Recommendation List
+  source_operation: openapi/hacware-openapi.yml#GetQuizRecList
+  method: GET
+  path: /api/v1/train/quiz_list_rec/
+- name: p_o_s_t_create_course
+  description: Create Course
+  source_operation: openapi/hacware-openapi.yml#POSTCreateCourse
+  method: POST
+  path: /api/v1/train/createcourse/
+- name: post_add_course_lesson_plan
+  description: Add Course to Lesson Plan
+  source_operation: openapi/hacware-openapi.yml#PostAddCourseLessonPlan
+  method: POST
+  path: /api/v1/train/add_course_lesson/
+- name: post_add_member_lesson_plan
+  description: Add User to Lesson Plan
+  source_operation: openapi/hacware-openapi.yml#PostAddMemberLessonPlan
+  method: POST
+  path: /api/v1/train/add_member_lesson/
+- name: post_create_course_rec
+  description: Create Course Recommendation
+  source_operation: openapi/hacware-openapi.yml#PostCreateCourseRec
+  method: POST
+  path: /api/v1/train/create_course_rec/
+- name: post_create_lesson_plan
+  description: Create Lesson Plan
+  source_operation: openapi/hacware-openapi.yml#PostCreateLessonPlan
+  method: POST
+  path: /api/v1/train/create_lesson/
+- name: post_create_recommendation
+  description: Create a new quiz recommendation.
+  source_operation: openapi/hacware-openapi.yml#PostCreateRecommendation
+  method: POST
+  path: /api/v1/train/add_quiz_rec/
+- name: post_del_course_lesson_plan
+  description: Delete Course from Lesson Plan
+  source_operation: openapi/hacware-openapi.yml#PostDelCourseLessonPlan
+  method: POST
+  path: /api/v1/train/del_course_lesson/
+- name: post_del_course_rec
+  description: Delete Course Recommendation
+  source_operation: openapi/hacware-openapi.yml#PostDelCourseRec
+  method: POST
+  path: /api/v1/train/del_course_rec/
+- name: post_del_lesson_plan
+  description: Delete Lesson Plan
+  source_operation: openapi/hacware-openapi.yml#PostDelLessonPlan
+  method: POST
+  path: /api/v1/train/del_lesson/
+- name: post_del_member_lesson_plan
+  description: Delete User from Lesson Plan
+  source_operation: openapi/hacware-openapi.yml#PostDelMemberLessonPlan
+  method: POST
+  path: /api/v1/train/del_member_lesson/
+- name: post_del_recommendation
+  description: Delete Quiz Recommendation
+  source_operation: openapi/hacware-openapi.yml#PostDelRecommendation
+  method: POST
+  path: /api/v1/train/del_quiz_rec/
+- name: post_delete_group
+  description: Delete a Course
+  source_operation: openapi/hacware-openapi.yml#PostDeleteGroup
+  method: POST
+  path: /api/v1/train/delcourse/
+- name: post_delete_group_member
+  description: Delete Course User
+  source_operation: openapi/hacware-openapi.yml#PostDeleteGroupMember
+  method: POST
+  path: /api/v1/train/del_course_member/
+- name: post_quick_schedule
+  description: Auto Enroll User to Course
+  source_operation: openapi/hacware-openapi.yml#PostQuickSchedule
+  method: POST
+  path: /api/v1/train/quickschedule/
+- name: post_send_train_reminder
+  description: Remind User About Training
+  source_operation: openapi/hacware-openapi.yml#PostSendTrainReminder
+  method: POST
+  path: /api/v1/train/reminder/
+- name: post_set_train_link
+  description: Set Training Link
+  source_operation: openapi/hacware-openapi.yml#PostSetTrainLink
+  method: POST
+  path: /api/v1/license/set_train_link/
+- name: post_train_history
+  description: Train History
+  source_operation: openapi/hacware-openapi.yml#PostTrainHistory
+  method: GET
+  path: /api/v1/get/train/history/
+- name: post_train_status
+  description: Get Training Status
+  source_operation: openapi/hacware-openapi.yml#PostTrainStatus
+  method: GET
+  path: /api/v1/train/status/
+- name: post_update_recommendation
+  description: Update Quiz Recommendation.
+  source_operation: openapi/hacware-openapi.yml#PostUpdateRecommendation
+  method: POST
+  path: /api/v1/train/update_quiz_rec/
+- name: get_user_dept_managment
+  description: Get Manage Department List
+  source_operation: openapi/hacware-openapi.yml#GetUserDeptManagment
+  method: GET
+  path: /api/v1/user/manage-departments/
+- name: get_user_list
+  description: Get User List
+  source_operation: openapi/hacware-openapi.yml#GetUserList
+  method: GET
+  path: /api/v1/user/get_user_list
+- name: get_user_reports
+  description: Search a Page of Users
+  source_operation: openapi/hacware-openapi.yml#GetUserReports
+  method: GET
+  path: /api/v1/user/reports/
+- name: get_user_s_m_s_status
+  description: Get User SMS Status
+  source_operation: openapi/hacware-openapi.yml#GetUserSMSStatus
+  method: POST
+  path: /api/v1/user/user_sms_status/
+- name: get_user_vulnerability
+  description: Search User Vulnerability
+  source_operation: openapi/hacware-openapi.yml#GetUserVulnerability
+  method: GET
+  path: /api/v1/user/search/vulnerability/
+- name: get_user_with_email
+  description: Search User Email
+  source_operation: openapi/hacware-openapi.yml#GetUserWithEmail
+  method: GET
+  path: /api/v1/user/search/email/
+- name: post_add_users
+  description: Add New Users
+  source_operation: openapi/hacware-openapi.yml#PostAddUsers
+  method: POST
+  path: /api/v1/user/add-users/
+- name: post_user_dept_managment
+  description: Assign User to Department
+  source_operation: openapi/hacware-openapi.yml#PostUserDeptManagment
+  method: POST
+  path: /api/v1/user/manage_departments/
+- name: post_user_update_status
+  description: Update User Status
+  source_operation: openapi/hacware-openapi.yml#PostUserUpdateStatus
+  method: POST
+  path: /api/v1/user/update_status/

@@ -1,7 +1,15 @@
 aid: hacware
 name: Hacware
-description: Hacware is a company surfaced as a portfolio company of techstars and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  HacWare is an AI-powered security awareness training and phishing simulation platform that helps
+  organizations reduce human-factor cyber risk. Its RESTful Security Awareness API lets partners and
+  developers embed HacWare into their own products: schedule and manage AI-generated phishing
+  simulations (clickable link, attachment, direct response, and SMS), enroll users in micro-training
+  courses, lesson plans and quizzes, run dark web breach reporting and human-risk assessments,
+  manage users, groups and Microsoft 365 security groups, and operate a multi-tenant partner/customer
+  hierarchy with compliance evidence retrieval. The API is documented with apiDoc and exposes 114
+  operations across Phishing, Training, Reporting, User, Group, Compliance, and Multi-Tenant surfaces.
+  HacWare is a Techstars portfolio company.
 url: https://raw.githubusercontent.com/api-evangelist/hacware/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -9,12 +17,297 @@ x-backed-by:
 - techstars
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
+image: https://hacware.com/img/logo.png
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
-apis: []
+- Security
+- Cybersecurity
+- Security Awareness
+- Phishing
+- Training
+- Compliance
+- Email Security
+- Artificial Intelligence
+apis:
+- aid: hacware:hacware-admin-api
+  name: Hacware Admin API
+  description: The Admin API from Hacware — 3 operation(s) for admin.
+  humanURL: https://www.hacware.com/doc/index.html
+  baseURL: https://app.hacware.com
+  tags:
+  - Admin
+  properties:
+  - type: OpenAPI
+    url: openapi/hacware-admin-api-openapi.yml
+  - type: Authentication
+    url: authentication/hacware-authentication.yml
+  - type: ErrorCatalog
+    url: errors/hacware-problem-types.yml
+  - type: Conventions
+    url: conventions/hacware-conventions.yml
+  - type: DataModel
+    url: data-model/hacware-data-model.yml
+  - type: Conformance
+    url: conformance/hacware-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/hacware-lifecycle.yml
+  - type: AgenticAccess
+    url: agentic-access/hacware-agentic-access.yml
+- aid: hacware:hacware-compliance-api
+  name: Hacware Compliance API
+  description: The Compliance API from Hacware — 7 operation(s) for compliance.
+  humanURL: https://www.hacware.com/doc/index.html
+  baseURL: https://app.hacware.com
+  tags:
+  - Compliance
+  properties:
+  - type: OpenAPI
+    url: openapi/hacware-compliance-api-openapi.yml
+  - type: Authentication
+    url: authentication/hacware-authentication.yml
+  - type: ErrorCatalog
+    url: errors/hacware-problem-types.yml
+  - type: Conventions
+    url: conventions/hacware-conventions.yml
+  - type: DataModel
+    url: data-model/hacware-data-model.yml
+  - type: Conformance
+    url: conformance/hacware-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/hacware-lifecycle.yml
+  - type: AgenticAccess
+    url: agentic-access/hacware-agentic-access.yml
+- aid: hacware:hacware-compliance-tenant-api
+  name: Hacware Compliance-Tenant API
+  description: The Compliance-Tenant API from Hacware — 5 operation(s) for compliance-tenant.
+  humanURL: https://www.hacware.com/doc/index.html
+  baseURL: https://app.hacware.com
+  tags:
+  - Compliance-Tenant
+  properties:
+  - type: OpenAPI
+    url: openapi/hacware-compliance-tenant-api-openapi.yml
+  - type: Authentication
+    url: authentication/hacware-authentication.yml
+  - type: ErrorCatalog
+    url: errors/hacware-problem-types.yml
+  - type: Conventions
+    url: conventions/hacware-conventions.yml
+  - type: DataModel
+    url: data-model/hacware-data-model.yml
+  - type: Conformance
+    url: conformance/hacware-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/hacware-lifecycle.yml
+  - type: AgenticAccess
+    url: agentic-access/hacware-agentic-access.yml
+- aid: hacware:hacware-customer-api
+  name: Hacware Customer API
+  description: The Customer API from Hacware — 6 operation(s) for customer.
+  humanURL: https://www.hacware.com/doc/index.html
+  baseURL: https://app.hacware.com
+  tags:
+  - Customer
+  properties:
+  - type: OpenAPI
+    url: openapi/hacware-customer-api-openapi.yml
+  - type: Authentication
+    url: authentication/hacware-authentication.yml
+  - type: ErrorCatalog
+    url: errors/hacware-problem-types.yml
+  - type: Conventions
+    url: conventions/hacware-conventions.yml
+  - type: DataModel
+    url: data-model/hacware-data-model.yml
+  - type: Conformance
+    url: conformance/hacware-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/hacware-lifecycle.yml
+  - type: AgenticAccess
+    url: agentic-access/hacware-agentic-access.yml
+- aid: hacware:hacware-email-tenant-api
+  name: Hacware Email-Tenant API
+  description: The Email-Tenant API from Hacware — 1 operation(s) for email-tenant.
+  humanURL: https://www.hacware.com/doc/index.html
+  baseURL: https://app.hacware.com
+  tags:
+  - Email-Tenant
+  properties:
+  - type: OpenAPI
+    url: openapi/hacware-email-tenant-api-openapi.yml
+  - type: Authentication
+    url: authentication/hacware-authentication.yml
+  - type: ErrorCatalog
+    url: errors/hacware-problem-types.yml
+  - type: Conventions
+    url: conventions/hacware-conventions.yml
+  - type: DataModel
+    url: data-model/hacware-data-model.yml
+  - type: Conformance
+    url: conformance/hacware-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/hacware-lifecycle.yml
+  - type: AgenticAccess
+    url: agentic-access/hacware-agentic-access.yml
+- aid: hacware:hacware-group-api
+  name: Hacware Group API
+  description: The Group API from Hacware — 12 operation(s) for group.
+  humanURL: https://www.hacware.com/doc/index.html
+  baseURL: https://app.hacware.com
+  tags:
+  - Group
+  properties:
+  - type: OpenAPI
+    url: openapi/hacware-group-api-openapi.yml
+  - type: Authentication
+    url: authentication/hacware-authentication.yml
+  - type: ErrorCatalog
+    url: errors/hacware-problem-types.yml
+  - type: Conventions
+    url: conventions/hacware-conventions.yml
+  - type: DataModel
+    url: data-model/hacware-data-model.yml
+  - type: Conformance
+    url: conformance/hacware-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/hacware-lifecycle.yml
+  - type: AgenticAccess
+    url: agentic-access/hacware-agentic-access.yml
+- aid: hacware:hacware-multi-tenant-api
+  name: Hacware Multi-Tenant API
+  description: The Multi-Tenant API from Hacware — 5 operation(s) for multi-tenant.
+  humanURL: https://www.hacware.com/doc/index.html
+  baseURL: https://app.hacware.com
+  tags:
+  - Multi-Tenant
+  properties:
+  - type: OpenAPI
+    url: openapi/hacware-multi-tenant-api-openapi.yml
+  - type: Authentication
+    url: authentication/hacware-authentication.yml
+  - type: ErrorCatalog
+    url: errors/hacware-problem-types.yml
+  - type: Conventions
+    url: conventions/hacware-conventions.yml
+  - type: DataModel
+    url: data-model/hacware-data-model.yml
+  - type: Conformance
+    url: conformance/hacware-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/hacware-lifecycle.yml
+  - type: AgenticAccess
+    url: agentic-access/hacware-agentic-access.yml
+- aid: hacware:hacware-phishing-api
+  name: Hacware Phishing API
+  description: The Phishing API from Hacware — 17 operation(s) for phishing.
+  humanURL: https://www.hacware.com/doc/index.html
+  baseURL: https://app.hacware.com
+  tags:
+  - Phishing
+  properties:
+  - type: OpenAPI
+    url: openapi/hacware-phishing-api-openapi.yml
+  - type: Authentication
+    url: authentication/hacware-authentication.yml
+  - type: ErrorCatalog
+    url: errors/hacware-problem-types.yml
+  - type: Conventions
+    url: conventions/hacware-conventions.yml
+  - type: DataModel
+    url: data-model/hacware-data-model.yml
+  - type: Conformance
+    url: conformance/hacware-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/hacware-lifecycle.yml
+  - type: AgenticAccess
+    url: agentic-access/hacware-agentic-access.yml
+- aid: hacware:hacware-report-api
+  name: Hacware Report API
+  description: The Report API from Hacware — 16 operation(s) for report.
+  humanURL: https://www.hacware.com/doc/index.html
+  baseURL: https://app.hacware.com
+  tags:
+  - Report
+  properties:
+  - type: OpenAPI
+    url: openapi/hacware-report-api-openapi.yml
+  - type: Authentication
+    url: authentication/hacware-authentication.yml
+  - type: ErrorCatalog
+    url: errors/hacware-problem-types.yml
+  - type: Conventions
+    url: conventions/hacware-conventions.yml
+  - type: DataModel
+    url: data-model/hacware-data-model.yml
+  - type: Conformance
+    url: conformance/hacware-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/hacware-lifecycle.yml
+  - type: AgenticAccess
+    url: agentic-access/hacware-agentic-access.yml
+- aid: hacware:hacware-training-api
+  name: Hacware Training API
+  description: The Training API from Hacware — 28 operation(s) for training.
+  humanURL: https://www.hacware.com/doc/index.html
+  baseURL: https://app.hacware.com
+  tags:
+  - Training
+  properties:
+  - type: OpenAPI
+    url: openapi/hacware-training-api-openapi.yml
+  - type: Authentication
+    url: authentication/hacware-authentication.yml
+  - type: ErrorCatalog
+    url: errors/hacware-problem-types.yml
+  - type: Conventions
+    url: conventions/hacware-conventions.yml
+  - type: DataModel
+    url: data-model/hacware-data-model.yml
+  - type: Conformance
+    url: conformance/hacware-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/hacware-lifecycle.yml
+  - type: AgenticAccess
+    url: agentic-access/hacware-agentic-access.yml
+- aid: hacware:hacware-user-api
+  name: Hacware User API
+  description: The User API from Hacware — 9 operation(s) for user.
+  humanURL: https://www.hacware.com/doc/index.html
+  baseURL: https://app.hacware.com
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/hacware-user-api-openapi.yml
+  - type: Authentication
+    url: authentication/hacware-authentication.yml
+  - type: ErrorCatalog
+    url: errors/hacware-problem-types.yml
+  - type: Conventions
+    url: conventions/hacware-conventions.yml
+  - type: DataModel
+    url: data-model/hacware-data-model.yml
+  - type: Conformance
+    url: conformance/hacware-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/hacware-lifecycle.yml
+  - type: AgenticAccess
+    url: agentic-access/hacware-agentic-access.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -23,3 +316,34 @@ maintainers:
 common:
 - type: Website
   url: https://hacware.com/
+- type: DeveloperPortal
+  url: https://hacware.com/dev.html
+- type: Documentation
+  url: https://www.hacware.com/doc/index.html
+- type: APIReference
+  url: https://www.hacware.com/doc/index.html
+- type: GettingStarted
+  url: https://hacware.com/dev.html#partner-app
+- type: Pricing
+  url: https://hacware.com/dev.html
+- type: SignUp
+  url: https://hacware.com/
+- type: Support
+  url: mailto:hello@hacware.com
+- type: Blog
+  url: https://resources.hacware.com/
+- type: TermsOfService
+  url: https://hacware.com/terms-of-service
+- type: PrivacyPolicy
+  url: https://hacware.com/privacy.pdf
+- type: LLMsTxt
+  url: llms/hacware-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DomainSecurity
+  url: security/hacware-domain-security.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

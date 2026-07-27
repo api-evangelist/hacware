@@ -1,0 +1,3759 @@
+# generated: '2026-07-19'
+# method: searched
+# source: https://www.hacware.com/doc/api_data.json (HacWare apiDoc documentation, v1.0.4)
+# note: Derived by API Evangelist from HacWare's published apiDoc reference (114 operations).
+openapi: 3.0.3
+info:
+  title: Security Awareness API Documentation
+  description: This API documentation explains how to build your own AI powered security awareness and
+    training application. HacWare is an AI-powered security awareness training and phishing simulation
+    platform. This OpenAPI was derived by API Evangelist from HacWare's published apiDoc documentation.
+  version: 1.0.4
+  contact:
+    name: HacWare
+    email: hello@hacware.com
+    url: https://hacware.com/dev.html
+  termsOfService: https://hacware.com/terms-of-service
+externalDocs:
+  description: HacWare API Documentation
+  url: https://www.hacware.com/doc/index.html
+servers:
+- url: https://{domain}
+  description: Per-tenant HacWare API host; {domain} is the subdomain assigned to your company at onboarding.
+  variables:
+    domain:
+      default: app.hacware.com
+tags:
+- name: Admin
+- name: Compliance-Tenant
+- name: Compliance
+- name: Customer
+- name: Email-Tenant
+- name: Group
+- name: Multi-Tenant
+- name: Phishing
+- name: Report
+- name: Training
+- name: User
+paths:
+  /api/v1/auth/:
+    post:
+      operationId: PostAPIAuth
+      summary: API Auth
+      description: Validates the secret key with the application id in order to generate the refresh and
+        access tokens.
+      tags:
+      - Admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                appid:
+                  type: string
+                  description: Developer Application ID / APPID. This can be found in the developer dashboard.
+                    (Required)
+                sec:
+                  type: string
+                  description: The Application secret key to gain access to the customer account. It is
+                    sent to the redirection_url in the add_customer endpoint. (Required)
+              required:
+              - appid
+              - sec
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security: []
+  /api/dev/tier/status/:
+    get:
+      operationId: PostAPIStatus
+      summary: API Status
+      description: Provides a health status of the API.
+      tags:
+      - Admin
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/dev/tier/auth/:
+    post:
+      operationId: PostTieredAPIAuth
+      summary: Tiered API Auth
+      description: Validates the secret key to sign into API and generate the access tokens.
+      tags:
+      - Admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                appid:
+                  type: string
+                  description: Developer Application ID / APPID. This can be found in the developer dashboard.
+                    (Required)
+                sec:
+                  type: string
+                  description: The Application secret key to gain access to the partner account information.
+                    (Required)
+              required:
+              - appid
+              - sec
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security: []
+  /api/v1/compliance/provider/auth_info:
+    get:
+      operationId: AuthenticationInformation
+      summary: Authentication Information
+      description: Returns the fields required for Authentication
+      tags:
+      - Compliance-Tenant
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/compliance/:
+    get:
+      operationId: ComplianceRoot
+      summary: Compliance Root
+      description: Returns public information about this compliance implementation.
+      tags:
+      - Compliance-Tenant
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/compliance/evidences2:
+    get:
+      operationId: EvidenceData
+      summary: Evidence Data
+      description: Retrieves Evidence.
+      tags:
+      - Compliance-Tenant
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/compliance/downloads:
+    get:
+      operationId: Get_Settings
+      summary: Get Settings
+      description: Retrieves Settings.
+      tags:
+      - Compliance-Tenant
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/compliance/evidences:
+    get:
+      operationId: Evidences
+      summary: Evidences
+      description: Retrieves a list of possible evidences.
+      tags:
+      - Compliance-Tenant
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/compliance/provider/auth_info/:
+    get:
+      operationId: Authentication_Information
+      summary: Authentication Information
+      description: Returns public information describing the type of authentication the evidence provider
+        uses.
+      tags:
+      - Compliance
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/compliance/provider/authorize/:
+    post:
+      operationId: ComplianceAuthentication
+      summary: Compliance Authentication
+      description: Validates the login credentials and generates the access token and the refresh token.
+      tags:
+      - Compliance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  description: Developer Application ID / APPID. (Required)
+                password:
+                  type: string
+                  description: The Application secret key to gain access to the partner account information.
+                    (Required)
+                subdomain:
+                  type: string
+                  description: The tenant subdomain from which to retrieve the compliance data. (Required)
+              required:
+              - username
+              - password
+              - subdomain
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security: []
+  /api/compliance/evidences/{evidence_slug}:
+    get:
+      operationId: EvidenceData
+      summary: Evidence Data
+      description: Returns data for a specific piece of evidence identified by {evidence_slug}.
+      tags:
+      - Compliance
+      parameters:
+      - name: evidence_slug
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/compliance/evidences/{evidence_slug}/download:
+    get:
+      operationId: EvidenceDataDownload
+      summary: Evidence Data Download
+      description: Returns a document for the data of a specific piece of evidence identified by {evidence_slug}.
+      tags:
+      - Compliance
+      parameters:
+      - name: evidence_slug
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/compliance/evidences/:
+    get:
+      operationId: Evidences
+      summary: Evidences
+      description: Returns a list of evidence that instance provides.
+      tags:
+      - Compliance
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/compliance/settings:
+    get:
+      operationId: Settings
+      summary: Settings
+      description: Returns a data dictionary of settings data.
+      tags:
+      - Compliance
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+    put:
+      operationId: SettingsUpdate
+      summary: Settings Update
+      description: Update settings data.
+      tags:
+      - Compliance
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/compliance/provider/authorize/token:
+    post:
+      operationId: TokenRefresh
+      summary: Token Refresh
+      description: Refresh the access token.
+      tags:
+      - Compliance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+                  description: from the authorize or the authorize/token API call. (Required)
+              required:
+              - refreshToken
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/admin/get_company_dns:
+    get:
+      operationId: GetCompanyDNS
+      summary: Get Company DNS
+      description: Returns the company DNS information.
+      tags:
+      - Customer
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/admin/brandupload/:
+    post:
+      operationId: PostBrandUpload
+      summary: Brand Upload
+      description: Uploads company logo link and changes application name.
+      tags:
+      - Customer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company_name:
+                  type: string
+                  description: Company name that will be changed on the application. (Required)
+                logo_link:
+                  type: string
+                  description: Imagelink of the company logo to be uploaded to the application. (Required)
+              required:
+              - company_name
+              - logo_link
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/admin/brand_upload_reporter/:
+    post:
+      operationId: PostBrandUploadReporter
+      summary: Brand Upload for Reporter
+      description: Uploads company logo link for the reporter.
+      tags:
+      - Customer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company_name:
+                  type: string
+                  description: Company name that will be changed on the application. (Required)
+                logo_link:
+                  type: string
+                  description: Imagelink of the company logo to be uploaded to the application. (Required)
+              required:
+              - company_name
+              - logo_link
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/admin/custom_domain:
+    post:
+      operationId: PostCustomDomain
+      summary: Upload custom domain.
+      description: Changes the customer default domain to a custom domain. For example, default is company.hacware.com
+        to the new domain for that custom.
+      tags:
+      - Customer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                custom_domain:
+                  type: string
+                  description: New custom domain to be uploaded. (Required)
+              required:
+              - custom_domain
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/org/update-company-info/:
+    post:
+      operationId: PostUpdateCompanyInformation
+      summary: Update Company Information
+      description: Change the Company Information
+      tags:
+      - Customer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                full_company_name:
+                  type: string
+                  description: The full company name for the company. (Optional)
+                company_alias:
+                  type: string
+                  description: The company alias is the abbreviation and short version of the company
+                    name. (Optional)
+                ceo_name:
+                  type: string
+                  description: The ceo name is the CEO first name and last name or the company leadership.  This
+                    will be used in phishing messages. (Required)
+                ceo_email:
+                  type: string
+                  description: The ceo email is the CEO email address that will be used in phishing simulations.
+                    (Required)
+                security_officer:
+                  type: string
+                  description: The security leads first and last name. This will be used for phishing
+                    and emails. (Required)
+                sec_officer_email:
+                  type: string
+                  description: The security officer's email.  This will be used in phishing email and
+                    training escalations. (Required)
+                product_type:
+                  type: string
+                  description: The product type defines the type of product. The product type was Pro,
+                    Plus, Super, and Basic. (Optional)
+                send_reminders_and_esclations:
+                  type: string
+                  description: The send_reminders_and_esclations is a 'true'/'false' value for turning
+                    on or off the training reminders.  The default value is 'true'. (Optional)
+                sec_escalation_email:
+                  type: string
+                  description: The sec_escalation_email is the security training reminder contact. (Optional)
+                mgt_escalation_email:
+                  type: string
+                  description: The mgt_escalation_email is the management training reminder contact. (Optional)
+                phish_report_email:
+                  type: string
+                  description: The phish_report_email is the phishing report email contact. (Required)
+                invites_enabled:
+                  type: string
+                  description: The invites_enabled is a 'true'/'false' value for turning on or off welcome
+                    emails. The default value is 'true'. (Optional)
+                lang:
+                  type: string
+                  description: lang is a string containing a two-letter ISO language code. The default
+                    value is 'en'. (Optional)
+                role_manager:
+                  type: string
+                  description: role_maanger is a string that determines how user roles or managed. It
+                    can be either 'invite' (HacWare email invites) or 'ms' (Microsoft Entra ID). (Optional)
+              required:
+              - ceo_name
+              - ceo_email
+              - security_officer
+              - sec_officer_email
+              - phish_report_email
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/admin/reset_custom_domain:
+    post:
+      operationId: ResetCustomDomain
+      summary: Reset custom domain.
+      description: Uploads a custom domain.
+      tags:
+      - Customer
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/set-welcome-email:
+    post:
+      operationId: EnableWelcomeEmail
+      summary: Enable/Disable Welcome Email
+      description: Enables or disables the welcome email feature.
+      tags:
+      - Email-Tenant
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/security_groups/delete:
+    post:
+      operationId: DelMicrosoftSecurityGroups
+      summary: Delete Synced MS Group
+      description: Deletes the current synced Microsoft Security Group tied to certain HacWare user licenses.
+      tags:
+      - Group
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/group/grouplist/:
+    get:
+      operationId: GetGroupList
+      summary: Get Group List
+      description: Return a list of all the groups or a specific group in the account.
+      tags:
+      - Group
+      parameters:
+      - name: GroupName
+        in: query
+        schema:
+          type: string
+        description: Group Name. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/security_groups/members:
+    get:
+      operationId: GetMicrosoftSecurityGroupMembers
+      summary: Get Microsoft Security Group Members
+      description: Retrieves all HacWare user licenses synced to a Microsoft Security Group by using its
+        id.
+      tags:
+      - Group
+      parameters:
+      - name: uid
+        in: query
+        schema:
+          type: string
+        description: Unique Microsoft Security Group ID to activate HacWare user licenses from. (Required)
+        required: true
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/security_groups/list:
+    get:
+      operationId: GetMicrosoftSecurityGroups
+      summary: Get Microsoft Security Groups
+      description: Get all information from security groups connected to Microsoft for platforms on Outlook.
+      tags:
+      - Group
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/security_groups/synclist:
+    get:
+      operationId: GetMicrosoftSecurityGroupsSyncList
+      summary: Get Synced MS Group
+      description: Gets the current synced security group from Microsoft that is tied to certain HacWare
+        user licenses.
+      tags:
+      - Group
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/group/add/:
+    post:
+      operationId: PostAddGroup
+      summary: Add a Group
+      description: Adds a new group to the account if it doesn't already exists.
+      tags:
+      - Group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                GroupName:
+                  type: string
+                  description: Group Name. (Required)
+                GroupDesc:
+                  type: string
+                  description: Description of the group. (Required)
+                GroupSymbol:
+                  type: string
+                  description: Symbol for the group. (Optional)
+                GroupColor:
+                  type: string
+                  description: Color for the group icon. (Optional)
+                GroupLeader:
+                  type: string
+                  description: User leader for the group. Identified by the user's email. (Optional)
+              required:
+              - GroupName
+              - GroupDesc
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/group/add_group_member/:
+    post:
+      operationId: PostAddGroupMember
+      summary: Add a User to a Group
+      description: Adds a group to the user's document.
+      tags:
+      - Group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                UserEmail:
+                  type: string
+                  description: User's email (Required)
+                GroupID:
+                  type: string
+                  description: Group ID. (Required)
+              required:
+              - UserEmail
+              - GroupID
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/group/delete/:
+    post:
+      operationId: PostDeleteGroup
+      summary: Delete a Group
+      description: Deletes a group if it exists in the account.
+      tags:
+      - Group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                GroupID:
+                  type: string
+                  description: Group ID. (Required)
+              required:
+              - GroupID
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/group/delete_group_member/:
+    post:
+      operationId: PostDeleteGroupMember
+      summary: Delete a User from Group
+      description: Deletes a group from the user's document.
+      tags:
+      - Group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                UserEmail:
+                  type: string
+                  description: User's Email (Required)
+                GroupID:
+                  type: string
+                  description: Group ID. (Required)
+              required:
+              - UserEmail
+              - GroupID
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/security_groups/update:
+    post:
+      operationId: PostMicrosoftSecurityGroups
+      summary: Update Microsoft Security Group Users
+      description: Activates or deactivates all HacWare user licenses synced to a Microsoft Security Group
+        by using its id.
+      tags:
+      - Group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uid:
+                  type: string
+                  description: Unique Microsoft Security Group ID to activate HacWare user licenses from.
+                    (Required)
+              required:
+              - uid
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/group/update/:
+    post:
+      operationId: PostUpdateGroup
+      summary: Update a Group
+      description: Updates a group if it already exists in the account.
+      tags:
+      - Group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                GroupNameOld:
+                  type: string
+                  description: Old group name. (Required)
+                GroupNameNew:
+                  type: string
+                  description: New Group name. (Optional)
+                GroupDesc:
+                  type: string
+                  description: Description of the group. (Optional)
+                GroupSymbol:
+                  type: string
+                  description: Symbol for the group. (Optional)
+                GroupLeader:
+                  type: string
+                  description: User leader for the group. Identified by the user's email. (Optional)
+              required:
+              - GroupNameOld
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/group/update_group_member/:
+    post:
+      operationId: PostUpdateGroupMembers
+      summary: Update a User's Group
+      description: Updates the group in the user's document. Only used when the symbol for the group has
+        been changed.
+      tags:
+      - Group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                UserEmail:
+                  type: string
+                  description: User's Email. (Required)
+                GroupID:
+                  type: string
+                  description: Group ID. (Required)
+                GroupSymbol:
+                  type: string
+                  description: The group symbol. (Required)
+              required:
+              - UserEmail
+              - GroupID
+              - GroupSymbol
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/dev/tier/partners/{partner_id}/customers/:
+    post:
+      operationId: AddCustomer
+      summary: Create Customer
+      description: Creates a customer account and invites a customer admin to finish the installation
+        process.
+      tags:
+      - Multi-Tenant
+      parameters:
+      - name: partner_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                partner_name:
+                  type: string
+                  description: Partner name of the partner full name. (Required)
+                partner_email:
+                  type: string
+                  description: Partner email address. (Required)
+                so_name:
+                  type: string
+                  description: Security Officer full name (First Name and Last Name). (Required)
+                so_email:
+                  type: string
+                  description: Security Officer email address. (Required)
+                so_phone:
+                  type: string
+                  description: Security Officer phone number. (Required)
+                company_name:
+                  type: string
+                  description: Company Name is the company's full name for the Account. For Example, Our
+                    official name is Company, Inc. (Required)
+                company_alias:
+                  type: string
+                  description: Company Alias is the company's common name or DBA (doing business as) name
+                    for the Account. For Example, You can call us by Company (Required)
+                ceo_name:
+                  type: string
+                  description: Company leader full name. (Required)
+                ceo_email:
+                  type: string
+                  description: Company leader email address. (Required)
+                employee_count:
+                  type: number
+                  description: Company Total Number of employees. (Required)
+                contract_type:
+                  type: string
+                  description: Contract Type is TRIAL, MONTHLY, and YEARLY. (Required)
+                product_type:
+                  type: string
+                  description: Product Type is PRO and PLUS. (Required)
+                email_type:
+                  type: string
+                  description: Email Type is Outlook, Gmail, and Open. (Required)
+                redirection_url:
+                  type: string
+                  description: The redirection URL that will be called when the customer is finished building.
+                    A POST request will be made to this endpoint with partner ID. (Optional)
+                send_onboard_msgs:
+                  type: string
+                  description: The send_onboard_msgs flag accepts the string 'on' or 'off'. When send_onboard_msgs
+                    = 'on', it will send the onboarding emails to the security and ceo point of contact.  When
+                    send_onboard_msgs = 'off', the system will not send onboarding emails. The system
+                    will not notify the users about creating an account via email. (Optional)
+              required:
+              - partner_name
+              - partner_email
+              - so_name
+              - so_email
+              - so_phone
+              - company_name
+              - company_alias
+              - ceo_name
+              - ceo_email
+              - employee_count
+              - contract_type
+              - product_type
+              - email_type
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+    get:
+      operationId: CustomerList
+      summary: Customer List
+      description: A list of the partner's customers and their monthly usage.
+      tags:
+      - Multi-Tenant
+      parameters:
+      - name: partner_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: sub_domain
+        in: query
+        schema:
+          type: string
+        description: The access URL for the customer. (Optional)
+      - name: company_name
+        in: query
+        schema:
+          type: string
+        description: Company Name is the company's full name for the Account. For Example, Our official
+          name is Company, Inc. (Optional)
+      - name: start_date
+        in: query
+        schema:
+          type: string
+        description: The start_date stores the date that the query should begin. (Optional)
+      - name: end_date
+        in: query
+        schema:
+          type: string
+        description: The end_date stores the date that the query should end. (Optional)
+      - name: company_id
+        in: query
+        schema:
+          type: string
+        description: The company_id is used to filter results by company id. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/dev/tier/partners/{partner_id}/customers/{customer_id}:
+    delete:
+      operationId: CancelCustomerSubscription
+      summary: Cancel Customer Subscription
+      description: Cancels their customer.
+      tags:
+      - Multi-Tenant
+      parameters:
+      - name: partner_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: customer_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+    patch:
+      operationId: UpdateCustomerSubscription
+      summary: Update Customer Subscription
+      description: Updates Customer Subscription by changing the product, billing cycle, and account status.
+      tags:
+      - Multi-Tenant
+      parameters:
+      - name: partner_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: customer_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                action:
+                  type: array
+                  items:
+                    type: string
+                  description: The action is a list of actions that are needed to update the customer
+                    subscription.
+                action.enabled:
+                  type: boolean
+                  description: The action.enabled will store true if the account status is "VERIFIED"
+                    and active. It will store false if the customer account is EXPIRED or canceled.
+                action.trial:
+                  type: boolean
+                  description: This action.trial stores true if the account should be trial access and
+                    false if the account should be upgraded to paid.  It will default to contract_type
+                    = MONTHLY.
+                action.product:
+                  type: string
+                  description: This action.product will store Pro, Plus, or Super for the customer subscription.  If
+                    you change the product it will change the billing and feature access.
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/dev/tier/partners/{partner_id}:
+    get:
+      operationId: GetPartner
+      summary: Get Partner
+      description: Retrieves the partner account and subscription status.
+      tags:
+      - Multi-Tenant
+      parameters:
+      - name: partner_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+    patch:
+      operationId: UpdatePartner
+      summary: Update Partner
+      description: Updates the partner account and subscription status.
+      tags:
+      - Multi-Tenant
+      parameters:
+      - name: partner_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                enabled:
+                  type: string
+                  description: This field will store true for enabled and false to disable the customer
+                    account. (Required)
+                contract_type:
+                  type: string
+                  description: The contract_type will store TRIAL to convert the account to trial, MONTHLY
+                    to convert the account billing to monthly, and YEARLY to change the billing to annual
+                    pricing. (Optional)
+                prePurchasedProduct:
+                  type: string
+                  description: Pre Purchased Product is the product the partner purchased upfront. (Optional)
+                prePurchasedSeats:
+                  type: string
+                  description: Pre Purchased Seats is a quantity of licenses the partner purchased upfront.
+                    (Optional)
+              required:
+              - enabled
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/dev/tier/partners/:
+    get:
+      operationId: PartnerList
+      summary: Partner List
+      description: Retrieves all partners under the tiered tenant account.
+      tags:
+      - Multi-Tenant
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/dev/tier/partners:
+    post:
+      operationId: PostInvitePartner
+      summary: Create Partner and Invite Partner Admin.
+      description: Creates the multi-tenant partner account and invites multi-tenant admin to create the
+        first account.
+      tags:
+      - Multi-Tenant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                partner_email:
+                  type: string
+                  description: Email for the Super Admin to create the account. (Required)
+                first_name:
+                  type: string
+                  description: First name of the Super Admin to be invited to create the account. (Required)
+                last_name:
+                  type: string
+                  description: Last name of the Super Admin to be invited to create the account. (Required)
+                company_name:
+                  type: string
+                  description: Company Name of Super Admin or Partner that will be managing the Multi-Tenant
+                    platform. (Required)
+                country:
+                  type: string
+                  description: Country Code of the company headquarters.  This is a two character code.
+                    (Required)
+                state:
+                  type: string
+                  description: State or Province of the company headquarters. (Required)
+                city:
+                  type: string
+                  description: City of the company headquarters. (Required)
+                street:
+                  type: string
+                  description: Street of the company headquarters. (Required)
+                postal_code:
+                  type: string
+                  description: Postal Code of the company headquarters. (Required)
+                phone:
+                  type: string
+                  description: Phone number of the company headquarters or Super Admin Point of Contact.
+                    (Required)
+                end_user_count:
+                  type: number
+                  description: End User Count stores the total number of end users under the partner's
+                    management. (Optional)
+                tag:
+                  type: string
+                  description: Tag is an identifier for sorting. (Optional)
+                contract_type:
+                  type: string
+                  description: Contract Type is the type of billing structure.  The valid options are
+                    TRIAL, MONTHLY, or YEARLY (Optional)
+                prePurchasedProduct:
+                  type: string
+                  description: Pre Purchased Product is the product the partner purchased upfront. (Optional)
+                prePurchasedSeats:
+                  type: string
+                  description: Pre Purchased Seats is a quantity of licenses the partner purchased upfront.
+                    (Optional)
+              required:
+              - partner_email
+              - first_name
+              - last_name
+              - company_name
+              - country
+              - state
+              - city
+              - street
+              - postal_code
+              - phone
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/remove_custom_simulation/:
+    delete:
+      operationId: DeleteRemoveCustomSimulation
+      summary: Remove a custom simulation for future campaigns
+      description: This request will remove a custom phishing simulation for the organization to send
+        to users.
+      tags:
+      - Phishing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: The email of the user you want to test (Required)
+              required:
+              - email
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/custom-simulations-list/:
+    get:
+      operationId: GetCustomPhishSimulationsList
+      summary: Get Custom Simulations List
+      description: Retrieves a list of all the available custom phishing/smishing simulations. Can be
+        filtered.
+      tags:
+      - Phishing
+      parameters:
+      - name: PageNum
+        in: query
+        schema:
+          type: string
+        description: Page number.
+      - name: PageSize
+        in: query
+        schema:
+          type: string
+        description: Page size.
+      - name: keyword
+        in: query
+        schema:
+          type: string
+        description: Filter by a keyword in the simulations body or subject.
+      - name: phish_type
+        in: query
+        schema:
+          type: string
+        description: 'Filter by simulation type. Must be: [ LINK, DIRECT, ATTACHMENT, SMS (If SMS Supported.)
+          ]'
+      - name: rating
+        in: query
+        schema:
+          type: string
+        description: Filter by simulation rating.
+      - name: sort_by
+        in: query
+        schema:
+          type: string
+        description: 'Sort simulations. Must be: [ SUBJECT, RATING, TOPIC]. Use (+) sign or none for ascending,
+          (-) sign for descending. Use (,) to denote between sort fields.'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/campaign/:
+    get:
+      operationId: GetPhishCampaign
+      summary: Get Phish Campaign
+      description: Retrieve information for phish campaigns.
+      tags:
+      - Phishing
+      parameters:
+      - name: PageSize
+        in: query
+        schema:
+          type: string
+        description: The number of results to return (Optional)
+      - name: PageNum
+        in: query
+        schema:
+          type: string
+        description: The page number (Optional)
+      - name: limit
+        in: query
+        schema:
+          type: string
+        description: Limit the number of phish campaigns to show (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/responses/:
+    get:
+      operationId: GetPhishResponses
+      summary: Get All Phishing Campaigns
+      description: Retrieves a page of responses and descriptions for each phishing simulation.
+      tags:
+      - Phishing
+      parameters:
+      - name: PageNum
+        in: query
+        schema:
+          type: string
+        description: Page number. If given but PageSize is not given then PageSize will default to 10.
+          If neither is given, all results will be returned.. (Optional)
+      - name: PageSize
+        in: query
+        schema:
+          type: string
+        description: Page size. If given but PageNum is not given then PageNum will default to 1. If neither
+          is given, all results will be returned. (Optional)
+      - name: search
+        in: query
+        schema:
+          type: string
+        description: Search for matching value. (Optional)
+      - name: passed
+        in: query
+        schema:
+          type: string
+        description: Filter by simulation pass status. - True/False (Optional)
+      - name: department
+        in: query
+        schema:
+          type: string
+        description: Filter by organization's department. - query No Department if it does not exist (Optional)
+      - name: user_email
+        in: query
+        schema:
+          type: string
+        description: Filter by user email .(Optional)
+      - name: user_search
+        in: query
+        schema:
+          type: string
+        description: Filter user's name or email by a search query/keyword. (Optional)
+      - name: start_date
+        in: query
+        schema:
+          type: string
+        description: Filter by start date. (Optional)
+      - name: end_date
+        in: query
+        schema:
+          type: string
+        description: Filter by end date. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/responses_report/:
+    get:
+      operationId: GetPhishResponsesReport
+      summary: Gets Phishing Campaigns and Metrics
+      description: Retrieves a page of responses, descriptions for each phishing simulation, and metrics.
+      tags:
+      - Phishing
+      parameters:
+      - name: PageNum
+        in: query
+        schema:
+          type: string
+        description: Page number. If given but PageSize is not given then PageSize will default to 10.
+          If neither is given, all results will be returned.. (Optional)
+      - name: PageSize
+        in: query
+        schema:
+          type: string
+        description: Page size. If given but PageNum is not given then PageNum will default to 1. If neither
+          is given, all results will be returned. (Optional)
+      - name: search
+        in: query
+        schema:
+          type: string
+        description: Search for matching value. (Optional)
+      - name: passed
+        in: query
+        schema:
+          type: string
+        description: Filter by simulation pass status. - True/False (Optional)
+      - name: department
+        in: query
+        schema:
+          type: string
+        description: Filter by organization's department. - query No Department if it does not exist (Optional)
+      - name: user_email
+        in: query
+        schema:
+          type: string
+        description: Filter by user email .(Optional)
+      - name: user_search
+        in: query
+        schema:
+          type: string
+        description: Filter user's name or email by a search query/keyword. (Optional)
+      - name: start_date
+        in: query
+        schema:
+          type: string
+        description: Filter by start date. (Optional)
+      - name: end_date
+        in: query
+        schema:
+          type: string
+        description: Filter by end date. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/get-simulation-template/:
+    get:
+      operationId: GetPhishSimulationTemplate
+      summary: Get Phish Simulation Template
+      description: Retrieves a Phishing simulation template.
+      tags:
+      - Phishing
+      parameters:
+      - name: test_name
+        in: query
+        schema:
+          type: string
+        description: is the simulation template unique name.
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/simulations-list/:
+    get:
+      operationId: GetPhishSimulationsList
+      summary: Get Simulations List
+      description: Retrieves a list of all the available phishing/smishing simulations. Can be filtered.
+      tags:
+      - Phishing
+      parameters:
+      - name: PageNum
+        in: query
+        schema:
+          type: string
+        description: Page number.
+      - name: PageSize
+        in: query
+        schema:
+          type: string
+        description: Page size.
+      - name: keyword
+        in: query
+        schema:
+          type: string
+        description: Filter by a keyword in the simulations body or subject.
+      - name: phish_type
+        in: query
+        schema:
+          type: string
+        description: 'Filter by simulation type. Must be: [ LINK, DIRECT, ATTACHMENT, SMS (If SMS Supported.)
+          ]'
+      - name: rating
+        in: query
+        schema:
+          type: string
+        description: Filter by simulation rating.
+      - name: sort_by
+        in: query
+        schema:
+          type: string
+        description: 'Sort simulations. Must be: [ SUBJECT, RATING, TOPIC]. Use (+) sign or none for ascending,
+          (-) sign for descending. Use (,) to denote between sort fields.'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/get/phish/users/:
+    get:
+      operationId: GetPhishUsers
+      summary: Search Phish users
+      description: Retrieve the id and email of a user given the name or username.
+      tags:
+      - Phishing
+      parameters:
+      - name: keyword
+        in: query
+        schema:
+          type: string
+        description: Name or username to be searched (Required)
+        required: true
+      - name: passed
+        in: query
+        schema:
+          type: string
+        description: Filters users based off of phishing failure/success, passed=none retrieves all regardless.
+          Can be [true, false, none]. Default is true. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/getsimulation/:
+    get:
+      operationId: GetSimulation
+      summary: Get Phishing Simulation for User
+      description: Retrieves a single phishing simulation for a specific user.
+      tags:
+      - Phishing
+      parameters:
+      - name: user_email
+        in: query
+        schema:
+          type: string
+        description: Filter by user email. (Required)
+        required: true
+      - name: sent_on
+        in: query
+        schema:
+          type: string
+        description: Filter by date the simulation was sent. This is a timestamp and will match exactly.
+          (Required)
+        required: true
+      - name: subject
+        in: query
+        schema:
+          type: string
+        description: Filter by the subject. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/change-cadence/:
+    post:
+      operationId: PostChangeCadence
+      summary: Change Phishing Cadence
+      description: Change the phishing simulation cadence from the default
+      tags:
+      - Phishing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cadence:
+                  type: number
+                  description: This number of days for the frequency of phishing simulations. (Required)
+              required:
+              - cadence
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/controlled-phish/:
+    post:
+      operationId: PostControlledPhish
+      summary: Schedule Controlled Phish Campaign
+      description: Schedule a controlled phishing simulation for user(s) with a test name.
+      tags:
+      - Phishing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                users:
+                  type: array
+                  items:
+                    type: string
+                  description: A list of all the users to be enrolled into the phish campaign. (Required)
+                test_name:
+                  type: string
+                  description: Name of the phishing simulation. (Required)
+                scheduled_date:
+                  type: string
+                  description: 'Scheduled Date. Format: "April 3 2019, 6:09 AM"(Optional)'
+              required:
+              - users
+              - test_name
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/create_custom_simulation/:
+    post:
+      operationId: PostCreateCustomSimulation
+      summary: Creates a custom simulation for future campaigns
+      description: This request will create a custom phishing simulation for the organization to send
+        to users.
+      tags:
+      - Phishing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: The email of the user you want to test (Required)
+              required:
+              - email
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/directphish/:
+    post:
+      operationId: PostDirectPhish
+      summary: Schedule Phish Campaign
+      description: Schedule a phishing simulation for specific email with date and phish type options.
+      tags:
+      - Phishing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  description: Params in JSON format. Also contains content list which holds all of the
+                    emails you want to phish. (Required)
+                content:
+                  type: array
+                  items:
+                    type: string
+                  description: A list in the JSON params which holds all of the emails you want to phish.
+                    (Required)
+                email:
+                  type: string
+                  description: Email of User (Required)
+                phish_type:
+                  type: string
+                  description: Type of phishing attack. The values are "Clickable Link", "Attachment",
+                    "Direct Response", or "SMS" (Optional)
+                scheduled_date:
+                  type: string
+                  format: date-time
+                  description: Date of phishing attack (Optional)
+              required:
+              - data
+              - content
+              - email
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/manage/:
+    post:
+      operationId: PostManagePhish
+      summary: Delete Phish Campaign
+      description: 'Used to manage a phishing simulation. For example: Removing a phishing simulation
+        that was sent out.'
+      tags:
+      - Phishing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                action_type:
+                  type: string
+                  description: Action type (Required) Can be REMOVE.
+                uid:
+                  type: string
+                  description: User id (Required)
+              required:
+              - action_type
+              - uid
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/getperformers/:
+    get:
+      operationId: PostPhishStatus
+      summary: Show Phish Status
+      description: This endpoint gets a list of performance and status information for all of the phishing
+        simulations that were sent out.
+      tags:
+      - Phishing
+      parameters:
+      - name: limitPhish
+        in: query
+        schema:
+          type: string
+        description: Limit of phish reports to retrieve (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/user/add_phone_number/:
+    post:
+      operationId: PostPhoneNumber
+      summary: Add Phone Number
+      description: Adds a phone number to an existing user.
+      tags:
+      - Phishing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_email:
+                  type: string
+                  description: User's email. (Required)
+                phone_num:
+                  type: string
+                  description: User's phone number. (Required)
+              required:
+              - user_email
+              - phone_num
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/user/phone_number_upload/:
+    post:
+      operationId: PostPhoneNumberUpload
+      summary: Upload Phone Numbers
+      description: Uploads phone numbers to existing users with CSV file.
+      tags:
+      - Phishing
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: string
+                  description: List of all user's phone numbers to be added. (Required)
+                email:
+                  type: string
+                  description: User's email. (Required)
+                phoneNumber:
+                  type: string
+                  description: User's phone number. (Required)
+              required:
+              - data
+              - email
+              - phoneNumber
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/average_days_training/:
+    get:
+      operationId: GetAverageDaysTraining
+      summary: Average Days Training Completed
+      description: Returns the average days it took for a user to fully complete training.
+      tags:
+      - Report
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/org/companyreport/:
+    get:
+      operationId: GetCompanyReport
+      summary: Retrieve Company Report
+      description: 'Gets the company''s overall vulnerability to a phishing attack and identifies the
+        behaviors that could cause a future breach. An overview of the company''s information can also
+        be retrieved. Note: The Success 200 Fields for type=12MONTHS should not have any "_"/underscores
+        in the actual response. It is only there due to the documentation.'
+      tags:
+      - Report
+      parameters:
+      - name: type
+        in: query
+        schema:
+          type: string
+        description: 'Type of Report (Required). Can be: 12MONTHS, RISKYBEHAVSBYDAY, CURRENTRISKYBEHAVSBYYEAR,
+          OVERVIEW.'
+        required: true
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/dark_breach_report/:
+    get:
+      operationId: GetDarkBreachReport
+      summary: Dark Breach Report
+      description: Returns a list of the breached accounts by dark web. Can be filtered.
+      tags:
+      - Report
+      parameters:
+      - name: user_name
+        in: query
+        schema:
+          type: string
+        description: Filter by user's Name (Optional)
+      - name: user_email
+        in: query
+        schema:
+          type: string
+        description: Filter by user's Email (Optional)
+      - name: breach_account
+        in: query
+        schema:
+          type: string
+        description: Filter by breached account type. (Optional)
+      - name: department
+        in: query
+        schema:
+          type: string
+        description: Filter by organization's department. - query No Department if it does not exist (Optional)
+      - name: start_date
+        in: query
+        schema:
+          type: string
+        description: Starting date to search - mm/dd/yyyy (Optional)
+      - name: end_date
+        in: query
+        schema:
+          type: string
+        description: Ending date to search - mm/dd/yyyy (Optional)
+      - name: page_size
+        in: query
+        schema:
+          type: string
+        description: 'Size of each page. Default: 10 (Optional)'
+      - name: page_num
+        in: query
+        schema:
+          type: string
+        description: 'Number of the page. Default: 1 (Optional)'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/dark_breach_count/:
+    get:
+      operationId: GetDarkWebBreachCount
+      summary: Dark Web Breach Count
+      description: Returns a list of the counts of each dark web breach for all users.
+      tags:
+      - Report
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/export_all_phishing_history/:
+    get:
+      operationId: GetExportAllPhishingHistory
+      summary: Export All Phishing History
+      description: Exports a list of phishing failures into a CSV file. A custom email and message can
+        be passed in using 'Email' and 'Message' headers.
+      tags:
+      - Report
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/failed_simulation_count/:
+    get:
+      operationId: GetFailedSimulationsCount
+      summary: Failed Simulation Count
+      description: Returns a list of the counts of failed simulations by tags and device type
+      tags:
+      - Report
+      parameters:
+      - name: user_email
+        in: query
+        schema:
+          type: string
+        description: User's Email (Optional)
+      - name: start_date
+        in: query
+        schema:
+          type: string
+        description: Starting date to search - mm/dd/yyyy (Optional)
+      - name: end_date
+        in: query
+        schema:
+          type: string
+        description: Ending date to search - mm/dd/yyyy (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/failed_simulation_report/:
+    get:
+      operationId: GetFailedSimulationsReport
+      summary: Failed Simulation Report
+      description: Returns a list of the counts of each type of failed simulation filtered by date ranges.
+      tags:
+      - Report
+      parameters:
+      - name: user_email
+        in: query
+        schema:
+          type: string
+        description: User's Email (Optional)
+      - name: period_range
+        in: query
+        schema:
+          type: string
+        description: 'Date range of the report: today, week, month, year. Default: today (Optional)'
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/multiple_failure_count/:
+    get:
+      operationId: GetMultipleFailureCount
+      summary: Multiple Failure Count
+      description: Retrieve a detailed count of all the failures and training data of users that have
+        failed phishing simulations multiple times. Organized by date ranges.
+      tags:
+      - Report
+      parameters:
+      - name: start_date
+        in: query
+        schema:
+          type: string
+        description: Starting date to search - mm/dd/yyyy (Optional)
+      - name: end_date
+        in: query
+        schema:
+          type: string
+        description: Ending date to search - mm/dd/yyyy (Optional)
+      - name: phishing_status
+        in: query
+        schema:
+          type: string
+        description: Filter by phishing status - active or inactive. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/multiple_failure_report/:
+    get:
+      operationId: GetMultipleFailureReport
+      summary: Multiple Failure Report
+      description: Retrieve a detailed report of users that have failed multiple (More than 1) phishing
+        simulations.
+      tags:
+      - Report
+      parameters:
+      - name: user_keyword
+        in: query
+        schema:
+          type: string
+        description: Filter by user's name or email. (Optional)
+      - name: start_date
+        in: query
+        schema:
+          type: string
+        description: Starting date to search - mm/dd/yyyy (Optional)
+      - name: end_date
+        in: query
+        schema:
+          type: string
+        description: Ending date to search - mm/dd/yyyy (Optional)
+      - name: phishing_status
+        in: query
+        schema:
+          type: string
+        description: Filter by phishing status - active or inactive. (Optional)
+      - name: department
+        in: query
+        schema:
+          type: string
+        description: Filter by organization's department. - query No Department if it does not exist (Optional)
+      - name: page_size
+        in: query
+        schema:
+          type: string
+        description: Amount of entries per page Defaults to all. (Optional)
+      - name: page_num
+        in: query
+        schema:
+          type: string
+        description: Page number. Defaults to page 1. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/export_failures/:
+    get:
+      operationId: GetPhishingFailures
+      summary: Export Phishing Failures. A custom email and message can be passed in using 'Email' and
+        'Message' headers.
+      description: Exports a list of phishing failures into a CSV file.
+      tags:
+      - Report
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/report-summary/:
+    get:
+      operationId: GetReportSummary
+      summary: Report Summary
+      description: Retrieve a overall summary of all the emails being sent out to your users.
+      tags:
+      - Report
+      parameters:
+      - name: start_date
+        in: query
+        schema:
+          type: string
+        description: Starting date to search - mm/dd/yyyy (Optional)
+      - name: end_date
+        in: query
+        schema:
+          type: string
+        description: Ending date to search - mm/dd/yyyy (Optional)
+      - name: phishing_status
+        in: query
+        schema:
+          type: string
+        description: Filter by phishing status - active or inactive. (Optional)
+      - name: department_access
+        in: query
+        schema:
+          type: string
+        description: Filter by department based on email of admin. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/training_report/:
+    get:
+      operationId: GetTrainingReport
+      summary: Training Report
+      description: Returns a list of the trainings. Can be filtered by user email or completion status
+      tags:
+      - Report
+      parameters:
+      - name: user_email
+        in: query
+        schema:
+          type: string
+        description: User's Email (Optional)
+      - name: courseTitle
+        in: query
+        schema:
+          type: string
+        description: Filter by Course name using keywords (Optional)
+      - name: quizTitle
+        in: query
+        schema:
+          type: string
+        description: Filter by Quiz name used using keywords (Optional)
+      - name: start_date
+        in: query
+        schema:
+          type: string
+        description: Starting date to search - mm/dd/yyyy (Optional)
+      - name: end_date
+        in: query
+        schema:
+          type: string
+        description: Ending date to search - mm/dd/yyyy (Optional)
+      - name: complete
+        in: query
+        schema:
+          type: string
+        description: Filter by complete or incomplete trainings - True or False (Optional)
+      - name: department
+        in: query
+        schema:
+          type: string
+        description: Filter by user department - departments are queried from the database (Optional)
+      - name: lessonPlan
+        in: query
+        schema:
+          type: string
+        description: Filter courses by different lesson plans - lesson plans are queried from the database
+          (Optional)
+      - name: page_size
+        in: query
+        schema:
+          type: string
+        description: Amount of entries per page (Optional)
+      - name: page_num
+        in: query
+        schema:
+          type: string
+        description: Page number (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/user_addon_count/:
+    get:
+      operationId: GetUserAddOnCount
+      summary: User Reporter Add-on Count
+      description: Retrieve a basic count of all successful reports on phishing simulations using the
+        reporter Add-on. Only used for Outlook and Gmail Tenants.
+      tags:
+      - Report
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/user_addon_report/:
+    get:
+      operationId: GetUserAddonReport
+      summary: User Reporter Add-on Report
+      description: Retrieve a detailed report of all successful reports on phishing simulations using
+        the reporter Add-on. Only used for Outlook and Gmail Tenants.
+      tags:
+      - Report
+      parameters:
+      - name: user_keyword
+        in: query
+        schema:
+          type: string
+        description: Filter by user's name or email. (Optional)
+      - name: start_date
+        in: query
+        schema:
+          type: string
+        description: Starting date to search - mm/dd/yyyy (Optional)
+      - name: end_date
+        in: query
+        schema:
+          type: string
+        description: Ending date to search - mm/dd/yyyy (Optional)
+      - name: phishing_status
+        in: query
+        schema:
+          type: string
+        description: Filter by phishing status - active or inactive. (Optional)
+      - name: department
+        in: query
+        schema:
+          type: string
+        description: Filter by organization's department. - query No Department if it does not exist (Optional)
+      - name: page_size
+        in: query
+        schema:
+          type: string
+        description: Amount of entries per page Defaults to all. (Optional)
+      - name: page_num
+        in: query
+        schema:
+          type: string
+        description: Page number. Defaults to page 1. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/phish/summary/:
+    get:
+      operationId: PhishSummary
+      summary: Show Phish Summary Report
+      description: Get a phish summary report for the company. The report will analyze the how the company
+        is doing responding to phishing simulations.
+      tags:
+      - Report
+      parameters:
+      - name: start_date
+        in: query
+        schema:
+          type: string
+        description: Starting date to search (Required)
+        required: true
+      - name: end_date
+        in: query
+        schema:
+          type: string
+        description: Ending date to search (Required)
+        required: true
+      - name: user_email
+        in: query
+        schema:
+          type: string
+        description: User's Email (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/report/partial_completed_count/:
+    get:
+      operationId: getPartialCompletedTrainingCount
+      summary: Partial Completed Training Count
+      description: Returns a list of the count number of partially or completed training
+      tags:
+      - Report
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/add_course_member/:
+    post:
+      operationId: AddCourseMember
+      summary: Enroll User to Course
+      description: Adds a user to a specified course. Blank date will send the course instantly.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: User's email. (Required)
+                courseID:
+                  type: string
+                  description: Course ID. (Required)
+                trainDate:
+                  type: string
+                  description: Date of the training. - MM/DD/YYYY HH:MM AM/PM (Optional)
+              required:
+              - email
+              - courseID
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/courselist/:
+    get:
+      operationId: GetCourseList
+      summary: Get Course List
+      description: Return a list of all the courses or a specific courses in the account.
+      tags:
+      - Training
+      parameters:
+      - name: course_type
+        in: query
+        schema:
+          type: string
+        description: Course Type. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/getquiz/:
+    get:
+      operationId: GetCourseQuiz
+      summary: Get Course
+      description: Returns courses based on given id or courses that the given user is in.
+      tags:
+      - Training
+      parameters:
+      - name: training_id
+        in: query
+        schema:
+          type: string
+        description: Course ID. (Optional)
+      - name: training_em
+        in: query
+        schema:
+          type: string
+        description: User Email. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/coursequizlist/:
+    get:
+      operationId: GetCourseQuizList
+      summary: Get All Recommendations
+      description: Returns a list of all course and quizzes recommendations/templates. Can be filtered.
+      tags:
+      - Training
+      parameters:
+      - name: course_type
+        in: query
+        schema:
+          type: string
+        description: Course Type. (Optional)
+      - name: quiz_topic
+        in: query
+        schema:
+          type: string
+        description: Quiz Topic. (Optional)
+      - name: search
+        in: query
+        schema:
+          type: string
+        description: Keywords to filter course and quiz recommendations. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/course_list/:
+    get:
+      operationId: GetCourseRecList
+      summary: Get Course Recommendation List
+      description: Return of a list of the course recommendations. Can be filtered.
+      tags:
+      - Training
+      parameters:
+      - name: course_type
+        in: query
+        schema:
+          type: string
+        description: Course Type. (Optional)
+      - name: search
+        in: query
+        schema:
+          type: string
+        description: Keywords to filter course recommendations. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/course_list_rec/:
+    get:
+      operationId: GetCourseRecList
+      summary: Get Course Recommendation List
+      description: Return of a list of the course recommendations/templates. Can be filtered.
+      tags:
+      - Training
+      parameters:
+      - name: course_type
+        in: query
+        schema:
+          type: string
+        description: Course Type. (Optional)
+      - name: search
+        in: query
+        schema:
+          type: string
+        description: Keywords to filter course recommendations. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/lesson_list/:
+    get:
+      operationId: GetLessonPlanList
+      summary: Get Lesson Plan List
+      description: Creates a new lesson plan.
+      tags:
+      - Training
+      parameters:
+      - name: LessonPlanName
+        in: query
+        schema:
+          type: string
+        description: Lesson plan name. (Optional)
+      - name: LessonPlanID
+        in: query
+        schema:
+          type: string
+        description: Lesson plan ID. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/quiz_list/:
+    get:
+      operationId: GetQuizRecList
+      summary: Get Quiz Recommendation List
+      description: Return of a list of the quiz recommendations. Can be filtered.
+      tags:
+      - Training
+      parameters:
+      - name: quiz_topic
+        in: query
+        schema:
+          type: string
+        description: Quiz Topic. (Optional)
+      - name: search
+        in: query
+        schema:
+          type: string
+        description: Keywords to filter quiz recommendations. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/quiz_list_rec/:
+    get:
+      operationId: GetQuizRecList
+      summary: Get Quiz Recommendation List
+      description: Return of a list of the quiz recommendations/templates. Can be filtered.
+      tags:
+      - Training
+      parameters:
+      - name: quiz_topic
+        in: query
+        schema:
+          type: string
+        description: Quiz Topic. (Optional)
+      - name: search
+        in: query
+        schema:
+          type: string
+        description: Keywords to filter quiz recommendations. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/createcourse/:
+    post:
+      operationId: POSTCreateCourse
+      summary: Create Course
+      description: Create a new course and add it to the list.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                CourseName:
+                  type: string
+                  description: Course Name. (Required)
+                CourseDesc:
+                  type: string
+                  description: Course Description. (Required)
+                PreQuizID:
+                  type: string
+                  description: QID of first quiz. (Required)
+                VideoLink:
+                  type: string
+                  description: Video Link. (Required)
+                PostQuizID:
+                  type: string
+                  description: QID of last quiz. (Required)
+              required:
+              - CourseName
+              - CourseDesc
+              - PreQuizID
+              - VideoLink
+              - PostQuizID
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/add_course_lesson/:
+    post:
+      operationId: PostAddCourseLessonPlan
+      summary: Add Course to Lesson Plan
+      description: Add a course to a lesson plan.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                CourseID:
+                  type: string
+                  description: Course ID (Required)
+                RelativeDays:
+                  type: string
+                  description: Relative Days for each course to be scheduled from the start date. (Required)
+                LessonPlanID:
+                  type: string
+                  description: Lesson plan ID (Required)
+              required:
+              - CourseID
+              - RelativeDays
+              - LessonPlanID
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/add_member_lesson/:
+    post:
+      operationId: PostAddMemberLessonPlan
+      summary: Add User to Lesson Plan
+      description: Adds a Member/User to a Lesson Plan.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                LessonPlanID:
+                  type: string
+                  description: Lesson plan ID. (Required)
+                UserEmail:
+                  type: string
+                  description: User's email. (Required)
+                StartDate:
+                  type: string
+                  description: Start date of the lesson plan for the user. If not given, then current
+                    date is used. (Optional)
+              required:
+              - LessonPlanID
+              - UserEmail
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/create_course_rec/:
+    post:
+      operationId: PostCreateCourseRec
+      summary: Create Course Recommendation
+      description: Creates a course recommendation after video is uploaded.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                TrainLink:
+                  type: string
+                  description: Link of the video uploaded. (Required)
+                CourseTopic:
+                  type: string
+                  description: Topic of the course. (Required)
+                TrainTitle:
+                  type: string
+                  description: Title of the course. (Required)
+                CourseTags:
+                  type: string
+                  description: Tags for the course. Must be in a list format. (Required)
+                Rating:
+                  type: string
+                  description: Difficulty of the quiz from 0-5. Must be an integer. (Required)
+                AnimatedGIF:
+                  type: string
+                  description: Thumbnail for the course. (Optional)
+                TrainDesc:
+                  type: string
+                  description: Link to the course training for this quiz. (Optional)
+                TrainTime:
+                  type: string
+                  description: Link to the course training for this quiz. (Optional)
+                CourseType:
+                  type: string
+                  description: Quiz topic. (Optional)
+              required:
+              - TrainLink
+              - CourseTopic
+              - TrainTitle
+              - CourseTags
+              - Rating
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/create_lesson/:
+    post:
+      operationId: PostCreateLessonPlan
+      summary: Create Lesson Plan
+      description: Creates a new lesson plan.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                LessonPlanName:
+                  type: string
+                  description: Lesson plan name. (Required)
+              required:
+              - LessonPlanName
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/add_quiz_rec/:
+    post:
+      operationId: PostCreateRecommendation
+      summary: Create a new quiz recommendation.
+      description: Creates a new custom quiz recommendation.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                QuizTitle:
+                  type: string
+                  description: Title of the quiz. (Required)
+                QuizQuestion:
+                  type: string
+                  description: The quiz question. (Required)
+                Tags:
+                  type: string
+                  description: Tags for the quiz. Must be in a list format. (Required)
+                Rating:
+                  type: string
+                  description: Difficulty of the quiz from 0-5. Must be an integer. (Required)
+                QuizIMG:
+                  type: string
+                  description: Thumbnail or image for the quiz. (Required)
+                CorrectLabel:
+                  type: string
+                  description: Correct answer for the quiz. Displayed as the text in a button. (Required)
+                CorrectDesc:
+                  type: string
+                  description: Description for the correct answer. Shown when hovering over button. (Required)
+                IncorrectLabel:
+                  type: string
+                  description: Incorrect answer for the quiz. Displayed as the text in a button. (Required)
+                IncorrectDesc:
+                  type: string
+                  description: Description for the incorrect answer. Shown when hovering over button.
+                    (Required)
+                TrainLink:
+                  type: string
+                  description: Link to the course training for this quiz. (Required)
+                QuizTopic:
+                  type: string
+                  description: Quiz topic. (Required)
+              required:
+              - QuizTitle
+              - QuizQuestion
+              - Tags
+              - Rating
+              - QuizIMG
+              - CorrectLabel
+              - CorrectDesc
+              - IncorrectLabel
+              - IncorrectDesc
+              - TrainLink
+              - QuizTopic
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/del_course_lesson/:
+    post:
+      operationId: PostDelCourseLessonPlan
+      summary: Delete Course from Lesson Plan
+      description: Delete a Course from a Lesson Plan.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                LessonPlanID:
+                  type: string
+                  description: Lesson plan ID. (Required)
+                CourseID:
+                  type: string
+                  description: Course ID. (Required)
+              required:
+              - LessonPlanID
+              - CourseID
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/del_course_rec/:
+    post:
+      operationId: PostDelCourseRec
+      summary: Delete Course Recommendation
+      description: Deletes a Course Recommendation template.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                CourseRecID:
+                  type: string
+                  description: Course ID. (Required)
+              required:
+              - CourseRecID
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/del_lesson/:
+    post:
+      operationId: PostDelLessonPlan
+      summary: Delete Lesson Plan
+      description: Delete a lesson plan.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                LessonPlanID:
+                  type: string
+                  description: Lesson plan ID. (Required)
+              required:
+              - LessonPlanID
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/del_member_lesson/:
+    post:
+      operationId: PostDelMemberLessonPlan
+      summary: Delete User from Lesson Plan
+      description: Deletes a Member/User from a Lesson Plan.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                LessonPlanID:
+                  type: string
+                  description: Lesson plan ID. (Required)
+                UserEmail:
+                  type: string
+                  description: Course ID. (Required)
+              required:
+              - LessonPlanID
+              - UserEmail
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/del_quiz_rec/:
+    post:
+      operationId: PostDelRecommendation
+      summary: Delete Quiz Recommendation
+      description: Deletes a Quiz Recommendation.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                QuizID:
+                  type: string
+                  description: Quiz ID. (Required)
+              required:
+              - QuizID
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/delcourse/:
+    post:
+      operationId: PostDeleteGroup
+      summary: Delete a Course
+      description: Deletes a course if it exists in the account.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                CourseID:
+                  type: string
+                  description: Course ID. (Required)
+              required:
+              - CourseID
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/del_course_member/:
+    post:
+      operationId: PostDeleteGroupMember
+      summary: Delete Course User
+      description: Deletes a user from a normal course or course from a lesson plan.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                UserEmail:
+                  type: string
+                  description: User's hash (Required)
+                CourseID:
+                  type: string
+                  description: Course ID. The user will be removed from a normal course with the given
+                    CourseID. (Required)
+                LessonID:
+                  type: string
+                  description: Lesson ID. If this parameter is given, the user will be removed from the
+                    course with the given CourseID in the lesson with the given LessonID. Otherwise, the
+                    user will be removed from normal course with the given CourseID   (Optional)
+                scheduledDate:
+                  type: string
+                  description: 'Scheduled Date. If this parameter is given, the courses from the user
+                    with this specific scheduled date only will removed. Otherwise if not given then all
+                    courses with the same course ID is removed from the user. Format: mm/dd/yyyy HH:MM
+                    P, For example: 6/21/2023 08:30 AM (GMT Timezone)'
+              required:
+              - UserEmail
+              - CourseID
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/quickschedule/:
+    post:
+      operationId: PostQuickSchedule
+      summary: Auto Enroll User to Course
+      description: This request will look at an user email to see the risks that the user has and then
+        schedules a course based on the data it finds. The course will be sent out instantly.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: The email of the user you want to test (Required)
+              required:
+              - email
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/reminder/:
+    post:
+      operationId: PostSendTrainReminder
+      summary: Remind User About Training
+      description: This endpoint will send a reminder email about training.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: The email of the user you want to test (Required)
+              required:
+              - email
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/license/set_train_link/:
+    post:
+      operationId: PostSetTrainLink
+      summary: Set Training Link
+      description: This will assign a link to an external training for companies using the Phish Basic
+        product. When a user fails a phishing simulation they will be emailed a link to start training
+        in another platform.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                URL:
+                  type: string
+                  description: link to external or 3rd party training. This link is for all training after
+                    a phishing simulation failure. (Required)
+              required:
+              - URL
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/get/train/history/:
+    get:
+      operationId: PostTrainHistory
+      summary: Train History
+      description: See the list of the quizzes used for training. The response also includes all the elements
+        of each quiz.
+      tags:
+      - Training
+      parameters:
+      - name: pageNum
+        in: query
+        schema:
+          type: string
+        description: Defaults to first page if not given. (Optional)
+      - name: page_size
+        in: query
+        schema:
+          type: string
+        description: Number of results to return. Defaults to 10 results per page. (Optional)
+      - name: user
+        in: query
+        schema:
+          type: string
+        description: User to search - Username/email. (Optional)
+      - name: keyword
+        in: query
+        schema:
+          type: string
+        description: Keyword to filter the search by user's name or email. (Optional)
+      - name: courseTitle
+        in: query
+        schema:
+          type: string
+        description: Keyword to filter the search by the course's name. (Optional)
+      - name: courseComplete
+        in: query
+        schema:
+          type: string
+        description: Filter course by their completion - true - passed and failed courses will both be
+          completed - false - courses labeled pending, N/A will be incomplete. (Optional)
+      - name: quizTitle
+        in: query
+        schema:
+          type: string
+        description: Keyword to filter the search by the quiz's name. (Optional)
+      - name: preQuizPassed
+        in: query
+        schema:
+          type: boolean
+        description: Filter pre quiz by pass or failed. (Optional)
+      - name: postQuizPassed
+        in: query
+        schema:
+          type: boolean
+        description: Filter post quiz by pass or failed.  (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/status/:
+    get:
+      operationId: PostTrainStatus
+      summary: Get Training Status
+      description: Gets the training status of a quiz that was sent out.
+      tags:
+      - Training
+      parameters:
+      - name: trainingID
+        in: query
+        schema:
+          type: string
+        description: Training ID (Required)
+        required: true
+      - name: VideoID
+        in: query
+        schema:
+          type: string
+        description: Video ID (Required)
+        required: true
+      - name: trainAction
+        in: query
+        schema:
+          type: string
+        description: Type of Training (Required)
+        required: true
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/train/update_quiz_rec/:
+    post:
+      operationId: PostUpdateRecommendation
+      summary: Update Quiz Recommendation.
+      description: Updates an existing Quiz Recommendation. All parameters are optional except QuizID
+        depending on what you want to update.
+      tags:
+      - Training
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                QuizTitle:
+                  type: string
+                  description: Title of the quiz. (Optional)
+                QuizQuestion:
+                  type: string
+                  description: The quiz question. (Optional)
+                Tags:
+                  type: string
+                  description: Tags for the quiz. Must be in a list format. (Optional)
+                Rating:
+                  type: string
+                  description: Difficulty of the quiz from 0-5. Must be an integer. (Optional)
+                QuizIMG:
+                  type: string
+                  description: Thumbnail or image for the quiz. (Optional)
+                CorrectLabel:
+                  type: string
+                  description: Correct answer for the quiz. Displayed as the text in a button. (Optional)
+                CorrectDesc:
+                  type: string
+                  description: Description for the correct answer. Shown when hovering over button. (Optional)
+                IncorrectLabel:
+                  type: string
+                  description: Incorrect answer for the quiz. Displayed as the text in a button. (Optional)
+                IncorrectDesc:
+                  type: string
+                  description: Description for the incorrect answer. Shown when hovering over button.
+                    (Optional)
+                TrainLink:
+                  type: string
+                  description: Link to the course training for this quiz. (Optional)
+                TrainTitle:
+                  type: string
+                  description: Link to the course training for this quiz. (Optional)
+                TrainDesc:
+                  type: string
+                  description: Link to the course training for this quiz. (Optional)
+                TrainTime:
+                  type: string
+                  description: Link to the course training for this quiz. (Optional)
+                QuizTopic:
+                  type: string
+                  description: Quiz topic. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/user/manage-departments/:
+    get:
+      operationId: GetUserDeptManagment
+      summary: Get Manage Department List
+      description: Retrieves the departments that this user is allowed to manage.
+      tags:
+      - User
+      parameters:
+      - name: user_email
+        in: query
+        schema:
+          type: string
+        description: User's email. (Required)
+        required: true
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/user/get_user_list:
+    get:
+      operationId: GetUserList
+      summary: Get User List
+      description: Returns a list of all users and their information.
+      tags:
+      - User
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/user/reports/:
+    get:
+      operationId: GetUserReports
+      summary: Search a Page of Users
+      description: 'Get a page of users based on given filters. Tip: Best to use type=all along with any
+        other filters to narrow down your search.'
+      tags:
+      - User
+      parameters:
+      - name: PageNum
+        in: query
+        schema:
+          type: string
+        description: Page Number. Defaults to page 1. (Required)
+        required: true
+      - name: user_email
+        in: query
+        schema:
+          type: string
+        description: User's Email required for type=single. Used just to get one specific user. (Optional)
+      - name: keyword
+        in: query
+        schema:
+          type: string
+        description: Keyword to filter the search by user's name or email. Can be used with either type=all,
+          type=in_active, type=active to further filter users. (Optional)
+      - name: type
+        in: query
+        schema:
+          type: string
+        description: Type of Report. Can be [all, active, in_active, single]. If type=single, requires
+          user_email parameter. This parameter is required if using other filters. (Optional)
+      - name: phish_start
+        in: query
+        schema:
+          type: string
+        description: Filter users by their next scheduled phishing simulation starting at this date. Can
+          be used with all types except type=single. Requires a type parameter. (Users without scheduled
+          phishing simulations will be excluded) - mm/dd/yyyy (Optional)
+      - name: phish_end
+        in: query
+        schema:
+          type: string
+        description: Filter users by their next scheduled phishing simulation ending at this date. Can
+          be used with all types except type=single. Requires a type parameter. (Users without scheduled
+          phishing simulations will be excluded)- mm/dd/yyyy (Optional)
+      - name: last_sim_passed
+        in: query
+        schema:
+          type: boolean
+        description: Filter users by their most recent phishing simulation. It will return users that
+          have either passed (True) or failed (False) their recent simulation. Requires a type parameter.
+          (Users without phsing simulations will default to passed.) (Optional)
+      - name: department
+        in: query
+        schema:
+          type: string
+        description: Filter users by their department given by Outlook and Gmail group sync. Will not
+          work for Open email types. Requires a type parameter. (Optional)
+      - name: PageSize
+        in: query
+        schema:
+          type: string
+        description: Number of results to return. Defaults to 50 users per page. (Optional)
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/user/user_sms_status/:
+    post:
+      operationId: GetUserSMSStatus
+      summary: Get User SMS Status
+      description: Retrieves the SMS status for a user. Determines whether the user can be enrolled in
+        a smishing simulation.
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_email:
+                  type: string
+                  description: User's email. (Required)
+              required:
+              - user_email
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/user/search/vulnerability/:
+    get:
+      operationId: GetUserVulnerability
+      summary: Search User Vulnerability
+      description: Retrieves users based on vulnerability score and bound, up to a limit.
+      tags:
+      - User
+      parameters:
+      - name: Vul
+        in: query
+        schema:
+          type: string
+        description: Vulnerability score (Required)
+        required: true
+      - name: Limit
+        in: query
+        schema:
+          type: string
+        description: Max limit of vulnerability score to be viewed (Optional)
+      - name: Bound
+        in: query
+        schema:
+          type: string
+        description: Bound of vulnerability score - can be upper or lower. ie. Having bound=upper and
+          vul=60 returns a list contain users with 60 or less vulnerability score (Required)
+        required: true
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/user/search/email/:
+    get:
+      operationId: GetUserWithEmail
+      summary: Search User Email
+      description: Retrieves a user based on email.
+      tags:
+      - User
+      parameters:
+      - name: Email
+        in: query
+        schema:
+          type: string
+        description: User Email to be Searched (Required)
+        required: true
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/user/add-users/:
+    post:
+      operationId: PostAddUsers
+      summary: Add New Users
+      description: 'Used for adding new users through JSON object. Note: Only used for HacWare Open users!'
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  items:
+                    type: string
+                  description: List of all the users to add. (Required)
+                firstname:
+                  type: string
+                  description: User's first name. (Required)
+                lastname:
+                  type: string
+                  description: User's last name. (Required)
+                email:
+                  type: string
+                  description: User's email. (Required)
+                phoneNumber:
+                  type: string
+                  description: 'User''s mobile number. Format: 1234567890 (Optional)'
+                department:
+                  type: string
+                  description: User's department. (Optional)
+              required:
+              - data
+              - firstname
+              - lastname
+              - email
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/user/manage_departments/:
+    post:
+      operationId: PostUserDeptManagment
+      summary: Assign User to Department
+      description: Allow User to manage these Department(s)
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_email:
+                  type: string
+                  description: User's email. (Required)
+                departments:
+                  type: string
+                  description: Can be a single department or a list of departments. Note. Add "No Department"
+                    to allow User to also manage users without departments. (Required)
+                action:
+                  type: string
+                  description: Must be in ['add','remove']. Add will grant department(s) permission to
+                    the user. Remove will remove department(s) permission from the user. (Required)
+              required:
+              - user_email
+              - departments
+              - action
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+  /api/v1/user/update_status/:
+    post:
+      operationId: PostUserUpdateStatus
+      summary: Update User Status
+      description: Updates the user's phishing status.
+      tags:
+      - User
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: string
+                  description: User to update. User here is identified by their name. Can be keyword ALL
+                    for all users. (Required)
+                phishing_status:
+                  type: string
+                  description: Phishing status update. Phishing status can be Active or Inactive (Required)
+                department:
+                  type: string
+                  description: Phishing status update by department. To use department parameter, user
+                    must be set to ALL. Department can be No Department or N/A for users that have no
+                    department. (Optional)
+              required:
+              - user
+              - phishing_status
+      responses:
+        '200':
+          description: Successful response
+        '400':
+          description: Bad request. The error message describes the problem.
+        '401':
+          description: Unauthorized. Missing or invalid bearer token.
+      security:
+      - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer access token obtained from POST /api/v1/auth/ (exchange appid + secret key).
+        Tokens expire ~1 hour after issue; use the refresh token to renew.

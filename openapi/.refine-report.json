@@ -1,0 +1,34 @@
+{
+  "provider": "hacware",
+  "sources": [
+    "hacware-admin-api-openapi.yml",
+    "hacware-compliance-api-openapi.yml",
+    "hacware-compliance-tenant-api-openapi.yml",
+    "hacware-customer-api-openapi.yml",
+    "hacware-email-tenant-api-openapi.yml",
+    "hacware-group-api-openapi.yml",
+    "hacware-multi-tenant-api-openapi.yml",
+    "hacware-phishing-api-openapi.yml",
+    "hacware-report-api-openapi.yml",
+    "hacware-training-api-openapi.yml",
+    "hacware-user-api-openapi.yml"
+  ],
+  "outputs": [
+    "hacware-admin-api-openapi.yml",
+    "hacware-compliance-api-openapi.yml",
+    "hacware-compliance-tenant-api-openapi.yml",
+    "hacware-customer-api-openapi.yml",
+    "hacware-email-tenant-api-openapi.yml",
+    "hacware-group-api-openapi.yml",
+    "hacware-multi-tenant-api-openapi.yml",
+    "hacware-phishing-api-openapi.yml",
+    "hacware-report-api-openapi.yml",
+    "hacware-training-api-openapi.yml",
+    "hacware-user-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

@@ -1,0 +1,18 @@
+generated: '2026-07-19'
+method: probed
+host: https://hacware.com
+note: Probed common /.well-known/ and discovery paths on hacware.com and www.hacware.com; none are published.
+  Absence recorded as valid data. No canonical WellKnown/SecurityTxt pointer wired.
+documents:
+- path: /.well-known/security.txt
+  status: 404
+- path: /.well-known/openid-configuration
+  status: 404
+- path: /.well-known/oauth-authorization-server
+  status: 404
+- path: /.well-known/api-catalog
+  status: 404
+- path: /.well-known/ai-plugin.json
+  status: 404
+- path: /security.txt
+  status: 404

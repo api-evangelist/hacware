@@ -1,0 +1,20 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for HacWare Security Awareness API
+  version: 1.0.0
+extends: openapi/hacware-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: true
+    x-apievangelist-source: https://www.hacware.com/doc/api_data.json
+    x-apievangelist-note: OpenAPI derived from HacWare apiDoc; auth model is appid+secret exchange ->
+      bearer token.
+- target: $.info
+  update:
+    x-artifact-links:
+      authentication: authentication/hacware-authentication.yml
+      conventions: conventions/hacware-conventions.yml
+      errors: errors/hacware-problem-types.yml
+      data-model: data-model/hacware-data-model.yml
+      agentic-access: agentic-access/hacware-agentic-access.yml

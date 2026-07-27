@@ -1,0 +1,26 @@
+# HacWare Security Awareness API
+
+> HacWare is an AI-powered security awareness training and phishing simulation platform. Its RESTful Security Awareness API lets partners embed HacWare: AI-generated phishing simulations (clickable link, attachment, direct response, SMS), micro-training courses, lesson plans and quizzes, dark web breach reporting, human-factor risk assessment, user/group and Microsoft 365 group management, a multi-tenant partner/customer hierarchy, and compliance evidence retrieval. Authenticate by exchanging an application id and secret key at POST /api/v1/auth/ to obtain a bearer access token (~1h TTL). HacWare is a Techstars portfolio company.
+
+## APIs
+- [HacWare Security Awareness API docs](https://www.hacware.com/doc/index.html): apiDoc reference, 114 operations across Admin, Phishing, Training, Report, User, Group, Multi-Tenant, and Compliance.
+- [Developer program](https://hacware.com/dev.html): plans (R&D free / Essential / Premium), getting started, code samples (Python, cURL, Node.js, PHP).
+
+## Specs & Artifacts
+- [OpenAPI 3.0](openapi/hacware-openapi.yml): derived from the published apiDoc reference.
+- [Authentication profile](authentication/hacware-authentication.yml): appid+secret exchange -> bearer token.
+- [API conventions](conventions/hacware-conventions.yml): auth, pagination, versioning, credit-based quota, error envelope.
+- [Error catalog](errors/hacware-problem-types.yml): {"message"} envelope on 4xx.
+- [Data model](data-model/hacware-data-model.yml): partners, customers, users, groups, campaigns, courses, compliance evidence.
+- [Lifecycle](lifecycle/hacware-lifecycle.yml): versioning (uri-path /api/v1/, doc v1.0.4).
+- [Conformance](conformance/hacware-conformance.yml): http-bearer, pagination.
+- [MCP tools (candidate)](mcp/hacware-mcp.yml): one tool per operation.
+- [Agentic access](agentic-access/hacware-agentic-access.yml): recommended x-agentic-access execution contracts.
+- [Agent skills](skills/_index.yml): run a phishing simulation, enroll a user in training, onboard a partner/customer.
+
+## Docs
+- [Company](https://hacware.com/): product overview.
+- [Blog / Resources](https://resources.hacware.com/): security awareness content.
+- [Terms of Service](https://hacware.com/terms-of-service)
+- [Privacy Policy](https://hacware.com/privacy.pdf)
+- Contact: hello@hacware.com
