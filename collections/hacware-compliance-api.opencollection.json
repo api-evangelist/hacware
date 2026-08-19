@@ -1,0 +1,156 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Security Awareness API Documentation Admin Compliance API",
+    "version": "1.0.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Compliance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Authentication Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/compliance/provider/auth_info/",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns public information describing the type of authentication the evidence provider uses."
+        },
+        {
+          "info": {
+            "name": "Compliance Authentication",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/compliance/provider/authorize/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validates the login credentials and generates the access token and the refresh token."
+        },
+        {
+          "info": {
+            "name": "Evidence Data",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/compliance/evidences/:evidence_slug",
+            "params": [
+              {
+                "name": "evidence_slug",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns data for a specific piece of evidence identified by {evidence_slug}."
+        },
+        {
+          "info": {
+            "name": "Evidence Data Download",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/compliance/evidences/:evidence_slug/download",
+            "params": [
+              {
+                "name": "evidence_slug",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a document for the data of a specific piece of evidence identified by {evidence_slug}."
+        },
+        {
+          "info": {
+            "name": "Evidences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/compliance/evidences/",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of evidence that instance provides."
+        },
+        {
+          "info": {
+            "name": "Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/compliance/settings",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a data dictionary of settings data."
+        },
+        {
+          "info": {
+            "name": "Settings Update",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{domain}/api/compliance/settings",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update settings data."
+        },
+        {
+          "info": {
+            "name": "Token Refresh",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/compliance/provider/authorize/token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Refresh the access token."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

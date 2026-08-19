@@ -1,0 +1,242 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Security Awareness API Documentation Admin Group API",
+    "version": "1.0.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Group",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Delete Synced MS Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/security_groups/delete",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes the current synced Microsoft Security Group tied to certain HacWare user licenses."
+        },
+        {
+          "info": {
+            "name": "Get Group List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/group/grouplist/",
+            "params": [
+              {
+                "name": "GroupName",
+                "value": "",
+                "type": "query",
+                "description": "Group Name. (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Return a list of all the groups or a specific group in the account."
+        },
+        {
+          "info": {
+            "name": "Get Microsoft Security Group Members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/security_groups/members",
+            "params": [
+              {
+                "name": "uid",
+                "value": "",
+                "type": "query",
+                "description": "Unique Microsoft Security Group ID to activate HacWare user licenses from. (Required)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves all HacWare user licenses synced to a Microsoft Security Group by using its id."
+        },
+        {
+          "info": {
+            "name": "Get Microsoft Security Groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/security_groups/list",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get all information from security groups connected to Microsoft for platforms on Outlook."
+        },
+        {
+          "info": {
+            "name": "Get Synced MS Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/security_groups/synclist",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Gets the current synced security group from Microsoft that is tied to certain HacWare user licenses."
+        },
+        {
+          "info": {
+            "name": "Add a Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/group/add/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Adds a new group to the account if it doesn't already exists."
+        },
+        {
+          "info": {
+            "name": "Add a User to a Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/group/add_group_member/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Adds a group to the user's document."
+        },
+        {
+          "info": {
+            "name": "Delete a Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/group/delete/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a group if it exists in the account."
+        },
+        {
+          "info": {
+            "name": "Delete a User from Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/group/delete_group_member/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a group from the user's document."
+        },
+        {
+          "info": {
+            "name": "Update Microsoft Security Group Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/security_groups/update",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Activates or deactivates all HacWare user licenses synced to a Microsoft Security Group by using its id."
+        },
+        {
+          "info": {
+            "name": "Update a Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/group/update/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates a group if it already exists in the account."
+        },
+        {
+          "info": {
+            "name": "Update a User's Group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/group/update_group_member/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates the group in the user's document. Only used when the symbol for the group has been changed."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

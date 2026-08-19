@@ -1,0 +1,566 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Security Awareness API Documentation Admin Report API",
+    "version": "1.0.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Report",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Average Days Training Completed",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/report/average_days_training/",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the average days it took for a user to fully complete training."
+        },
+        {
+          "info": {
+            "name": "Retrieve Company Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/org/companyreport/",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Type of Report (Required). Can be: 12MONTHS, RISKYBEHAVSBYDAY, CURRENTRISKYBEHAVSBYYEAR, OVERVIEW."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Gets the company's overall vulnerability to a phishing attack and identifies the behaviors that could cause a future breach. An overview of the company's information can also be retrieved. Note: The Success 200 Fields for type=12MONTHS should not have any \"_\"/underscores in the actual response. It is only there due to the documentation."
+        },
+        {
+          "info": {
+            "name": "Dark Breach Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/report/dark_breach_report/",
+            "params": [
+              {
+                "name": "user_name",
+                "value": "",
+                "type": "query",
+                "description": "Filter by user's Name (Optional)"
+              },
+              {
+                "name": "user_email",
+                "value": "",
+                "type": "query",
+                "description": "Filter by user's Email (Optional)"
+              },
+              {
+                "name": "breach_account",
+                "value": "",
+                "type": "query",
+                "description": "Filter by breached account type. (Optional)"
+              },
+              {
+                "name": "department",
+                "value": "",
+                "type": "query",
+                "description": "Filter by organization's department. - query No Department if it does not exist (Optional)"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Starting date to search - mm/dd/yyyy (Optional)"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Ending date to search - mm/dd/yyyy (Optional)"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Size of each page. Default: 10 (Optional)"
+              },
+              {
+                "name": "page_num",
+                "value": "",
+                "type": "query",
+                "description": "Number of the page. Default: 1 (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of the breached accounts by dark web. Can be filtered."
+        },
+        {
+          "info": {
+            "name": "Dark Web Breach Count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/report/dark_breach_count/",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of the counts of each dark web breach for all users."
+        },
+        {
+          "info": {
+            "name": "Export All Phishing History",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/report/export_all_phishing_history/",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Exports a list of phishing failures into a CSV file. A custom email and message can be passed in using 'Email' and 'Message' headers."
+        },
+        {
+          "info": {
+            "name": "Failed Simulation Count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/report/failed_simulation_count/",
+            "params": [
+              {
+                "name": "user_email",
+                "value": "",
+                "type": "query",
+                "description": "User's Email (Optional)"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Starting date to search - mm/dd/yyyy (Optional)"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Ending date to search - mm/dd/yyyy (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of the counts of failed simulations by tags and device type"
+        },
+        {
+          "info": {
+            "name": "Failed Simulation Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/report/failed_simulation_report/",
+            "params": [
+              {
+                "name": "user_email",
+                "value": "",
+                "type": "query",
+                "description": "User's Email (Optional)"
+              },
+              {
+                "name": "period_range",
+                "value": "",
+                "type": "query",
+                "description": "Date range of the report: today, week, month, year. Default: today (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of the counts of each type of failed simulation filtered by date ranges."
+        },
+        {
+          "info": {
+            "name": "Multiple Failure Count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/report/multiple_failure_count/",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Starting date to search - mm/dd/yyyy (Optional)"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Ending date to search - mm/dd/yyyy (Optional)"
+              },
+              {
+                "name": "phishing_status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by phishing status - active or inactive. (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a detailed count of all the failures and training data of users that have failed phishing simulations multiple times. Organized by date ranges."
+        },
+        {
+          "info": {
+            "name": "Multiple Failure Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/report/multiple_failure_report/",
+            "params": [
+              {
+                "name": "user_keyword",
+                "value": "",
+                "type": "query",
+                "description": "Filter by user's name or email. (Optional)"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Starting date to search - mm/dd/yyyy (Optional)"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Ending date to search - mm/dd/yyyy (Optional)"
+              },
+              {
+                "name": "phishing_status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by phishing status - active or inactive. (Optional)"
+              },
+              {
+                "name": "department",
+                "value": "",
+                "type": "query",
+                "description": "Filter by organization's department. - query No Department if it does not exist (Optional)"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Amount of entries per page Defaults to all. (Optional)"
+              },
+              {
+                "name": "page_num",
+                "value": "",
+                "type": "query",
+                "description": "Page number. Defaults to page 1. (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a detailed report of users that have failed multiple (More than 1) phishing simulations."
+        },
+        {
+          "info": {
+            "name": "Export Phishing Failures. A custom email and message can be passed in using 'Email' and 'Message' headers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/report/export_failures/",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Exports a list of phishing failures into a CSV file."
+        },
+        {
+          "info": {
+            "name": "Report Summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/report/report-summary/",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Starting date to search - mm/dd/yyyy (Optional)"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Ending date to search - mm/dd/yyyy (Optional)"
+              },
+              {
+                "name": "phishing_status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by phishing status - active or inactive. (Optional)"
+              },
+              {
+                "name": "department_access",
+                "value": "",
+                "type": "query",
+                "description": "Filter by department based on email of admin. (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a overall summary of all the emails being sent out to your users."
+        },
+        {
+          "info": {
+            "name": "Training Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/report/training_report/",
+            "params": [
+              {
+                "name": "user_email",
+                "value": "",
+                "type": "query",
+                "description": "User's Email (Optional)"
+              },
+              {
+                "name": "courseTitle",
+                "value": "",
+                "type": "query",
+                "description": "Filter by Course name using keywords (Optional)"
+              },
+              {
+                "name": "quizTitle",
+                "value": "",
+                "type": "query",
+                "description": "Filter by Quiz name used using keywords (Optional)"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Starting date to search - mm/dd/yyyy (Optional)"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Ending date to search - mm/dd/yyyy (Optional)"
+              },
+              {
+                "name": "complete",
+                "value": "",
+                "type": "query",
+                "description": "Filter by complete or incomplete trainings - True or False (Optional)"
+              },
+              {
+                "name": "department",
+                "value": "",
+                "type": "query",
+                "description": "Filter by user department - departments are queried from the database (Optional)"
+              },
+              {
+                "name": "lessonPlan",
+                "value": "",
+                "type": "query",
+                "description": "Filter courses by different lesson plans - lesson plans are queried from the database (Optional)"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Amount of entries per page (Optional)"
+              },
+              {
+                "name": "page_num",
+                "value": "",
+                "type": "query",
+                "description": "Page number (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of the trainings. Can be filtered by user email or completion status"
+        },
+        {
+          "info": {
+            "name": "User Reporter Add-on Count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/report/user_addon_count/",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a basic count of all successful reports on phishing simulations using the reporter Add-on. Only used for Outlook and Gmail Tenants."
+        },
+        {
+          "info": {
+            "name": "User Reporter Add-on Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/report/user_addon_report/",
+            "params": [
+              {
+                "name": "user_keyword",
+                "value": "",
+                "type": "query",
+                "description": "Filter by user's name or email. (Optional)"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Starting date to search - mm/dd/yyyy (Optional)"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Ending date to search - mm/dd/yyyy (Optional)"
+              },
+              {
+                "name": "phishing_status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by phishing status - active or inactive. (Optional)"
+              },
+              {
+                "name": "department",
+                "value": "",
+                "type": "query",
+                "description": "Filter by organization's department. - query No Department if it does not exist (Optional)"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Amount of entries per page Defaults to all. (Optional)"
+              },
+              {
+                "name": "page_num",
+                "value": "",
+                "type": "query",
+                "description": "Page number. Defaults to page 1. (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve a detailed report of all successful reports on phishing simulations using the reporter Add-on. Only used for Outlook and Gmail Tenants."
+        },
+        {
+          "info": {
+            "name": "Show Phish Summary Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/phish/summary/",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Starting date to search (Required)"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Ending date to search (Required)"
+              },
+              {
+                "name": "user_email",
+                "value": "",
+                "type": "query",
+                "description": "User's Email (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a phish summary report for the company. The report will analyze the how the company is doing responding to phishing simulations."
+        },
+        {
+          "info": {
+            "name": "Partial Completed Training Count",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/report/partial_completed_count/",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of the count number of partially or completed training"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

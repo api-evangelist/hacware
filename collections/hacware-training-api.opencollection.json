@@ -1,0 +1,698 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Security Awareness API Documentation Admin Training API",
+    "version": "1.0.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Training",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Enroll User to Course",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/train/add_course_member/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Adds a user to a specified course. Blank date will send the course instantly."
+        },
+        {
+          "info": {
+            "name": "Get Course List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/train/courselist/",
+            "params": [
+              {
+                "name": "course_type",
+                "value": "",
+                "type": "query",
+                "description": "Course Type. (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Return a list of all the courses or a specific courses in the account."
+        },
+        {
+          "info": {
+            "name": "Get Course",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/train/getquiz/",
+            "params": [
+              {
+                "name": "training_id",
+                "value": "",
+                "type": "query",
+                "description": "Course ID. (Optional)"
+              },
+              {
+                "name": "training_em",
+                "value": "",
+                "type": "query",
+                "description": "User Email. (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns courses based on given id or courses that the given user is in."
+        },
+        {
+          "info": {
+            "name": "Get All Recommendations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/train/coursequizlist/",
+            "params": [
+              {
+                "name": "course_type",
+                "value": "",
+                "type": "query",
+                "description": "Course Type. (Optional)"
+              },
+              {
+                "name": "quiz_topic",
+                "value": "",
+                "type": "query",
+                "description": "Quiz Topic. (Optional)"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Keywords to filter course and quiz recommendations. (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of all course and quizzes recommendations/templates. Can be filtered."
+        },
+        {
+          "info": {
+            "name": "Get Course Recommendation List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/train/course_list/",
+            "params": [
+              {
+                "name": "course_type",
+                "value": "",
+                "type": "query",
+                "description": "Course Type. (Optional)"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Keywords to filter course recommendations. (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Return of a list of the course recommendations. Can be filtered."
+        },
+        {
+          "info": {
+            "name": "Get Course Recommendation List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/train/course_list_rec/",
+            "params": [
+              {
+                "name": "course_type",
+                "value": "",
+                "type": "query",
+                "description": "Course Type. (Optional)"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Keywords to filter course recommendations. (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Return of a list of the course recommendations/templates. Can be filtered."
+        },
+        {
+          "info": {
+            "name": "Get Lesson Plan List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/train/lesson_list/",
+            "params": [
+              {
+                "name": "LessonPlanName",
+                "value": "",
+                "type": "query",
+                "description": "Lesson plan name. (Optional)"
+              },
+              {
+                "name": "LessonPlanID",
+                "value": "",
+                "type": "query",
+                "description": "Lesson plan ID. (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new lesson plan."
+        },
+        {
+          "info": {
+            "name": "Get Quiz Recommendation List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/train/quiz_list/",
+            "params": [
+              {
+                "name": "quiz_topic",
+                "value": "",
+                "type": "query",
+                "description": "Quiz Topic. (Optional)"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Keywords to filter quiz recommendations. (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Return of a list of the quiz recommendations. Can be filtered."
+        },
+        {
+          "info": {
+            "name": "Get Quiz Recommendation List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/train/quiz_list_rec/",
+            "params": [
+              {
+                "name": "quiz_topic",
+                "value": "",
+                "type": "query",
+                "description": "Quiz Topic. (Optional)"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Keywords to filter quiz recommendations. (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Return of a list of the quiz recommendations/templates. Can be filtered."
+        },
+        {
+          "info": {
+            "name": "Create Course",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/train/createcourse/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new course and add it to the list."
+        },
+        {
+          "info": {
+            "name": "Add Course to Lesson Plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/train/add_course_lesson/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add a course to a lesson plan."
+        },
+        {
+          "info": {
+            "name": "Add User to Lesson Plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/train/add_member_lesson/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Adds a Member/User to a Lesson Plan."
+        },
+        {
+          "info": {
+            "name": "Create Course Recommendation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/train/create_course_rec/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a course recommendation after video is uploaded."
+        },
+        {
+          "info": {
+            "name": "Create Lesson Plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/train/create_lesson/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new lesson plan."
+        },
+        {
+          "info": {
+            "name": "Create a new quiz recommendation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/train/add_quiz_rec/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new custom quiz recommendation."
+        },
+        {
+          "info": {
+            "name": "Delete Course from Lesson Plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/train/del_course_lesson/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a Course from a Lesson Plan."
+        },
+        {
+          "info": {
+            "name": "Delete Course Recommendation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/train/del_course_rec/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a Course Recommendation template."
+        },
+        {
+          "info": {
+            "name": "Delete Lesson Plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/train/del_lesson/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a lesson plan."
+        },
+        {
+          "info": {
+            "name": "Delete User from Lesson Plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/train/del_member_lesson/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a Member/User from a Lesson Plan."
+        },
+        {
+          "info": {
+            "name": "Delete Quiz Recommendation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/train/del_quiz_rec/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a Quiz Recommendation."
+        },
+        {
+          "info": {
+            "name": "Delete a Course",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/train/delcourse/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a course if it exists in the account."
+        },
+        {
+          "info": {
+            "name": "Delete Course User",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/train/del_course_member/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Deletes a user from a normal course or course from a lesson plan."
+        },
+        {
+          "info": {
+            "name": "Auto Enroll User to Course",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/train/quickschedule/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This request will look at an user email to see the risks that the user has and then schedules a course based on the data it finds. The course will be sent out instantly."
+        },
+        {
+          "info": {
+            "name": "Remind User About Training",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/train/reminder/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint will send a reminder email about training."
+        },
+        {
+          "info": {
+            "name": "Set Training Link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/license/set_train_link/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This will assign a link to an external training for companies using the Phish Basic product. When a user fails a phishing simulation they will be emailed a link to start training in another platform."
+        },
+        {
+          "info": {
+            "name": "Train History",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/get/train/history/",
+            "params": [
+              {
+                "name": "pageNum",
+                "value": "",
+                "type": "query",
+                "description": "Defaults to first page if not given. (Optional)"
+              },
+              {
+                "name": "page_size",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return. Defaults to 10 results per page. (Optional)"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "query",
+                "description": "User to search - Username/email. (Optional)"
+              },
+              {
+                "name": "keyword",
+                "value": "",
+                "type": "query",
+                "description": "Keyword to filter the search by user's name or email. (Optional)"
+              },
+              {
+                "name": "courseTitle",
+                "value": "",
+                "type": "query",
+                "description": "Keyword to filter the search by the course's name. (Optional)"
+              },
+              {
+                "name": "courseComplete",
+                "value": "",
+                "type": "query",
+                "description": "Filter course by their completion - true - passed and failed courses will both be completed - false - courses labeled pending, N/A will be incomplete. (Optional)"
+              },
+              {
+                "name": "quizTitle",
+                "value": "",
+                "type": "query",
+                "description": "Keyword to filter the search by the quiz's name. (Optional)"
+              },
+              {
+                "name": "preQuizPassed",
+                "value": "",
+                "type": "query",
+                "description": "Filter pre quiz by pass or failed. (Optional)"
+              },
+              {
+                "name": "postQuizPassed",
+                "value": "",
+                "type": "query",
+                "description": "Filter post quiz by pass or failed.  (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "See the list of the quizzes used for training. The response also includes all the elements of each quiz."
+        },
+        {
+          "info": {
+            "name": "Get Training Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/train/status/",
+            "params": [
+              {
+                "name": "trainingID",
+                "value": "",
+                "type": "query",
+                "description": "Training ID (Required)"
+              },
+              {
+                "name": "VideoID",
+                "value": "",
+                "type": "query",
+                "description": "Video ID (Required)"
+              },
+              {
+                "name": "trainAction",
+                "value": "",
+                "type": "query",
+                "description": "Type of Training (Required)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Gets the training status of a quiz that was sent out."
+        },
+        {
+          "info": {
+            "name": "Update Quiz Recommendation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/train/update_quiz_rec/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates an existing Quiz Recommendation. All parameters are optional except QuizID depending on what you want to update."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

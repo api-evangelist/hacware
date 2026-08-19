@@ -1,0 +1,236 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Security Awareness API Documentation Admin Multi-Tenant API",
+    "version": "1.0.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Multi-Tenant",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Customer List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/dev/tier/partners/:partner_id/customers/",
+            "params": [
+              {
+                "name": "partner_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sub_domain",
+                "value": "",
+                "type": "query",
+                "description": "The access URL for the customer. (Optional)"
+              },
+              {
+                "name": "company_name",
+                "value": "",
+                "type": "query",
+                "description": "Company Name is the company's full name for the Account. For Example, Our official name is Company, Inc. (Optional)"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "The start_date stores the date that the query should begin. (Optional)"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "The end_date stores the date that the query should end. (Optional)"
+              },
+              {
+                "name": "company_id",
+                "value": "",
+                "type": "query",
+                "description": "The company_id is used to filter results by company id. (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "A list of the partner's customers and their monthly usage."
+        },
+        {
+          "info": {
+            "name": "Create Customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/dev/tier/partners/:partner_id/customers/",
+            "params": [
+              {
+                "name": "partner_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a customer account and invites a customer admin to finish the installation process."
+        },
+        {
+          "info": {
+            "name": "Update Customer Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{domain}/api/dev/tier/partners/:partner_id/customers/:customer_id",
+            "params": [
+              {
+                "name": "partner_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates Customer Subscription by changing the product, billing cycle, and account status."
+        },
+        {
+          "info": {
+            "name": "Cancel Customer Subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{domain}/api/dev/tier/partners/:partner_id/customers/:customer_id",
+            "params": [
+              {
+                "name": "partner_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "customer_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Cancels their customer."
+        },
+        {
+          "info": {
+            "name": "Get Partner",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/dev/tier/partners/:partner_id",
+            "params": [
+              {
+                "name": "partner_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves the partner account and subscription status."
+        },
+        {
+          "info": {
+            "name": "Update Partner",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{domain}/api/dev/tier/partners/:partner_id",
+            "params": [
+              {
+                "name": "partner_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates the partner account and subscription status."
+        },
+        {
+          "info": {
+            "name": "Partner List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/dev/tier/partners/",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves all partners under the tiered tenant account."
+        },
+        {
+          "info": {
+            "name": "Create Partner and Invite Partner Admin.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/dev/tier/partners",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates the multi-tenant partner account and invites multi-tenant admin to create the first account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

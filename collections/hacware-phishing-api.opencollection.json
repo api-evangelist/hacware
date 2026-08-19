@@ -1,0 +1,563 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Security Awareness API Documentation Admin Phishing API",
+    "version": "1.0.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Phishing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Remove a custom simulation for future campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{domain}/api/v1/phish/remove_custom_simulation/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This request will remove a custom phishing simulation for the organization to send to users."
+        },
+        {
+          "info": {
+            "name": "Get Custom Simulations List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/phish/custom-simulations-list/",
+            "params": [
+              {
+                "name": "PageNum",
+                "value": "",
+                "type": "query",
+                "description": "Page number."
+              },
+              {
+                "name": "PageSize",
+                "value": "",
+                "type": "query",
+                "description": "Page size."
+              },
+              {
+                "name": "keyword",
+                "value": "",
+                "type": "query",
+                "description": "Filter by a keyword in the simulations body or subject."
+              },
+              {
+                "name": "phish_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by simulation type. Must be: [ LINK, DIRECT, ATTACHMENT, SMS (If SMS Supported.) ]"
+              },
+              {
+                "name": "rating",
+                "value": "",
+                "type": "query",
+                "description": "Filter by simulation rating."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort simulations. Must be: [ SUBJECT, RATING, TOPIC]. Use (+) sign or none for ascending, (-) sign for descending. Use (,) to denote between sort fields."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a list of all the available custom phishing/smishing simulations. Can be filtered."
+        },
+        {
+          "info": {
+            "name": "Get Phish Campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/phish/campaign/",
+            "params": [
+              {
+                "name": "PageSize",
+                "value": "",
+                "type": "query",
+                "description": "The number of results to return (Optional)"
+              },
+              {
+                "name": "PageNum",
+                "value": "",
+                "type": "query",
+                "description": "The page number (Optional)"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit the number of phish campaigns to show (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve information for phish campaigns."
+        },
+        {
+          "info": {
+            "name": "Get All Phishing Campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/phish/responses/",
+            "params": [
+              {
+                "name": "PageNum",
+                "value": "",
+                "type": "query",
+                "description": "Page number. If given but PageSize is not given then PageSize will default to 10. If neither is given, all results will be returned.. (Optional)"
+              },
+              {
+                "name": "PageSize",
+                "value": "",
+                "type": "query",
+                "description": "Page size. If given but PageNum is not given then PageNum will default to 1. If neither is given, all results will be returned. (Optional)"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search for matching value. (Optional)"
+              },
+              {
+                "name": "passed",
+                "value": "",
+                "type": "query",
+                "description": "Filter by simulation pass status. - True/False (Optional)"
+              },
+              {
+                "name": "department",
+                "value": "",
+                "type": "query",
+                "description": "Filter by organization's department. - query No Department if it does not exist (Optional)"
+              },
+              {
+                "name": "user_email",
+                "value": "",
+                "type": "query",
+                "description": "Filter by user email .(Optional)"
+              },
+              {
+                "name": "user_search",
+                "value": "",
+                "type": "query",
+                "description": "Filter user's name or email by a search query/keyword. (Optional)"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Filter by start date. (Optional)"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Filter by end date. (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a page of responses and descriptions for each phishing simulation."
+        },
+        {
+          "info": {
+            "name": "Gets Phishing Campaigns and Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/phish/responses_report/",
+            "params": [
+              {
+                "name": "PageNum",
+                "value": "",
+                "type": "query",
+                "description": "Page number. If given but PageSize is not given then PageSize will default to 10. If neither is given, all results will be returned.. (Optional)"
+              },
+              {
+                "name": "PageSize",
+                "value": "",
+                "type": "query",
+                "description": "Page size. If given but PageNum is not given then PageNum will default to 1. If neither is given, all results will be returned. (Optional)"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Search for matching value. (Optional)"
+              },
+              {
+                "name": "passed",
+                "value": "",
+                "type": "query",
+                "description": "Filter by simulation pass status. - True/False (Optional)"
+              },
+              {
+                "name": "department",
+                "value": "",
+                "type": "query",
+                "description": "Filter by organization's department. - query No Department if it does not exist (Optional)"
+              },
+              {
+                "name": "user_email",
+                "value": "",
+                "type": "query",
+                "description": "Filter by user email .(Optional)"
+              },
+              {
+                "name": "user_search",
+                "value": "",
+                "type": "query",
+                "description": "Filter user's name or email by a search query/keyword. (Optional)"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Filter by start date. (Optional)"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Filter by end date. (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a page of responses, descriptions for each phishing simulation, and metrics."
+        },
+        {
+          "info": {
+            "name": "Get Phish Simulation Template",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/phish/get-simulation-template/",
+            "params": [
+              {
+                "name": "test_name",
+                "value": "",
+                "type": "query",
+                "description": "is the simulation template unique name."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a Phishing simulation template."
+        },
+        {
+          "info": {
+            "name": "Get Simulations List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/phish/simulations-list/",
+            "params": [
+              {
+                "name": "PageNum",
+                "value": "",
+                "type": "query",
+                "description": "Page number."
+              },
+              {
+                "name": "PageSize",
+                "value": "",
+                "type": "query",
+                "description": "Page size."
+              },
+              {
+                "name": "keyword",
+                "value": "",
+                "type": "query",
+                "description": "Filter by a keyword in the simulations body or subject."
+              },
+              {
+                "name": "phish_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by simulation type. Must be: [ LINK, DIRECT, ATTACHMENT, SMS (If SMS Supported.) ]"
+              },
+              {
+                "name": "rating",
+                "value": "",
+                "type": "query",
+                "description": "Filter by simulation rating."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort simulations. Must be: [ SUBJECT, RATING, TOPIC]. Use (+) sign or none for ascending, (-) sign for descending. Use (,) to denote between sort fields."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a list of all the available phishing/smishing simulations. Can be filtered."
+        },
+        {
+          "info": {
+            "name": "Search Phish users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/get/phish/users/",
+            "params": [
+              {
+                "name": "keyword",
+                "value": "",
+                "type": "query",
+                "description": "Name or username to be searched (Required)"
+              },
+              {
+                "name": "passed",
+                "value": "",
+                "type": "query",
+                "description": "Filters users based off of phishing failure/success, passed=none retrieves all regardless. Can be [true, false, none]. Default is true. (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieve the id and email of a user given the name or username."
+        },
+        {
+          "info": {
+            "name": "Get Phishing Simulation for User",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/phish/getsimulation/",
+            "params": [
+              {
+                "name": "user_email",
+                "value": "",
+                "type": "query",
+                "description": "Filter by user email. (Required)"
+              },
+              {
+                "name": "sent_on",
+                "value": "",
+                "type": "query",
+                "description": "Filter by date the simulation was sent. This is a timestamp and will match exactly. (Required)"
+              },
+              {
+                "name": "subject",
+                "value": "",
+                "type": "query",
+                "description": "Filter by the subject. (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a single phishing simulation for a specific user."
+        },
+        {
+          "info": {
+            "name": "Change Phishing Cadence",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/phish/change-cadence/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Change the phishing simulation cadence from the default"
+        },
+        {
+          "info": {
+            "name": "Schedule Controlled Phish Campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/phish/controlled-phish/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Schedule a controlled phishing simulation for user(s) with a test name."
+        },
+        {
+          "info": {
+            "name": "Creates a custom simulation for future campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/phish/create_custom_simulation/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This request will create a custom phishing simulation for the organization to send to users."
+        },
+        {
+          "info": {
+            "name": "Schedule Phish Campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/phish/directphish/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Schedule a phishing simulation for specific email with date and phish type options."
+        },
+        {
+          "info": {
+            "name": "Delete Phish Campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/phish/manage/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Used to manage a phishing simulation. For example: Removing a phishing simulation that was sent out."
+        },
+        {
+          "info": {
+            "name": "Show Phish Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/phish/getperformers/",
+            "params": [
+              {
+                "name": "limitPhish",
+                "value": "",
+                "type": "query",
+                "description": "Limit of phish reports to retrieve (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "This endpoint gets a list of performance and status information for all of the phishing simulations that were sent out."
+        },
+        {
+          "info": {
+            "name": "Add Phone Number",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/user/add_phone_number/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Adds a phone number to an existing user."
+        },
+        {
+          "info": {
+            "name": "Upload Phone Numbers",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/user/phone_number_upload/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Uploads phone numbers to existing users with CSV file."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

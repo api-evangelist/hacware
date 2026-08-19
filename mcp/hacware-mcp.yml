@@ -580,3 +580,9 @@ tools:
   source_operation: openapi/hacware-openapi.yml#PostUserUpdateStatus
   method: POST
   path: /api/v1/user/update_status/
+deployment:
+  mode: none
+  verified: derived
+  tools: 114
+  checked: '2026-08-12'
+  source: catalog MCP census

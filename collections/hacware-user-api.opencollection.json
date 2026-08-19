@@ -1,0 +1,261 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Security Awareness API Documentation Admin User API",
+    "version": "1.0.4"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Manage Department List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/user/manage-departments/",
+            "params": [
+              {
+                "name": "user_email",
+                "value": "",
+                "type": "query",
+                "description": "User's email. (Required)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves the departments that this user is allowed to manage."
+        },
+        {
+          "info": {
+            "name": "Get User List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/user/get_user_list",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns a list of all users and their information."
+        },
+        {
+          "info": {
+            "name": "Search a Page of Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/user/reports/",
+            "params": [
+              {
+                "name": "PageNum",
+                "value": "",
+                "type": "query",
+                "description": "Page Number. Defaults to page 1. (Required)"
+              },
+              {
+                "name": "user_email",
+                "value": "",
+                "type": "query",
+                "description": "User's Email required for type=single. Used just to get one specific user. (Optional)"
+              },
+              {
+                "name": "keyword",
+                "value": "",
+                "type": "query",
+                "description": "Keyword to filter the search by user's name or email. Can be used with either type=all, type=in_active, type=active to further filter users. (Optional)"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Type of Report. Can be [all, active, in_active, single]. If type=single, requires user_email parameter. This parameter is required if using other filters. (Optional)"
+              },
+              {
+                "name": "phish_start",
+                "value": "",
+                "type": "query",
+                "description": "Filter users by their next scheduled phishing simulation starting at this date. Can be used with all types except type=single. Requires a type parameter. (Users without scheduled phishing simulations will be excluded) - mm/dd/yyyy (Optional)"
+              },
+              {
+                "name": "phish_end",
+                "value": "",
+                "type": "query",
+                "description": "Filter users by their next scheduled phishing simulation ending at this date. Can be used with all types except type=single. Requires a type parameter. (Users without scheduled phishing simulations will be excluded)- mm/dd/yyyy (Optional)"
+              },
+              {
+                "name": "last_sim_passed",
+                "value": "",
+                "type": "query",
+                "description": "Filter users by their most recent phishing simulation. It will return users that have either passed (True) or failed (False) their recent simulation. Requires a type parameter. (Users without phsing simulations will default to passed.) (Optional)"
+              },
+              {
+                "name": "department",
+                "value": "",
+                "type": "query",
+                "description": "Filter users by their department given by Outlook and Gmail group sync. Will not work for Open email types. Requires a type parameter. (Optional)"
+              },
+              {
+                "name": "PageSize",
+                "value": "",
+                "type": "query",
+                "description": "Number of results to return. Defaults to 50 users per page. (Optional)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a page of users based on given filters. Tip: Best to use type=all along with any other filters to narrow down your search."
+        },
+        {
+          "info": {
+            "name": "Get User SMS Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/user/user_sms_status/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves the SMS status for a user. Determines whether the user can be enrolled in a smishing simulation."
+        },
+        {
+          "info": {
+            "name": "Search User Vulnerability",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/user/search/vulnerability/",
+            "params": [
+              {
+                "name": "Vul",
+                "value": "",
+                "type": "query",
+                "description": "Vulnerability score (Required)"
+              },
+              {
+                "name": "Limit",
+                "value": "",
+                "type": "query",
+                "description": "Max limit of vulnerability score to be viewed (Optional)"
+              },
+              {
+                "name": "Bound",
+                "value": "",
+                "type": "query",
+                "description": "Bound of vulnerability score - can be upper or lower. ie. Having bound=upper and vul=60 returns a list contain users with 60 or less vulnerability score (Required)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves users based on vulnerability score and bound, up to a limit."
+        },
+        {
+          "info": {
+            "name": "Search User Email",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{domain}/api/v1/user/search/email/",
+            "params": [
+              {
+                "name": "Email",
+                "value": "",
+                "type": "query",
+                "description": "User Email to be Searched (Required)"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a user based on email."
+        },
+        {
+          "info": {
+            "name": "Add New Users",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/user/add-users/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Used for adding new users through JSON object. Note: Only used for HacWare Open users!"
+        },
+        {
+          "info": {
+            "name": "Assign User to Department",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/user/manage_departments/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Allow User to manage these Department(s)"
+        },
+        {
+          "info": {
+            "name": "Update User Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{domain}/api/v1/user/update_status/",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates the user's phishing status."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
