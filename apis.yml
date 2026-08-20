@@ -122,6 +122,8 @@ apis:
   humanURL: https://www.hacware.com/doc/index.html
   baseURL: https://app.hacware.com
   tags:
+  - Customers
+  tags_raw:
   - Customer
   properties:
   - type: OpenAPI
