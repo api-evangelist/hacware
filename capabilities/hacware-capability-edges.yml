@@ -1,0 +1,45 @@
+slug: hacware
+provider: Hacware
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Education
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Phishing
+  spec_file: hacware-phishing-api-openapi.yml
+  capability_id: BC-620.60
+  capability_id_l1: BC-620
+  capability_name: Security Awareness Management
+  confidence: 0.95
+  evidence: POST /api/v1/phish/controlled-phish/ Schedule Controlled Phish Campaign; GET /api/v1/phish/simulations-list/
+    Get Simulations List
+  reason: Operations schedule and manage phishing simulation campaigns and templates, which is precisely
+    security awareness management ('awareness training, phishing simulations').
+- tag: Training
+  spec_file: hacware-training-api-openapi.yml
+  capability_id: BC-620.60
+  capability_id_l1: BC-620
+  capability_name: Security Awareness Management
+  confidence: 0.8
+  evidence: POST /api/v1/train/add_course_member/ Enroll User to Course; GET /api/v1/train/lesson_list/
+    Get Lesson Plan List
+  reason: Course, quiz and lesson-plan enrolment for security awareness micro-training; this is the awareness-training
+    capability (an L&D reading is possible, but the vendor context is explicitly security awareness).
+- tag: Report
+  spec_file: hacware-report-api-openapi.yml
+  capability_id: BC-620.60
+  capability_id_l1: BC-620
+  capability_name: Security Awareness Management
+  confidence: 0.7
+  evidence: GET /api/v1/report/training_report/ Training Report; GET /api/v1/report/failed_simulation_report/
+    Failed Simulation Report
+  reason: Reporting surface is entirely about phishing simulation failures, training completion and breach
+    exposure — measurement of the security awareness programme rather than generic BI.
