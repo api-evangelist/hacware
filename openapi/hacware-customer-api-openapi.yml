@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Security Awareness API Documentation Admin Customer API
+  title: Security Awareness API Documentation Customer API
   description: This API documentation explains how to build your own AI powered security awareness and training application. HacWare is an AI-powered security awareness training and phishing simulation platform. This OpenAPI was derived by API Evangelist from HacWare's published apiDoc documentation.
   version: 1.0.4
   contact:
@@ -98,7 +98,7 @@ paths:
   /api/v1/admin/custom_domain:
     post:
       operationId: PostCustomDomain
-      summary: Upload custom domain.
+      summary: Upload custom domain
       description: Changes the customer default domain to a custom domain. For example, default is company.hacware.com to the new domain for that custom.
       tags:
       - Customer
@@ -195,7 +195,7 @@ paths:
   /api/v1/admin/reset_custom_domain:
     post:
       operationId: ResetCustomDomain
-      summary: Reset custom domain.
+      summary: Reset custom domain
       description: Uploads a custom domain.
       tags:
       - Customer

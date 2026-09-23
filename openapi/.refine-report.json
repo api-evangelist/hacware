@@ -1,17 +1,7 @@
 {
   "provider": "hacware",
   "sources": [
-    "hacware-admin-api-openapi.yml",
-    "hacware-compliance-api-openapi.yml",
-    "hacware-compliance-tenant-api-openapi.yml",
-    "hacware-customer-api-openapi.yml",
-    "hacware-email-tenant-api-openapi.yml",
-    "hacware-group-api-openapi.yml",
-    "hacware-multi-tenant-api-openapi.yml",
-    "hacware-phishing-api-openapi.yml",
-    "hacware-report-api-openapi.yml",
-    "hacware-training-api-openapi.yml",
-    "hacware-user-api-openapi.yml"
+    "_original/hacware-openapi.yml"
   ],
   "outputs": [
     "hacware-admin-api-openapi.yml",
@@ -29,6 +19,22 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "hacware-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "hacware-admin-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "hacware-compliance-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "hacware-compliance-tenant-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "hacware-customer-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "hacware-email-tenant-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "hacware-group-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "hacware-multi-tenant-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "hacware-phishing-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "hacware-report-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "hacware-training-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "hacware-user-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

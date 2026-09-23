@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Security Awareness API Documentation Admin Report API
+  title: Security Awareness API Documentation Report API
   description: This API documentation explains how to build your own AI powered security awareness and training application. HacWare is an AI-powered security awareness training and phishing simulation platform. This OpenAPI was derived by API Evangelist from HacWare's published apiDoc documentation.
   version: 1.0.4
   contact:
@@ -291,7 +291,7 @@ paths:
   /api/v1/report/export_failures/:
     get:
       operationId: GetPhishingFailures
-      summary: Export Phishing Failures. A custom email and message can be passed in using 'Email' and 'Message' headers.
+      summary: Export Phishing Failures.
       description: Exports a list of phishing failures into a CSV file.
       tags:
       - Report

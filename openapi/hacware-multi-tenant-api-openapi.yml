@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Security Awareness API Documentation Admin Multi-Tenant API
+  title: Security Awareness API Documentation Multi Tenant API
   description: This API documentation explains how to build your own AI powered security awareness and training application. HacWare is an AI-powered security awareness training and phishing simulation platform. This OpenAPI was derived by API Evangelist from HacWare's published apiDoc documentation.
   version: 1.0.4
   contact:
@@ -15,7 +15,7 @@ servers:
     domain:
       default: app.hacware.com
 tags:
-- name: Multi-Tenant
+- name: Multi tenant
 paths:
   /api/dev/tier/partners/{partner_id}/customers/:
     post:
@@ -23,7 +23,7 @@ paths:
       summary: Create Customer
       description: Creates a customer account and invites a customer admin to finish the installation process.
       tags:
-      - Multi-Tenant
+      - Multi tenant
       parameters:
       - name: partner_id
         in: path
@@ -109,7 +109,7 @@ paths:
       summary: Customer List
       description: A list of the partner's customers and their monthly usage.
       tags:
-      - Multi-Tenant
+      - Multi tenant
       parameters:
       - name: partner_id
         in: path
@@ -156,7 +156,7 @@ paths:
       summary: Cancel Customer Subscription
       description: Cancels their customer.
       tags:
-      - Multi-Tenant
+      - Multi tenant
       parameters:
       - name: partner_id
         in: path
@@ -182,7 +182,7 @@ paths:
       summary: Update Customer Subscription
       description: Updates Customer Subscription by changing the product, billing cycle, and account status.
       tags:
-      - Multi-Tenant
+      - Multi tenant
       parameters:
       - name: partner_id
         in: path
@@ -229,7 +229,7 @@ paths:
       summary: Get Partner
       description: Retrieves the partner account and subscription status.
       tags:
-      - Multi-Tenant
+      - Multi tenant
       parameters:
       - name: partner_id
         in: path
@@ -250,7 +250,7 @@ paths:
       summary: Update Partner
       description: Updates the partner account and subscription status.
       tags:
-      - Multi-Tenant
+      - Multi tenant
       parameters:
       - name: partner_id
         in: path
@@ -292,7 +292,7 @@ paths:
       summary: Partner List
       description: Retrieves all partners under the tiered tenant account.
       tags:
-      - Multi-Tenant
+      - Multi tenant
       responses:
         '200':
           description: Successful response
@@ -305,10 +305,10 @@ paths:
   /api/dev/tier/partners:
     post:
       operationId: PostInvitePartner
-      summary: Create Partner and Invite Partner Admin.
+      summary: Create Partner and Invite Partner Admin
       description: Creates the multi-tenant partner account and invites multi-tenant admin to create the first account.
       tags:
-      - Multi-Tenant
+      - Multi tenant
       requestBody:
         content:
           application/json:
