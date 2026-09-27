@@ -161,7 +161,7 @@ paths:
       - bearerAuth: []
   /api/v1/train/course_list_rec/:
     get:
-      operationId: GetCourseRecList
+      operationId: getApiV1TrainCourseListRec
       summary: Get Course Recommendation List
       description: Return of a list of the course recommendations/templates. Can be filtered.
       tags:
@@ -186,6 +186,8 @@ paths:
           description: Unauthorized. Missing or invalid bearer token.
       security:
       - bearerAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: GetCourseRecList
   /api/v1/train/lesson_list/:
     get:
       operationId: GetLessonPlanList
@@ -242,7 +244,7 @@ paths:
       - bearerAuth: []
   /api/v1/train/quiz_list_rec/:
     get:
-      operationId: GetQuizRecList
+      operationId: getApiV1TrainQuizListRec
       summary: Get Quiz Recommendation List
       description: Return of a list of the quiz recommendations/templates. Can be filtered.
       tags:
@@ -267,6 +269,8 @@ paths:
           description: Unauthorized. Missing or invalid bearer token.
       security:
       - bearerAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: GetQuizRecList
   /api/v1/train/createcourse/:
     post:
       operationId: POSTCreateCourse
