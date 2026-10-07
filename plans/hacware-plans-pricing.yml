@@ -1,0 +1,46 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-07'
+method: searched
+source: https://hacware.com/dev.html
+sources:
+- https://hacware.com/dev.html
+provenance:
+  tool: all/0-working/economics/harvest_pricing.py
+  run: 20261007T104522
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: per-call
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-07'
+  managed_tier: Essential
+published: true
+note: Developer API credit-based plans; billed annually upfront; annualized figures $0 and $7,188 shown.
+plan_count: 3
+currency: USD
+plans:
+- name: R&D (Free)
+  price_text: Free - $0/mo
+  price: 0
+  currency: USD
+  period: month
+  unit: credits
+  included_quota: 50/mo Credits
+  overage: $0.15 per additional credit
+- name: Essential
+  price_text: $599/mo
+  price: 599
+  currency: USD
+  period: month
+  unit: credits
+  included_quota: 5,000/mo Credits
+  overage: $0.26 per additional credit
+- name: Premium
+  price_text: Contact Us
+  period: none
+  included_quota: Need more than 5,000 Credits?
+  overage: Rates will be customized
+rate_limit_statements:
+- Rate limit Fee $0.15 per additional credit
+- Rate limit Fee $0.26 per additional credit
