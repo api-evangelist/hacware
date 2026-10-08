@@ -44,3 +44,35 @@ plans:
 rate_limit_statements:
 - Rate limit Fee $0.15 per additional credit
 - Rate limit Fee $0.26 per additional credit
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - hybrid
+  - metered
+  units:
+  - credit
+  plans:
+  - name: R&D (Free)
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - month
+  - name: Essential
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - credit
+    periods:
+    - month
+  - name: Premium
+    access: other
+    model: metered
+    model_how: derived
+    units: []
+    periods:
+    - none
